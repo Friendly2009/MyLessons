@@ -1,4 +1,16 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿var Buttons_Star = document.querySelectorAll('.mx-1');
+for (let i = 0; i < Buttons_Star.length; i++) {
+    Buttons_Star[i].setAttribute("num", i + 1);
+}
+Buttons_Star.forEach(function (element) {
+    element.addEventListener('click', function () {
+        let count = element.getAttribute("num");
+        for (let i = 0; i < Buttons_Star.length; i++) {
+            Buttons_Star[i].setAttribute('src', "/css/star.png");
+        }
+        for (let i = 0; i < count; i++) {
+            Buttons_Star[i].setAttribute('src', "/css/start.png");
+        }
+        price.setAttribute('value', count);
+    });
+});

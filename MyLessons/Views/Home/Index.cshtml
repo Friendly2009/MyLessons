@@ -61,11 +61,11 @@
 		</div>
 		<a class="text-dark text-decoration-none">Ваша оценка</a>
 		<div class="d-flex justify-content-center gap-2">
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" id="one" dop="/css/start.png" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" id="two" dop="/css/start.png" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" id="three" dop="/css/start.png" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" id="four" dop="/css/start.png" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" id="five" dop="/css/start.png" />
+			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
+			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
+			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
+			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
+			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
 			<input type="hidden" value="0" id="value" name="price" />
 		</div>
 		<br />
@@ -78,60 +78,3 @@
 		</div>
 	</div>
 </div>
-<script>
-	const one = document.getElementById('one');
-	const two = document.getElementById('two');
-	const three = document.getElementById('three');
-	const four = document.getElementById('four');
-	const five = document.getElementById('five');
-	const price = document.getElementById('value');
-	let i = 0;
-	one.addEventListener('click',() =>{
-		one.setAttribute('src','/css/start.png');
-
-		price.setAttribute('value',1);
-
-		three.setAttribute('src','/css/star.png');
-		two.setAttribute('src','/css/star.png');			
-		four.setAttribute('src','/css/star.png');
-		five.setAttribute('src','/css/star.png');
-	});
-	two.addEventListener('click',() =>{
-		two.setAttribute('src','/css/start.png');
-		one.setAttribute('src','/css/start.png');
-
-		price.setAttribute('value',2);
-
-		three.setAttribute('src','/css/star.png');
-		four.setAttribute('src','/css/star.png');
-		five.setAttribute('src','/css/star.png');
-	});
-	three.addEventListener('click',() =>{
-		three.setAttribute('src','/css/start.png');
-		two.setAttribute('src','/css/start.png');
-		one.setAttribute('src','/css/start.png');
-
-		price.setAttribute('value',3);
-
-		four.setAttribute('src','/css/star.png');
-		five.setAttribute('src','/css/star.png');
-	});
-	four.addEventListener('click',() =>{
-		three.setAttribute('src','/css/start.png');
-		two.setAttribute('src','/css/start.png');
-		one.setAttribute('src','/css/start.png');
-		four.setAttribute('src','/css/start.png');
-
-		price.setAttribute('value',4);
-
-		five.setAttribute('src','/css/star.png');
-	});
-	five.addEventListener('click',() =>{
-		three.setAttribute('src','/css/start.png');
-		two.setAttribute('src','/css/start.png');
-		one.setAttribute('src','/css/start.png');
-		four.setAttribute('src','/css/start.png');
-		five.setAttribute('src','/css/start.png');
-		price.setAttribute('value',5);
-	});
-</script>
