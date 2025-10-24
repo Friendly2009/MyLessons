@@ -1,152 +1,163 @@
-﻿@model user;
-<h1>@ViewBag.user.login</h1>
-<div>
-    <div class="row justify-content-center">
-       @*  @{
-            for(int i = 0; i < ViewBag.social.Count; i++) 
-            {
-                <form class="col-1" asp-action="ChooseClass" asp-controller="Home">
-                    <input type="hidden" name="one" value="@ViewBag.social[i]"/>
-                    <button class="btn btn-dark" type="submit">
-                        @ViewBag.social[i]
-                    </button>
-                </form>
-            } *@
+﻿@using MyLessons.ConverterSQLClass
+@model user;
+@{
+    List<lesson> CurrentLesson = new List<lesson>();
+    for (int i = 0; i < ViewBag.Lessons.Count; i++)
+    {
+        if (ViewBag.Lessons[i].clas == ViewBag.one)
+        {
+            CurrentLesson.Add(ViewBag.Lessons[i]);
         }
-    </div>
+    }
+    <h1>@ViewBag.user.login</h1>
     <div>
-        <table class="table">
-            <tr>
-                <td>Здесь будет название класса</td>
-                <td>Понедельник</td>
-                <td>Вторник</td>
-                <td>Среда</td>
-                <td>Четверг</td>
-                <td>Пятница</td>
-                <td>Суббота</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>@{SelectLesson(1,1);}</td>
-                <td>@{SelectLesson(1,2);}</td>
-                <td>@{SelectLesson(1,3);}</td>
-                <td>@{SelectLesson(1,4);}</td>
-                <td>@{SelectLesson(1,5);}</td>
-                <td>@{SelectLesson(1,6);}</td>
-                <td>@{SelectLesson(1,7);}</td>
-                <td>@{SelectLesson(1,8);}</td>
-                <td>@{SelectLesson(1,9);}</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>@{SelectLesson(2,1);}</td>
-                <td>@{SelectLesson(2,2);}</td>
-                <td>@{SelectLesson(2,3);}</td>
-                <td>@{SelectLesson(2,4);}</td>
-                <td>@{SelectLesson(2,5);}</td>
-                <td>@{SelectLesson(2,6);}</td>
-                <td>@{SelectLesson(2,7);}</td>
-                <td>@{SelectLesson(2,8);}</td>
-                <td>@{SelectLesson(2,9);}</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>@{SelectLesson(3,1);}</td>
-                <td>@{SelectLesson(3,2);}</td>
-                <td>@{SelectLesson(3,3);}</td>
-                <td>@{SelectLesson(3,4);}</td>
-                <td>@{SelectLesson(3,5);}</td>
-                <td>@{SelectLesson(3,6);}</td>
-                <td>@{SelectLesson(3,7);}</td>
-                <td>@{SelectLesson(3,8);}</td>
-                <td>@{SelectLesson(3,9);}</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>@{SelectLesson(4,1);}</td>
-                <td>@{SelectLesson(4,2);}</td>
-                <td>@{SelectLesson(4,3);}</td>
-                <td>@{SelectLesson(4,4);}</td>
-                <td>@{SelectLesson(4,5);}</td>
-                <td>@{SelectLesson(4,6);}</td>
-                <td>@{SelectLesson(4,7);}</td>
-                <td>@{SelectLesson(4,8);}</td>
-                <td>@{SelectLesson(4,9);}</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>@{SelectLesson(5,1);}</td>
-                <td>@{SelectLesson(5,2);}</td>
-                <td>@{SelectLesson(5,3);}</td>
-                <td>@{SelectLesson(5,4);}</td>
-                <td>@{SelectLesson(5,5);}</td>
-                <td>@{SelectLesson(5,6);}</td>
-                <td>@{SelectLesson(5,7);}</td>
-                <td>@{SelectLesson(5,8);}</td>
-                <td>@{SelectLesson(5,9);}</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>@{SelectLesson(6,1);}</td>
-                <td>@{SelectLesson(6,2);}</td>
-                <td>@{SelectLesson(6,3);}</td>
-                <td>@{SelectLesson(6,4);}</td>
-                <td>@{SelectLesson(6,5);}</td>
-                <td>@{SelectLesson(6,6);}</td>
-                <td>@{SelectLesson(6,7);}</td>
-                <td>@{SelectLesson(6,8);}</td>
-                <td>@{SelectLesson(6,9);}</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>@{SelectLesson(7,1);}</td>
-                <td>@{SelectLesson(7,2);}</td>
-                <td>@{SelectLesson(7,3);}</td>
-                <td>@{SelectLesson(7,4);}</td>
-                <td>@{SelectLesson(7,5);}</td>
-                <td>@{SelectLesson(7,6);}</td>
-                <td>@{SelectLesson(7,7);}</td>
-                <td>@{SelectLesson(7,8);}</td>
-                <td>@{SelectLesson(7,9);}</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>@{SelectLesson(8,1);}</td>
-                <td>@{SelectLesson(8,2);}</td>
-                <td>@{SelectLesson(8,3);}</td>
-                <td>@{SelectLesson(8,4);}</td>
-                <td>@{SelectLesson(8,5);}</td>
-                <td>@{SelectLesson(8,6);}</td>
-                <td>@{SelectLesson(8,7);}</td>
-                <td>@{SelectLesson(8,8);}</td>
-                <td>@{SelectLesson(8,9);}</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>@{SelectLesson(9,1);}</td>
-                <td>@{SelectLesson(9,2);}</td>
-                <td>@{SelectLesson(9,3);}</td>
-                <td>@{SelectLesson(9,4);}</td>
-                <td>@{SelectLesson(9,5);}</td>
-                <td>@{SelectLesson(9,6);}</td>
-                <td>@{SelectLesson(9,7);}</td>
-                <td>@{SelectLesson(9,8);}</td>
-                <td>@{SelectLesson(9,9);}</td>
-            </tr>
-        </table>
+        <div class="row justify-content-center">
+            @{
+                for(int i = 0; i < ViewBag.social.Count; i++) 
+                {
+                    <form class="col-1" asp-action="ChooseClass" asp-controller="Home">
+                        <input type="hidden" name="one" value="@ViewBag.social[i]"/>
+                        <button class="btn btn-dark" type="submit">
+                            @ViewBag.social[i]
+                        </button>
+                    </form>
+                }
+            }
+        </div>
+        <div>
+            <table class="table">
+                <tr>
+                    <td>Здесь будет название класса</td>
+                    <td>Понедельник</td>
+                    <td>Вторник</td>
+                    <td>Среда</td>
+                    <td>Четверг</td>
+                    <td>Пятница</td>
+                    <td>Суббота</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>@{SelectLesson(1,1);}</td>
+                    <td>@{SelectLesson(1,2);}</td>
+                    <td>@{SelectLesson(1,3);}</td>
+                    <td>@{SelectLesson(1,4);}</td>
+                    <td>@{SelectLesson(1,5);}</td>
+                    <td>@{SelectLesson(1,6);}</td>
+                    <td>@{SelectLesson(1,7);}</td>
+                    <td>@{SelectLesson(1,8);}</td>
+                    <td>@{SelectLesson(1,9);}</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>@{SelectLesson(2,1);}</td>
+                    <td>@{SelectLesson(2,2);}</td>
+                    <td>@{SelectLesson(2,3);}</td>
+                    <td>@{SelectLesson(2,4);}</td>
+                    <td>@{SelectLesson(2,5);}</td>
+                    <td>@{SelectLesson(2,6);}</td>
+                    <td>@{SelectLesson(2,7);}</td>
+                    <td>@{SelectLesson(2,8);}</td>
+                    <td>@{SelectLesson(2,9);}</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>@{SelectLesson(3,1);}</td>
+                    <td>@{SelectLesson(3,2);}</td>
+                    <td>@{SelectLesson(3,3);}</td>
+                    <td>@{SelectLesson(3,4);}</td>
+                    <td>@{SelectLesson(3,5);}</td>
+                    <td>@{SelectLesson(3,6);}</td>
+                    <td>@{SelectLesson(3,7);}</td>
+                    <td>@{SelectLesson(3,8);}</td>
+                    <td>@{SelectLesson(3,9);}</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>@{SelectLesson(4,1);}</td>
+                    <td>@{SelectLesson(4,2);}</td>
+                    <td>@{SelectLesson(4,3);}</td>
+                    <td>@{SelectLesson(4,4);}</td>
+                    <td>@{SelectLesson(4,5);}</td>
+                    <td>@{SelectLesson(4,6);}</td>
+                    <td>@{SelectLesson(4,7);}</td>
+                    <td>@{SelectLesson(4,8);}</td>
+                    <td>@{SelectLesson(4,9);}</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>@{SelectLesson(5,1);}</td>
+                    <td>@{SelectLesson(5,2);}</td>
+                    <td>@{SelectLesson(5,3);}</td>
+                    <td>@{SelectLesson(5,4);}</td>
+                    <td>@{SelectLesson(5,5);}</td>
+                    <td>@{SelectLesson(5,6);}</td>
+                    <td>@{SelectLesson(5,7);}</td>
+                    <td>@{SelectLesson(5,8);}</td>
+                    <td>@{SelectLesson(5,9);}</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>@{SelectLesson(6,1);}</td>
+                    <td>@{SelectLesson(6,2);}</td>
+                    <td>@{SelectLesson(6,3);}</td>
+                    <td>@{SelectLesson(6,4);}</td>
+                    <td>@{SelectLesson(6,5);}</td>
+                    <td>@{SelectLesson(6,6);}</td>
+                    <td>@{SelectLesson(6,7);}</td>
+                    <td>@{SelectLesson(6,8);}</td>
+                    <td>@{SelectLesson(6,9);}</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>@{SelectLesson(7,1);}</td>
+                    <td>@{SelectLesson(7,2);}</td>
+                    <td>@{SelectLesson(7,3);}</td>
+                    <td>@{SelectLesson(7,4);}</td>
+                    <td>@{SelectLesson(7,5);}</td>
+                    <td>@{SelectLesson(7,6);}</td>
+                    <td>@{SelectLesson(7,7);}</td>
+                    <td>@{SelectLesson(7,8);}</td>
+                    <td>@{SelectLesson(7,9);}</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>@{SelectLesson(8,1);}</td>
+                    <td>@{SelectLesson(8,2);}</td>
+                    <td>@{SelectLesson(8,3);}</td>
+                    <td>@{SelectLesson(8,4);}</td>
+                    <td>@{SelectLesson(8,5);}</td>
+                    <td>@{SelectLesson(8,6);}</td>
+                    <td>@{SelectLesson(8,7);}</td>
+                    <td>@{SelectLesson(8,8);}</td>
+                    <td>@{SelectLesson(8,9);}</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>@{SelectLesson(9,1);}</td>
+                    <td>@{SelectLesson(9,2);}</td>
+                    <td>@{SelectLesson(9,3);}</td>
+                    <td>@{SelectLesson(9,4);}</td>
+                    <td>@{SelectLesson(9,5);}</td>
+                    <td>@{SelectLesson(9,6);}</td>
+                    <td>@{SelectLesson(9,7);}</td>
+                    <td>@{SelectLesson(9,8);}</td>
+                    <td>@{SelectLesson(9,9);}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
+}
 @{
     void SelectLesson(int num, int day)
     {
-        for (int i = 0; i < ViewBag.Lessons.Count; i++)
+        for (int i = 0; i < CurrentLesson.Count; i++)
         {
-            if (ViewBag.Lessons[i].day == $"{day}" && ViewBag.Lessons[i].number == $"{num}")
+            if (CurrentLesson[i].day == $"{day}" && CurrentLesson[i].number == $"{num}")
             {
-                <p>@ViewBag.Lessons[i].less</p>
-                <p>@ViewBag.Lessons[i].room</p>
-                <p>@ViewBag.Lessons[i].teacher</p>
+                <p>@CurrentLesson[i].less</p>
+                <p>@CurrentLesson[i].room</p>
+                <p>@CurrentLesson[i].teacher</p>
             }
-        }
+        }     
     }
 }

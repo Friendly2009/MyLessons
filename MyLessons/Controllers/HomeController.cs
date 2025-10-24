@@ -1,10 +1,11 @@
-using System.Diagnostics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using static System.Net.Mime.MediaTypeNames;
 namespace MyLessons.Controllers
 {
     public class HomeController : Controller
@@ -24,7 +25,19 @@ namespace MyLessons.Controllers
 			ViewBag.isReg = false;
 			return View();
         }
-		[HttpPost]
+		public IActionResult ChooseClass(string one)
+		{
+            var text = context.data.FirstOrDefault(t => t.Id == user.id).text;
+
+            HttpContext.Session.SetString(key, json);
+
+            ViewBag.user = user;
+            ViewBag.Lessons = GetLessons(text);
+            ViewBag.social = socials(GetLessons(text));
+            ViewBag.one = GetLessons(text)[0].clas;
+            return View("privacy");
+        }
+        [HttpPost]
 		public IActionResult Privacy(user us)
 		{
 			HttpContext.Session.SetInt32(count, 0);
@@ -33,6 +46,7 @@ namespace MyLessons.Controllers
 				ViewBag.isReg = true;
 				var user = context.user.FirstOrDefault(t => t.login == us.login);
 				var text = context.data.FirstOrDefault(t => t.Id == user.id).text;
+
                 if (user.password == us.password)
 				{
 					string json = JsonConvert.SerializeObject(user);
@@ -40,9 +54,9 @@ namespace MyLessons.Controllers
 
                     ViewBag.user = user;
 					ViewBag.Lessons = GetLessons(text);
-					//ViewBag.social = socials(GetLessons(text));
-					//ViewBag.one = GetLessons(text)[0].clas;
-                    return View("privacy");
+					ViewBag.social = socials(GetLessons(text));
+					ViewBag.one = GetLessons(text)[0].clas;
+					return View("privacy");
 				}
 			}
 			return View("Index");
@@ -69,12 +83,16 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
         }
-		//public List<string> socials(List<lesson> data)
-		//{
-		//	List<string> list = new List<string>();
-
-		//	return list;
-		//}
+		public List<string> socials(List<lesson> data)
+		{
+			List<string> list = new List<string>();
+			for(int i = 0; i < data.Count;i++)
+			{
+				list.Add(data[i].clas);
+			}
+			list.Distinct().ToList();
+			return list;
+		}
 		public List<lesson> GetLessons(string data)
 		{
 			List<lesson> list = new List<lesson>();
