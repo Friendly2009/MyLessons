@@ -4,8 +4,8 @@ namespace MyLessons.Models
 {
 	public class newuser
 	{
-		public int id1 { get; set; }
-		public string login1 { get; set; }
-		public string password1 { get; set; }
+		public int NewId { get; set; }
+		public string NewLogin { get; set; }
+		public string NewPassword { get; set; }
 	}
 }

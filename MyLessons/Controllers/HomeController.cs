@@ -1,7 +1,10 @@
 using System.Diagnostics;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
+using Newtonsoft.Json;
 namespace MyLessons.Controllers
 {
     public class HomeController : Controller
@@ -15,52 +18,66 @@ namespace MyLessons.Controllers
             _logger = logger;
             context = _context;
         }
-		public IActionResult Index()//главна€
+		public IActionResult Index()
         {
 			HttpContext.Session.SetInt32(count, 0);
 			ViewBag.isReg = false;
 			return View();
         }
 		[HttpPost]
-		public IActionResult Privacy(user us)//вход
+		public IActionResult Privacy(user us)
 		{
 			HttpContext.Session.SetInt32(count, 0);
 			if (ModelState.IsValid)
 			{
 				ViewBag.isReg = true;
-				var obj = context.user.FirstOrDefault(t => t.login == us.login);
-				if (obj.password == us.password)
+				var user = context.user.FirstOrDefault(t => t.login == us.login);
+				var text = context.data.FirstOrDefault(t => t.Id == user.id).text;
+                if (user.password == us.password)
 				{
-					string json = JsonSerializer.Serialize(obj);
+					string json = JsonConvert.SerializeObject(user);
 					HttpContext.Session.SetString(key, json);
-					ViewBag.obj = obj;
-					return View("privacy");
+
+                    ViewBag.user = user;
+					ViewBag.Lessons = GetLessons(text);
+				
+                    return View("privacy");
 				}
 			}
 			return View("Index");
 		}
 		[HttpPost]
-        public IActionResult AddAccount(newuser newusers, string login1, string password1)// добавление аккаунта
+        public IActionResult AddAccount(newuser newusers, string Newlogin, string Newpassword)
         {
 			HttpContext.Session.SetInt32(count, 1);
 			if (ModelState.IsValid)
 			{
-				string name = newusers.login1;
-				string pas = newusers.password1;
+				string name = newusers.NewLogin;
+				string pas = newusers.NewPassword;
 				user us = new user { login = name, password = pas };
 				context.user.Add(us);
 				context.SaveChanges();
 			}
-			if(login1 == null && HttpContext.Session.GetInt32(count) == 1)
+			if(Newlogin == null && HttpContext.Session.GetInt32(count) == 1)
 			{
 				ViewBag.n = "¬ведите логин";
 			}
-			if (password1 == null && HttpContext.Session.GetInt32(count) == 1)
+			if (Newpassword == null && HttpContext.Session.GetInt32(count) == 1)
 			{
 				ViewBag.num = "¬ведите пароль";
 			}
 			return View("Index");
         }
+		public List<lesson> GetLessons(string data)
+		{
+			List<lesson> list = new List<lesson>();
+			string[] lessonArray = data.Split('|');	
+			for(int i = 0; i < lessonArray.Length;i++)
+			{
+				list.Add(JsonConvert.DeserializeObject<lesson>(lessonArray[i]));
+			}
+			return list;
+		}
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
