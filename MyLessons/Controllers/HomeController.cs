@@ -40,7 +40,8 @@ namespace MyLessons.Controllers
 
                     ViewBag.user = user;
 					ViewBag.Lessons = GetLessons(text);
-				
+					//ViewBag.social = socials(GetLessons(text));
+					//ViewBag.one = GetLessons(text)[0].clas;
                     return View("privacy");
 				}
 			}
@@ -68,6 +69,12 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
         }
+		//public List<string> socials(List<lesson> data)
+		//{
+		//	List<string> list = new List<string>();
+
+		//	return list;
+		//}
 		public List<lesson> GetLessons(string data)
 		{
 			List<lesson> list = new List<lesson>();
