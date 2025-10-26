@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using Newtonsoft.Json;
@@ -13,7 +14,6 @@ namespace MyLessons.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext context;
 		private readonly string count = "aldhkvf";
-		user MyUser = new user();
 		public HomeController(ILogger<HomeController> logger, ApplicationDbContext _context)
         {
             _logger = logger;
@@ -28,16 +28,24 @@ namespace MyLessons.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				ViewBag.name = us.login;
 				return View("Index", us);
 			}
-			ViewBag.name = us.login;
+
+			var obj = context.data.Find(us.id + 1);
+
+			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+
 			return View(us);
 		}
 		[HttpGet]
-		public IActionResult Choose(user us)
-		{
-			ViewBag.name = us.login;
+		public IActionResult Choose(user us,string clas)
+		{			
+			var obj = context.data.Find(us.id + 1);
+
+			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+			ViewBag.Clas = clas;
+			ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
+
 			return View("Privacy", us);
 		}
 		public IActionResult AddAccount(newuser newusers, string Newlogin, string Newpassword)
@@ -61,24 +69,23 @@ namespace MyLessons.Controllers
 			}
 			return RedirectToAction("Privacy");
 		}
-		private List<lesson> ConvertToData(string data)
-		{
-			var list = new List<lesson>();
-			string[] lessons = data.Split('|');
-			for (int i = 0; i < lessons.Length; i++)
-			{
-				list.Add(JsonConvert.DeserializeObject<lesson>(lessons[i]));
-			}
-			List<string> socials = new List<string>();
-			for (int i = 0; i < list.Count; i++)
-			{
-				socials.Add(Convert.ToString(list[i].clas));
-			}
-			socials = socials.Distinct().ToList();
-			ViewBag.socials = socials;
-			return list;
-		}
-		[HttpPost]
+		//private List<lesson> ConvertToData(string data)
+		//{
+		//	var list = new List<lesson>();
+		//	string[] lessons = data.Split('|');
+		//	for (int i = 0; i < lessons.Length; i++)
+		//	{
+		//		list.Add(JsonConvert.DeserializeObject<lesson>(lessons[i]));
+		//	}
+		//	List<string> socials = new List<string>();
+		//	for (int i = 0; i < list.Count; i++)
+		//	{
+		//		socials.Add(Convert.ToString(list[i].clas));
+		//	}
+		//	socials = socials.Distinct().ToList();
+		//	ViewBag.socials = socials;
+		//	return list;
+		//}
 		private List<string> ConvertToTeachers(string data, int type)
 		{
 			List<string> Names = new List<string>();
@@ -98,19 +105,6 @@ namespace MyLessons.Controllers
 			{
 				return Objects;
 			}
-		}
-		private string FindLastClass(List<lesson> less)
-		{
-			string result = "";
-			for (int i = 0; i < less.Count; i++)
-			{
-				try
-				{
-					result = less[i - 1].clas;
-				}
-				catch { }
-			}
-			return result;
 		}
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

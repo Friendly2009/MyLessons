@@ -1,213 +1,91 @@
-﻿@model user
-<h1>@ViewBag.name</h1>
-<form asp-action="Choose" asp-controller="Home" method="get">
-	<input type="hidden" asp-for="login" />
-	<button type="submit">Перейти к Choose</button>
-</form>
-
-@* @using Newtonsoft.Json
+﻿@model user;
 @using MyLessons.ConverterSQLClass;
 @{
-	List<lesson> lessons = ViewBag.lesson;
-	List<lesson> myLesson = new List<lesson>();
-	List<string> social = ViewBag.socials;
-	List<string> teachers = ViewBag.teachers;
-	List<string> objec = ViewBag.objec;
-	List<string> objects = ViewBag.objects;
-	for(int i = 0; i < lessons.Count; i++)
+	List<lesson> ClassLessons = new List<lesson>();
+
+	if(!(ViewBag.Lessons is null))
 	{
-		if (lessons[i].clas == ViewBag.one)
+		for(int i = 0; i < ViewBag.Lessons.Count; i++)
 		{
-			myLesson.Add(lessons[i]);	
-		}
-	}
-	string[] finalObject(int num,int day)
-	{
-		string[] el = new string[4];
-		for (int i = 0; i < myLesson.Count(); i++)
-		{
-			if (myLesson[i].number == $"{num}" && myLesson[i].day == $"{day}")
+			if(ViewBag.Lessons[i].clas == ViewBag.Clas)
 			{
-				el[0] = myLesson[i].teacher;
-				el[1] = myLesson[i].less.Trim();
-				el[2] = myLesson[i].number;
-				el[3] = myLesson[i].day;
+				ClassLessons.Add(ViewBag.Lessons[i]);
 			}
 		}
-		return el;
-	}
-	string SpecialCharacter(lesson less)
+	}	
+
+	void GetElementTable(int day,int num)
 	{
-		string str;
-		str = JsonConvert.SerializeObject(less);
-		return str + "|";
-	}
-	void retur(int num, int day)
-	{
-		for (int i = 0; i < myLesson.Count(); i++)
+		for(int i = 0; i < ClassLessons.Count; i++)
 		{
-			if (myLesson[i].number == $"{num}" && myLesson[i].day == $"{day}")
+			if (ClassLessons[i].day == $"{day}" && ClassLessons[i].number == $"{num}")
 			{
-				<p class="active">@myLesson[i].less</p>
-				<p class="active">@myLesson[i].room</p>
-				<p class="active">@myLesson[i].teacher</p>
-				<input class="bg-white" type="hidden" value="@SpecialCharacter(myLesson[i])"/>
-				<input class="bg-dark" type="hidden" value="@Convert.ToInt32(myLesson[i].room)"/>
+				<p class="m-1">@ClassLessons[i].less</p>
+				<p class="m-1">@ClassLessons[i].room</p>
+				<p class="m-1">@ClassLessons[i].teacher</p>
 			}
 		}
 	}
-	<input type="hidden" value="@ViewBag.LastClass" id="LastClass"/>
-	<div class="row justify-content-center">
-		@for(int i = 0; i < social.Count; i++)
-		{
-			<form asp-action="Choose" asp-controller="Home" class="col-1">
-				<input type="hidden" name="one" value="@social[i]"/>
-				<button type="submit" class="btn btn-dark">@social[i]</button>
-			</form>
+}
+<div>
+	<div class="row justify-content-center container">
+		@{
+			for (int i = 0; i < ViewBag.socials.Count; i++)
+			{
+				<form asp-action="Choose" asp-controller="Home" method="get" class="col-1 m-1">
+					<input type="hidden" asp-for="login" />
+					<input type="hidden" name="clas" value="@ViewBag.socials[i]" />
+					<button type="submit" class="btn btn-dark w-100">@ViewBag.socials[i]</button>
+				</form>
+			}
 		}
-	</div>	
+	</div>
+	<h1 class="align-content-center">@ViewBag.Clas</h1>
 	<table class="table">
 		<tr>
-			<td class="tab-content">@ViewBag.one</td>
-			<td class="tab-content">Понедельник</td>
-			<td class="tab-content">Вторник</td>
-			<td class="tab-content">Среда</td>
-			<td class="tab-content">Четверг</td>
-			<td class="tab-content">Пятница</td>
-			<td class="tab-content">Суббота</td>
+			<td>@ViewBag.Clas</td>
+			<td>Понедельник</td>
+			<td>Вторник</td>
+			<td>Среда</td>
+			<td>Четверг</td>
+			<td>Пятница</td>
+			<td>Суббота</td>
 		</tr>
 		<tr>
 			<td>1</td>
-			<td class="active" NullDay ="1" NullLesson="1" lesson="@finalObject(1,1)[1]" teacher ="@finalObject(1,1)[0]" number="@finalObject(1,1)[2]" day="@finalObject(1,1)[3]">@{retur(1,1);}</td>
-			<td class="active" NullDay ="1" NullLesson="2" lesson="@finalObject(1,2)[1]" teacher ="@finalObject(1,2)[0]" number="@finalObject(1,2)[2]" day="@finalObject(1,2)[3]">@{retur(1,2);}</td>
-			<td class="active" NullDay ="1" NullLesson="3" lesson="@finalObject(1,3)[1]" teacher ="@finalObject(1,3)[0]" number="@finalObject(1,3)[2]" day="@finalObject(1,3)[3]">@{retur(1,3);}</td>
-			<td class="active" NullDay ="1" NullLesson="4" lesson="@finalObject(1,4)[1]" teacher ="@finalObject(1,4)[0]" number="@finalObject(1,4)[2]" day="@finalObject(1,4)[3]">@{retur(1,4);}</td>
-			<td class="active" NullDay ="1" NullLesson="5" lesson="@finalObject(1,5)[1]" teacher ="@finalObject(1,5)[0]" number="@finalObject(1,5)[2]" day="@finalObject(1,5)[3]">@{retur(1,5);}</td>
-			<td class="active" NullDay ="1" NullLesson="6" lesson="@finalObject(1,6)[1]" teacher ="@finalObject(1,6)[0]" number="@finalObject(1,6)[2]" day="@finalObject(1,6)[3]">@{retur(1,6);}</td>
+			<td>@{GetElementTable(1, 1);}</td>
+			<td>@{GetElementTable(1, 2);}</td>
+			<td>@{GetElementTable(1, 3);}</td>
+			<td>@{GetElementTable(1, 4);}</td>
+			<td>@{GetElementTable(1, 5);}</td>
+			<td>@{GetElementTable(1, 6);}</td>
 		</tr>
 		<tr>
 			<td>2</td>
-			<td class="active" NullDay ="2" NullLesson="1" lesson="@finalObject(2,1)[1]" teacher ="@finalObject(2,1)[0]" number="@finalObject(2,1)[2]" day="@finalObject(2,1)[3]">@{retur(2,1);}</td>
-			<td class="active" NullDay ="2" NullLesson="2" lesson="@finalObject(2,2)[1]" teacher ="@finalObject(2,2)[0]" number="@finalObject(2,2)[2]" day="@finalObject(2,2)[3]">@{retur(2,2);}</td>
-			<td class="active" NullDay ="2" NullLesson="3" lesson="@finalObject(2,3)[1]" teacher ="@finalObject(2,3)[0]" number="@finalObject(2,3)[2]" day="@finalObject(2,3)[3]">@{retur(2,3);}</td>
-			<td class="active" NullDay ="2" NullLesson="4" lesson="@finalObject(2,4)[1]" teacher ="@finalObject(2,4)[0]" number="@finalObject(2,4)[2]" day="@finalObject(2,4)[3]">@{retur(2,4);}</td>
-			<td class="active" NullDay ="2" NullLesson="5" lesson="@finalObject(2,5)[1]" teacher ="@finalObject(2,5)[0]" number="@finalObject(2,5)[2]" day="@finalObject(2,5)[3]">@{retur(2,5);}</td>
-			<td class="active" NullDay ="2" NullLesson="6" lesson="@finalObject(2,6)[1]" teacher ="@finalObject(2,6)[0]" number="@finalObject(2,6)[2]" day="@finalObject(2,6)[3]">@{retur(2,6);}</td>
+			<td>@{GetElementTable(2, 1);}</td>
+			<td>@{GetElementTable(2, 2);}</td>
+			<td>@{GetElementTable(2, 3);}</td>
+			<td>@{GetElementTable(2, 4);}</td>
+			<td>@{GetElementTable(2, 5);}</td>
+			<td>@{GetElementTable(2, 6);}</td>
 		</tr>
 		<tr>
 			<td>3</td>
-			<td class="active" NullDay ="3" NullLesson="1" lesson="@finalObject(3,1)[1]" teacher ="@finalObject(3,1)[0]" number="@finalObject(3,1)[2]" day="@finalObject(3,1)[3]">@{retur(3,1);}</td>
-			<td class="active" NullDay ="3" NullLesson="2" lesson="@finalObject(3,2)[1]" teacher ="@finalObject(3,2)[0]" number="@finalObject(3,2)[2]" day="@finalObject(3,2)[3]">@{retur(3,2);}</td>
-			<td class="active" NullDay ="3" NullLesson="3" lesson="@finalObject(3,3)[1]" teacher ="@finalObject(3,3)[0]" number="@finalObject(3,3)[2]" day="@finalObject(3,3)[3]">@{retur(3,3);}</td>
-			<td class="active" NullDay ="3" NullLesson="4" lesson="@finalObject(3,4)[1]" teacher ="@finalObject(3,4)[0]" number="@finalObject(3,4)[2]" day="@finalObject(3,4)[3]">@{retur(3,4);}</td>
-			<td class="active" NullDay ="3" NullLesson="5" lesson="@finalObject(3,5)[1]" teacher ="@finalObject(3,5)[0]" number="@finalObject(3,5)[2]" day="@finalObject(3,5)[3]">@{retur(3,5);}</td>
-			<td class="active" NullDay ="3" NullLesson="6" lesson="@finalObject(3,6)[1]" teacher ="@finalObject(3,6)[0]" number="@finalObject(3,6)[2]" day="@finalObject(3,6)[3]">@{retur(3,6);}</td>
+			<td>@{GetElementTable(3, 1);}</td>
+			<td>@{GetElementTable(3, 2);}</td>
+			<td>@{GetElementTable(3, 3);}</td>
+			<td>@{GetElementTable(3, 4);}</td>
+			<td>@{GetElementTable(3, 5);}</td>
+			<td>@{GetElementTable(3, 6);}</td>
 		</tr>
 		<tr>
 			<td>4</td>
-			<td class="active" NullDay ="4" NullLesson="1" lesson="@finalObject(4,1)[1]" teacher ="@finalObject(4,1)[0]" number="@finalObject(4,1)[2]" day="@finalObject(4,1)[3]">@{retur(4,1);}</td>
-			<td class="active" NullDay ="4" NullLesson="2" lesson="@finalObject(4,2)[1]" teacher ="@finalObject(4,2)[0]" number="@finalObject(4,2)[2]" day="@finalObject(4,2)[3]">@{retur(4,2);}</td>
-			<td class="active" NullDay ="4" NullLesson="3" lesson="@finalObject(4,3)[1]" teacher ="@finalObject(4,3)[0]" number="@finalObject(4,3)[2]" day="@finalObject(4,3)[3]">@{retur(4,3);}</td>
-			<td class="active" NullDay ="4" NullLesson="4" lesson="@finalObject(4,4)[1]" teacher ="@finalObject(4,4)[0]" number="@finalObject(4,4)[2]" day="@finalObject(4,4)[3]">@{retur(4,4);}</td>
-			<td class="active" NullDay ="4" NullLesson="5" lesson="@finalObject(4,5)[1]" teacher ="@finalObject(4,5)[0]" number="@finalObject(4,5)[2]" day="@finalObject(4,5)[3]">@{retur(4,5);}</td>
-			<td class="active" NullDay ="4" NullLesson="6" lesson="@finalObject(4,6)[1]" teacher ="@finalObject(4,6)[0]" number="@finalObject(4,6)[2]" day="@finalObject(4,6)[3]">@{retur(4,6);}</td>
-		</tr>
-		<tr>
-			<td>5</td>
-			<td class="active" NullDay ="5" NullLesson="1" lesson="@finalObject(5,1)[1]" teacher ="@finalObject(5,1)[0]" number="@finalObject(5,1)[2]" day="@finalObject(5,1)[3]">@{retur(5,1);}</td>
-			<td class="active" NullDay ="5" NullLesson="2" lesson="@finalObject(5,2)[1]" teacher ="@finalObject(5,2)[0]" number="@finalObject(5,2)[2]" day="@finalObject(5,2)[3]">@{retur(5,2);}</td>
-			<td class="active" NullDay ="5" NullLesson="3" lesson="@finalObject(5,3)[1]" teacher ="@finalObject(5,3)[0]" number="@finalObject(5,3)[2]" day="@finalObject(5,3)[3]">@{retur(5,3);}</td>
-			<td class="active" NullDay ="5" NullLesson="4" lesson="@finalObject(5,4)[1]" teacher ="@finalObject(5,4)[0]" number="@finalObject(5,4)[2]" day="@finalObject(5,4)[3]">@{retur(5,4);}</td>
-			<td class="active" NullDay ="5" NullLesson="5" lesson="@finalObject(5,5)[1]" teacher ="@finalObject(5,5)[0]" number="@finalObject(5,5)[2]" day="@finalObject(5,5)[3]">@{retur(5,5);}</td>
-			<td class="active" NullDay ="5" NullLesson="6" lesson="@finalObject(5,6)[1]" teacher ="@finalObject(5,6)[0]" number="@finalObject(5,6)[2]" day="@finalObject(5,6)[3]">@{retur(5,6);}</td>
-		</tr>
-		<tr>
-			<td>6</td>
-			<td class="active" NullDay ="6" NullLesson="1" lesson="@finalObject(6,1)[1]" teacher ="@finalObject(6,1)[0]" number="@finalObject(6,1)[2]" day="@finalObject(6,1)[3]">@{retur(6,1);}</td>
-			<td class="active" NullDay ="6" NullLesson="2" lesson="@finalObject(6,2)[1]" teacher ="@finalObject(6,2)[0]" number="@finalObject(6,2)[2]" day="@finalObject(6,2)[3]">@{retur(6,2);}</td>
-			<td class="active" NullDay ="6" NullLesson="3" lesson="@finalObject(6,3)[1]" teacher ="@finalObject(6,3)[0]" number="@finalObject(6,3)[2]" day="@finalObject(6,3)[3]">@{retur(6,3);}</td>
-			<td class="active" NullDay ="6" NullLesson="4" lesson="@finalObject(6,4)[1]" teacher ="@finalObject(6,4)[0]" number="@finalObject(6,4)[2]" day="@finalObject(6,4)[3]">@{retur(6,4);}</td>
-			<td class="active" NullDay ="6" NullLesson="5" lesson="@finalObject(6,5)[1]" teacher ="@finalObject(6,5)[0]" number="@finalObject(6,5)[2]" day="@finalObject(6,5)[3]">@{retur(6,5);}</td>
-			<td class="active" NullDay ="6" NullLesson="6" lesson="@finalObject(6,6)[1]" teacher ="@finalObject(6,6)[0]" number="@finalObject(6,6)[2]" day="@finalObject(6,6)[3]">@{retur(6,6);}</td>
-		</tr>
-		<tr>
-			<td>7</td>
-			<td class="active" NullDay ="7" NullLesson="1" lesson="@finalObject(7,1)[1]" teacher ="@finalObject(7,1)[0]" number="@finalObject(7,1)[2]" day="@finalObject(7,1)[3]">@{retur(7,1);}</td>
-			<td class="active" NullDay ="7" NullLesson="2" lesson="@finalObject(7,2)[1]" teacher ="@finalObject(7,2)[0]" number="@finalObject(7,2)[2]" day="@finalObject(7,2)[3]">@{retur(7,2);}</td>
-			<td class="active" NullDay ="7" NullLesson="3" lesson="@finalObject(7,3)[1]" teacher ="@finalObject(7,3)[0]" number="@finalObject(7,3)[2]" day="@finalObject(7,3)[3]">@{retur(7,3);}</td>
-			<td class="active" NullDay ="7" NullLesson="4" lesson="@finalObject(7,4)[1]" teacher ="@finalObject(7,4)[0]" number="@finalObject(7,4)[2]" day="@finalObject(7,4)[3]">@{retur(7,4);}</td>
-			<td class="active" NullDay ="7" NullLesson="5" lesson="@finalObject(7,5)[1]" teacher ="@finalObject(7,5)[0]" number="@finalObject(7,5)[2]" day="@finalObject(7,5)[3]">@{retur(7,5);}</td>
-			<td class="active" NullDay ="7" NullLesson="6" lesson="@finalObject(7,6)[1]" teacher ="@finalObject(7,6)[0]" number="@finalObject(7,6)[2]" day="@finalObject(7,6)[3]">@{retur(7,6);}</td>
-		</tr>
-		<tr>
-			<td>8</td>
-			<td class="active" NullDay ="8" NullLesson="1" lesson="@finalObject(8,1)[1]" teacher ="@finalObject(7,1)[0]" number="@finalObject(8,1)[2]" day="@finalObject(8,1)[3]">@{retur(8,1);}</td>
-			<td class="active" NullDay ="8" NullLesson="2" lesson="@finalObject(8,2)[1]" teacher ="@finalObject(7,2)[0]" number="@finalObject(8,2)[2]" day="@finalObject(8,2)[3]">@{retur(8,2);}</td>
-			<td class="active" NullDay ="8" NullLesson="3" lesson="@finalObject(8,3)[1]" teacher ="@finalObject(7,3)[0]" number="@finalObject(8,3)[2]" day="@finalObject(8,3)[3]">@{retur(8,3);}</td>
-			<td class="active" NullDay ="8" NullLesson="4" lesson="@finalObject(8,4)[1]" teacher ="@finalObject(7,4)[0]" number="@finalObject(8,4)[2]" day="@finalObject(8,4)[3]">@{retur(8,4);}</td>
-			<td class="active" NullDay ="8" NullLesson="5" lesson="@finalObject(8,5)[1]" teacher ="@finalObject(7,5)[0]" number="@finalObject(8,5)[2]" day="@finalObject(8,5)[3]">@{retur(8,5);}</td>
-			<td class="active" NullDay ="8" NullLesson="6" lesson="@finalObject(8,6)[1]" teacher ="@finalObject(7,6)[0]" number="@finalObject(8,6)[2]" day="@finalObject(8,6)[3]">@{retur(8,6);}</td>
-		</tr>
-		<tr>
-			<td>9</td>
-			<td class="active" NullDay ="9" NullLesson="1" lesson="@finalObject(9,1)[1]" teacher ="@finalObject(8,1)[0]" number="@finalObject(9,1)[2]" day="@finalObject(9,1)[3]">@{retur(9,1);}</td>
-			<td class="active" NullDay ="9" NullLesson="2" lesson="@finalObject(9,2)[1]" teacher ="@finalObject(8,2)[0]" number="@finalObject(9,2)[2]" day="@finalObject(9,2)[3]">@{retur(9,2);}</td>
-			<td class="active" NullDay ="9" NullLesson="3" lesson="@finalObject(9,3)[1]" teacher ="@finalObject(8,3)[0]" number="@finalObject(9,3)[2]" day="@finalObject(9,3)[3]">@{retur(9,3);}</td>
-			<td class="active" NullDay ="9" NullLesson="4" lesson="@finalObject(9,4)[1]" teacher ="@finalObject(8,4)[0]" number="@finalObject(9,4)[2]" day="@finalObject(9,4)[3]">@{retur(9,4);}</td>
-			<td class="active" NullDay ="9" NullLesson="5" lesson="@finalObject(9,5)[1]" teacher ="@finalObject(8,5)[0]" number="@finalObject(9,5)[2]" day="@finalObject(9,5)[3]">@{retur(9,5);}</td>
-			<td class="active" NullDay ="9" NullLesson="6" lesson="@finalObject(9,6)[1]" teacher ="@finalObject(8,6)[0]" number="@finalObject(9,6)[2]" day="@finalObject(9,6)[3]">@{retur(9,6);}</td>
-
-			<td class="collapse"></td>
-			<td class="collapse"></td>
-			<td class="collapse"></td>
-			<td class="collapse"></td>
-			<td class="collapse"></td>		
-			<td class="collapse"></td>
+			<td>@{GetElementTable(4, 1);}</td>
+			<td>@{GetElementTable(4, 2);}</td>
+			<td>@{GetElementTable(4, 3);}</td>
+			<td>@{GetElementTable(4, 4);}</td>
+			<td>@{GetElementTable(4, 5);}</td>
+			<td>@{GetElementTable(4, 6);}</td>
 		</tr>
 	</table>
-	<div class="justify-content-center row g-0">
-		<input type="number" class="form-check col-8 m-3" placeholder="Номер Кабинета" id="InputNumberRoom"/>
-		<button class="btn btn-dark col-8" type="button" data-bs-toggle="collapse" data-bs-target="#myDiv" aria-expanded="false" aria-controls="myDiv">
-			Учителя
-		</button>
-		<div class="collapse col-12 row justify-content-center" id="myDiv">
-			@for (int i = 0; i < teachers.Count; i++)
-			{
-				<div class="row justify-content-start col-12" style="margin: 10px;">
-					<p class="col-4">@teachers[i]</p>
-					<p class="col-3">@objects[i]</p>
-					<button class="btn btn-dark col-2" style="margin: 10px" objec="@objects[i]" teachers="@teachers[i]" id="buttons">Назначить урок</button>
-					<form asp-action="DeleteTeacher" asp-controller="Home" class="col-2" method="post">
-						<input type="hidden" name="teacher" value="@teachers[i]" />
-						<input type="hidden" name="objec" value="@objects[i]" />
-						<input type="hidden" />
-						<button class="btn btn-close btn-dark" style="margin: 10px"></button>
-					</form>
-				</div>
-			}
-			<form asp-action="AddTeacher" method="post" class="row justify-content-center m-2">
-				<p>Добавить учителя</p>
-				<select id="myComboBox" name="selectedSubject" class="form-select m-2" aria-label="Выберите значение" required>
-					<option selected disabled>Выберите Предмет</option>
-					@for (int i = 0; i < objec.Count; i++)
-					{
-						<option value="@objec[i]">@objec[i]</option>
-					}
-				</select>					
-				<input type="text" class="form-control col-1" placeholder="Имя учителя" name="teacherName" required>
-				<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
-			</form>
-		</div>
-		<div class="row justify-content-center">
-			<button class="btn btn-dark col-8 m-3" id="deleteLesson">
-				Удалить Урок
-			</button>
-		</div>
-		<div>
-			<form asp-action="UpdateTable" asp-controller="Home" class="row justify-content-center m-1" method="post">
-				<input type="hidden" name="data" value="@ViewBag.data" id="result"/>
-				<button class="btn btn-dark col-8">Сохранить изменения</button>
-			</form>
-		</div>
-	</div>			
-} *@
+</div>
