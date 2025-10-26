@@ -33,7 +33,11 @@ namespace MyLessons.Controllers
 
 			var obj = context.data.Find(us.id + 1);
 
+			ViewBag.data = obj.text;
+			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teachers);
+			ViewBag.objects = ControllerConvert.SelectObjects(obj.teachers);
 
 			return View(us);
 		}
@@ -42,12 +46,17 @@ namespace MyLessons.Controllers
 		{			
 			var obj = context.data.Find(us.id + 1);
 
+			ViewBag.data = obj.text;
+			ViewBag.availableItems = new List<string>() { "Математика","Русский язык"};
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.Clas = clas;
+			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teachers);
+			ViewBag.objects = ControllerConvert.SelectObjects(obj.teachers);
 			ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
+			ViewBag.Clas = clas;
 
 			return View("Privacy", us);
 		}
+		[HttpPost]
 		public IActionResult AddAccount(newuser newusers, string Newlogin, string Newpassword)
 		{
 			HttpContext.Session.SetInt32(count, 1);
@@ -67,7 +76,7 @@ namespace MyLessons.Controllers
 			{
 				ViewBag.num = "Введите пароль";
 			}
-			return RedirectToAction("Privacy");
+			return RedirectToAction("Index");
 		}
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

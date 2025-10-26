@@ -88,4 +88,51 @@
 			<td>@{GetElementTable(4, 6);}</td>
 		</tr>
 	</table>
+	<div class="row justify-content-center">
+		<div class="row justify-content-center col-8">
+			<input type="number" class="input-group-text col-12 m-3" placeholder="Номер кабинета" />
+		</div>
+		<div class="row justify-content-center col-8">
+			<button class="btn btn-dark col-12 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#TeacherDiv" aria-expanded="false" aria-controls="TeacherDiv">
+				Учителя
+			</button>
+		</div>
+		<div class="collapse col-8" id="TeacherDiv">
+			@for (int i = 0; i < ViewBag.teachers.Count; i++)
+			{
+				<div class="row align-items-center mb-2" style="margin: 10px 0;">
+					<p class="col-4 mb-0">@ViewBag.teachers[i]</p>
+					<p class="col-3 mb-0">@ViewBag.objects[i]</p>
+					<button class="btn btn-dark col-2">Назначить урок</button>
+					<form asp-action="DeleteTeacher" asp-controller="Home" method="post" class="col-3 d-flex justify-content-end mb-0">
+						<input type="hidden" />
+						<input type="hidden" />
+						<button class="btn btn-close btn-dark"></button>
+					</form>
+				</div>
+			}
+			<form asp-action="AddTeacher" method="post" class="row justify-content-center m-2">
+				<p>Добавить учителя</p>
+				<select id="myComboBox" name="selectedSubject" class="form-select m-2" aria-label="Выберите значение" required>
+					<option selected disabled>Выберите Предмет</option>
+					@for (int i = 0; i < ViewBag.availableItems.Count; i++)
+					{
+						<option value="@ViewBag.availableItems[i]">@ViewBag.availableItems[i]</option>
+					}
+				</select>
+				<input type="text" class="form-control col-3" placeholder="Имя учителя" name="teacherName" required>
+				<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
+			</form>
+		</div>
+
+		<div class="row justify-content-center">
+			<button class="btn btn-dark col-8 m-3" id="deleteLesson">
+				Удалить Урок
+			</button>
+		</div>
+		<form asp-action="UpdateTable" asp-controller="Home" method="post" class="row justify-content-center m-1">
+			<input type="hidden" name="data" value="@ViewBag.data" />
+			<button class="btn btn-dark col-8">Сохранить изменения</button>
+		</form>
+	</div>
 </div>
