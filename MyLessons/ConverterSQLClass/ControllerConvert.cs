@@ -25,5 +25,27 @@ namespace MyLessons.ConverterSQLClass
 			socials = socials.Distinct().ToList();
 			return socials;
 		}
+		public static List<string> SelectTeachers(string data)
+		{
+			List<string> list = new List<string>();
+			string[] blocks = data.Split('|');
+			for(int i = 0; i < blocks.Length; i++)
+			{
+				string[] names = blocks[i].Split("`");
+				list.Add(names[0]);
+			}
+			return list;
+		}
+		public static List<string> SelectObjects(string data)
+		{
+			List<string> list = new List<string>();
+			string[] blocks = data.Split('|');
+			for (int i = 0; i < blocks.Length; i++)
+			{
+				string[] names = blocks[i].Split("`");
+				list.Add(names[1]);
+			}
+			return list;
+		}
 	}
 }
