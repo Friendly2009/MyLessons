@@ -36,8 +36,8 @@ namespace MyLessons.Controllers
 			ViewBag.data = obj.text;
 			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teachers);
-			ViewBag.objects = ControllerConvert.SelectObjects(obj.teachers);
+			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
+			ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
 
 			return View(us);
 		}
@@ -49,8 +49,8 @@ namespace MyLessons.Controllers
 			ViewBag.data = obj.text;
 			ViewBag.availableItems = new List<string>() { "Математика","Русский язык"};
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teachers);
-			ViewBag.objects = ControllerConvert.SelectObjects(obj.teachers);
+			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
+			ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
 			ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
 			ViewBag.Clas = clas;
 

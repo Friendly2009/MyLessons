@@ -23,6 +23,12 @@
 				<p class="m-1">@ClassLessons[i].less</p>
 				<p class="m-1">@ClassLessons[i].room</p>
 				<p class="m-1">@ClassLessons[i].teacher</p>
+				<input type="hidden" id="day" value="@ClassLessons[i].day"/>
+				<input type="hidden" id="number" value="@ClassLessons[i].number" />
+				<input type="hidden" id="less" value="@ClassLessons[i].less" />
+				<input type="hidden" id="teacher" value="@ClassLessons[i].teacher" />
+				<input type="hidden" id="room" value="@ClassLessons[i].room" />
+				<input type="hidden" id="clas" value="@ClassLessons[i].clas" />
 			}
 		}
 	}
@@ -53,8 +59,8 @@
 		</tr>
 		<tr>
 			<td>1</td>
-			<td>@{GetElementTable(1, 1);}</td>
-			<td>@{GetElementTable(1, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(1, 1);}</td>
+			<td >@{GetElementTable(1, 2);}</td>
 			<td>@{GetElementTable(1, 3);}</td>
 			<td>@{GetElementTable(1, 4);}</td>
 			<td>@{GetElementTable(1, 5);}</td>
