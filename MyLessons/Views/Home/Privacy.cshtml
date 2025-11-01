@@ -13,7 +13,21 @@
 			}
 		}
 	}	
-
+	string[] parameters(int day,int num)
+	{
+		string[] el = new string[4];
+		for (int i = 0; i < ClassLessons.Count(); i++)
+		{
+			if (ClassLessons[i].number == $"{num}" && ClassLessons[i].day == $"{day}")
+			{
+				el[0] = ClassLessons[i].teacher;
+				el[1] = ClassLessons[i].less.Trim();
+				el[2] = ClassLessons[i].number;
+				el[3] = ClassLessons[i].day;
+			}
+		}
+		return el;
+	}
 	void GetElementTable(int day,int num)
 	{
 		for(int i = 0; i < ClassLessons.Count; i++)
@@ -53,7 +67,7 @@
 		</tr>
 		<tr>
 			<td>1</td>
-			<td>@{GetElementTable(1, 1);}</td>
+			<td day ="@parameters(1,1);">@{GetElementTable(1, 1);}</td>
 			<td>@{GetElementTable(1, 2);}</td>
 			<td>@{GetElementTable(1, 3);}</td>
 			<td>@{GetElementTable(1, 4);}</td>
