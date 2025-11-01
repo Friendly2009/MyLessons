@@ -47,5 +47,19 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
+		public static string ConvertToTeachers(List<string> teach, List<string> Objec)
+		{
+			string result = "";
+			for (int i = 0; i < teach.Count; i++)
+			{
+				result += "|" + teach[i] + Objec[i] + "|";
+			}
+			while (result.Contains("||"))
+			{
+				result.Replace("||", "|");
+			}
+			result.Trim('|');
+			return result;
+		}
 	}
 }

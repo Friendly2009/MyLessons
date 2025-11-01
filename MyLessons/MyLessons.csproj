@@ -9,6 +9,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\css\star.png" />
     <Content Remove="wwwroot\css\start.png" />
+    <Content Remove="wwwroot\js\file.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,10 @@
   <ItemGroup>
     <Resource Include="wwwroot\css\star.png" />
     <Resource Include="wwwroot\css\start.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\file.tsx" />
   </ItemGroup>
 
 </Project>

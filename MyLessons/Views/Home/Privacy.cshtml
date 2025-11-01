@@ -13,7 +13,6 @@
 			}
 		}
 	}	
-
 	void GetElementTable(int day,int num)
 	{
 		for(int i = 0; i < ClassLessons.Count; i++)
@@ -23,6 +22,12 @@
 				<p class="m-1">@ClassLessons[i].less</p>
 				<p class="m-1">@ClassLessons[i].room</p>
 				<p class="m-1">@ClassLessons[i].teacher</p>
+				<input type="hidden" id="day" value="@ClassLessons[i].day"/>
+				<input type="hidden" id="number" value="@ClassLessons[i].number" />
+				<input type="hidden" id="less" value="@ClassLessons[i].less" />
+				<input type="hidden" id="teacher" value="@ClassLessons[i].teacher" />
+				<input type="hidden" id="room" value="@ClassLessons[i].room" />
+				<input type="hidden" id="clas" value="@ClassLessons[i].clas" />
 			}
 		}
 	}
@@ -53,39 +58,84 @@
 		</tr>
 		<tr>
 			<td>1</td>
-			<td>@{GetElementTable(1, 1);}</td>
-			<td>@{GetElementTable(1, 2);}</td>
-			<td>@{GetElementTable(1, 3);}</td>
-			<td>@{GetElementTable(1, 4);}</td>
-			<td>@{GetElementTable(1, 5);}</td>
-			<td>@{GetElementTable(1, 6);}</td>
+			<td style="width: 250px">@{GetElementTable(1, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(1, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(1, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(1, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(1, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(1, 6);}</td>
 		</tr>
 		<tr>
 			<td>2</td>
-			<td>@{GetElementTable(2, 1);}</td>
-			<td>@{GetElementTable(2, 2);}</td>
-			<td>@{GetElementTable(2, 3);}</td>
-			<td>@{GetElementTable(2, 4);}</td>
-			<td>@{GetElementTable(2, 5);}</td>
-			<td>@{GetElementTable(2, 6);}</td>
+			<td style="width: 250px">@{GetElementTable(2, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(2, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(2, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(2, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(2, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(2, 6);}</td>
 		</tr>
 		<tr>
 			<td>3</td>
-			<td>@{GetElementTable(3, 1);}</td>
-			<td>@{GetElementTable(3, 2);}</td>
-			<td>@{GetElementTable(3, 3);}</td>
-			<td>@{GetElementTable(3, 4);}</td>
-			<td>@{GetElementTable(3, 5);}</td>
-			<td>@{GetElementTable(3, 6);}</td>
+			<td style="width: 250px">@{GetElementTable(3, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(3, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(3, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(3, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(3, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(3, 6);}</td>
 		</tr>
 		<tr>
 			<td>4</td>
-			<td>@{GetElementTable(4, 1);}</td>
-			<td>@{GetElementTable(4, 2);}</td>
-			<td>@{GetElementTable(4, 3);}</td>
-			<td>@{GetElementTable(4, 4);}</td>
-			<td>@{GetElementTable(4, 5);}</td>
-			<td>@{GetElementTable(4, 6);}</td>
+			<td style="width: 250px">@{GetElementTable(4, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(4, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(4, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(4, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(4, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(4, 6);}</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td style="width: 250px">@{GetElementTable(5, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(5, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(5, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(5, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(5, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(5, 6);}</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td style="width: 250px">@{GetElementTable(6, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(6, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(6, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(6, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(6, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(6, 6);}</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td style="width: 250px">@{GetElementTable(7, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(7, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(7, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(7, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(7, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(7, 6);}</td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td style="width: 250px">@{GetElementTable(8, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(8, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(8, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(8, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(8, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(8, 6);}</td>
+		</tr>
+		<tr>
+			<td>9</td>
+			<td style="width: 250px">@{GetElementTable(9, 1);}</td>
+			<td style="width: 250px">@{GetElementTable(9, 2);}</td>
+			<td style="width: 250px">@{GetElementTable(9, 3);}</td>
+			<td style="width: 250px">@{GetElementTable(9, 4);}</td>
+			<td style="width: 250px">@{GetElementTable(9, 5);}</td>
+			<td style="width: 250px">@{GetElementTable(9, 6);}</td>
 		</tr>
 	</table>
 	<div class="row justify-content-center">
@@ -104,10 +154,11 @@
 					<p class="col-4 mb-0">@ViewBag.teachers[i]</p>
 					<p class="col-3 mb-0">@ViewBag.objects[i]</p>
 					<button class="btn btn-dark col-2">Назначить урок</button>
-					<form asp-action="DeleteTeacher" asp-controller="Home" method="post" class="col-3 d-flex justify-content-end mb-0">
-						<input type="hidden" />
-						<input type="hidden" />
-						<button class="btn btn-close btn-dark"></button>
+					<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
+						<input type="hidden" asp-for="login" />
+						<input type="hidden" name="name" value="@ViewBag.teachers[i]" />
+						<input type="hidden" name="objec" value="@ViewBag.objects[i]" />
+						<button class="btn btn-close btn-dark" type="submit"></button>
 					</form>
 				</div>
 			}
@@ -136,3 +187,4 @@
 		</form>
 	</div>
 </div>
+@ViewBag.result

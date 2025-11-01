@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using Newtonsoft.Json;
@@ -36,8 +37,8 @@ namespace MyLessons.Controllers
 			ViewBag.data = obj.text;
 			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teachers);
-			ViewBag.objects = ControllerConvert.SelectObjects(obj.teachers);
+			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
+			ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
 
 			return View(us);
 		}
@@ -49,8 +50,8 @@ namespace MyLessons.Controllers
 			ViewBag.data = obj.text;
 			ViewBag.availableItems = new List<string>() { "Математика","Русский язык"};
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teachers);
-			ViewBag.objects = ControllerConvert.SelectObjects(obj.teachers);
+			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
+			ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
 			ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
 			ViewBag.Clas = clas;
 
@@ -78,7 +79,18 @@ namespace MyLessons.Controllers
 			}
 			return RedirectToAction("Index");
 		}
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult DeleteTeacher(user us, string name, string objec)
+		{
+			string data = context.data.Find(us.id + 1).teacher;
+            var teach = ControllerConvert.SelectTeachers(data);
+			var objects = ControllerConvert.SelectObjects(data);
+			teach.Remove(name);
+			objects.Remove(objec);
+			string result = ControllerConvert.ConvertToTeachers(teach, objects);
+			ViewBag.result = result;
+            return RedirectToAction("Choose", us);
+		}
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
