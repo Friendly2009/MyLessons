@@ -5,6 +5,7 @@ using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using static System.Net.Mime.MediaTypeNames;
@@ -31,32 +32,49 @@ namespace MyLessons.Controllers
 			{
 				return View("Index", us);
 			}
-			
-			ViewBag.res = $"{us.id}";
-			var obj = context.data.FirstOrDefault(t => t.Id == us.id + 1);
+			var thisUs = context.user.Where(t => t.login == us.login).ToList();
+			for(int i = 0; i < thisUs.Count; i++)
+			{
+				if (thisUs[i].login == us.login && thisUs[i].password == us.password)
+				{
+					us = thisUs[i];
+					ViewBag.res = $"{thisUs[i].id}";
+					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 
-			ViewBag.data = obj.text;
-			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
-			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
-			ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
+					ViewBag.data = obj.text;
+					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+					ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+					ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
+					ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
 
-			return View(us);
+					return View(us);
+				}
+			}
+			return View("Index");
 		}
 		[HttpGet]
 		public IActionResult Choose(user us,string clas)
-		{			
-			var obj = context.data.FirstOrDefault(t => t.Id == us.id + 1);
+		{
+			var thisUs = context.user.Where(t => t.login == us.login).ToList();
+			for (int i = 0; i < thisUs.Count; i++)
+			{
+				if (thisUs[i].login == us.login && thisUs[i].password == us.password) 
+				{ 
+					us = thisUs[i];
+					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 
-			ViewBag.data = obj.text;
-			ViewBag.availableItems = new List<string>() { "Математика","Русский язык"};
-			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
-			ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
-			ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
-			ViewBag.Clas = clas;
-			ViewBag.res = $"{us.id} {obj.Id}";
-			return View("Privacy", us);
+					ViewBag.data = obj.text;
+					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+					ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+					ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
+					ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
+					ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
+					ViewBag.Clas = clas;
+					ViewBag.res = $"{us.id} {obj.Id}";
+					return View("Privacy", us);
+				}
+			}
+			return View("Index",us);
 		}
 		[HttpPost]
 		public IActionResult AddAccount(newuser newusers, string Newlogin, string Newpassword)

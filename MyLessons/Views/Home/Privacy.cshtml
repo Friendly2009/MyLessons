@@ -39,6 +39,7 @@
 			{
 				<form asp-action="Choose" asp-controller="Home" method="get" class="col-1 m-1">
 					<input type="hidden" asp-for="login" />
+					<input type="hidden" asp-for="password" />
 					<input type="hidden" name="clas" value="@ViewBag.socials[i]" />
 					<button type="submit" class="btn btn-dark w-100">@ViewBag.socials[i]</button>
 				</form>
