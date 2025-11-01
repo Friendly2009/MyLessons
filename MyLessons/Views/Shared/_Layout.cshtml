@@ -9,36 +9,14 @@
     <link rel="stylesheet" href="~/MyLessons.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @{
-        if(ViewBag.isReg == true)
-        {
-            <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                    <div class="container-fluid">
-                        <h1 class="navbar-brand text-light">MyLessons</h1>
-                        <div class="collapse navbar-collapse">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item"><a class="nav-link text-light text-decoration-none" asp-action="Index" asp-controller="Home">Главная</a></li>
-                                <li class="nav-item"><a class="nav-link text-light text-decoration-none" asp-action="Privacy" asp-controller="Home">Расписание</a></li>
-                                <li class="nav-item"><a class="nav-link text-light text-decoration-none">Добавить преподавателя</a></li>
-                                <li class="nav-item"><a class="nav-link text-light text-decoration-none">@{ try{@ViewBag.obj.login} catch{}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-        }
-        else
-        {
-            <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                    <div class="container-fluid">
-                        <h1 class="navbar-brand text-light">MyLessons</h1>                     
-                    </div>
-                </nav>
-            </header>
-        }
-    }
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="container-fluid">
+                <h1 class="navbar-brand text-light">MyLessons</h1>
+                <a class="text-end text-light navbar-brand" asp-action="Index" asp-controller="Home">Выйти</a>
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

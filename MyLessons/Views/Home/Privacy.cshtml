@@ -1,8 +1,8 @@
 ﻿@model user;
 @using MyLessons.ConverterSQLClass;
 @{
+	<p>@ViewBag.res</p>
 	List<lesson> ClassLessons = new List<lesson>();
-
 	if(!(ViewBag.Lessons is null))
 	{
 		for(int i = 0; i < ViewBag.Lessons.Count; i++)
