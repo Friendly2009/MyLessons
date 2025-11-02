@@ -15,8 +15,16 @@
             <div class="container-fluid">
                 <div class="d-flex align-items-center">
                     <h1 class="navbar-brand text-light mb-0">MyLessons</h1>
-                    <a class="nav-link text-light" asp-action="MainPanel" asp-controller="Home">Главная панель</a>
-                    <a class="nav-link text-light" asp-action="Table" asp-controller="Home">Таблица</a>
+                    <form class="nav-link" asp-controller="Home" asp-action="MainPanel" method="get">
+                        <input type="hidden" asp-for="login" />
+                        <input type="hidden" asp-for="password" />
+                        <button type="submit" class="btn btn-link text-decoration-none text-light p-0">Главная панель</button>
+                    </form>
+                    <form class="nav-link" asp-controller="Home" asp-action="Table" method="get">
+                        <input type="hidden" asp-for="login" />
+                        <input type="hidden" asp-for="password" />
+                        <button type="submit" class="btn btn-link text-decoration-none text-light p-0">Таблица</button>
+                    </form>
                 </div>
                 <div class="ms-auto">
                     <a class="nav-link text-light" asp-action="Index" asp-controller="Home">Выйти</a>
