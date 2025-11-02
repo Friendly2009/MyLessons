@@ -26,7 +26,7 @@ namespace MyLessons.Controllers
 			return View();
 		}
 		[HttpGet]
-		public IActionResult Privacy(user us)
+		public IActionResult Table(user us)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -39,18 +39,29 @@ namespace MyLessons.Controllers
 				{
 					us = thisUs[i];
 					ViewBag.res = $"{thisUs[i].id}";
-					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
+					try
+					{
+						var obj = context.data.FirstOrDefault(t => t.Id == us.id);
+						ViewBag.data = obj.text;
+						ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+						ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+						ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
+						ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
 
-					ViewBag.data = obj.text;
-					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
-					ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-					ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
-					ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
-
-					return View(us);
+						return View(us);
+					}
+					catch
+					{
+						return RedirectToAction("MainPanel", us);
+					}				
 				}
 			}
 			return View("Index");
+		}
+		public IActionResult MainPanel(user us)
+		{
+			ViewBag.user = us;
+			return View();
 		}
 		[HttpGet]
 		public IActionResult Choose(user us,string clas)
@@ -71,7 +82,7 @@ namespace MyLessons.Controllers
 					ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
 					ViewBag.Clas = clas;
 					ViewBag.res = $"{us.id} {obj.Id}";
-					return View("Privacy", us);
+					return View("Table", us);
 				}
 			}
 			return View("Index",us);
@@ -108,7 +119,7 @@ namespace MyLessons.Controllers
 			string result = ControllerConvert.ConvertToTeachers(teach, objects);
 			context.data.FirstOrDefault(t => t.Id == us.id + 1).teacher = result;
 			context.SaveChanges();
-            return RedirectToAction("Privacy", us);
+            return RedirectToAction("Table", us);
 		}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
