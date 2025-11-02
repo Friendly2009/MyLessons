@@ -9,13 +9,21 @@
     <link rel="stylesheet" href="~/MyLessons.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @model user;
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <div class="container-fluid">
-                <h1 class="navbar-brand text-light">MyLessons</h1>
-                <a class="text-end text-light navbar-brand" asp-action="Index" asp-controller="Home">Выйти</a>
+                <div class="d-flex align-items-center">
+                    <h1 class="navbar-brand text-light mb-0">MyLessons</h1>
+                    <a class="nav-link text-light" asp-action="MainPanel" asp-controller="Home">Главная панель</a>
+                    <a class="nav-link text-light" asp-action="Table" asp-controller="Home">Таблица</a>
+                </div>
+                <div class="ms-auto">
+                    <a class="nav-link text-light" asp-action="Index" asp-controller="Home">Выйти</a>
+                </div>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

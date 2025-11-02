@@ -30,7 +30,7 @@ namespace MyLessons.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return View("Index", us);
+				return RedirectToAction("Index", us);
 			}
 			var thisUs = context.user.Where(t => t.login == us.login).ToList();
 			for(int i = 0; i < thisUs.Count; i++)
@@ -58,8 +58,13 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
 		}
+		[HttpGet]
 		public IActionResult MainPanel(user us)
 		{
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction("Index", us);
+			}
 			ViewBag.user = us;
 			return View();
 		}
@@ -88,27 +93,6 @@ namespace MyLessons.Controllers
 			return View("Index",us);
 		}
 		[HttpPost]
-		public IActionResult AddAccount(newuser newusers, string Newlogin, string Newpassword)
-		{
-			HttpContext.Session.SetInt32(count, 1);
-			if (ModelState.IsValid)
-			{
-				string name = newusers.NewLogin;
-				string pas = newusers.NewPassword;
-				user us = new user { login = name, password = pas };
-				context.user.Add(us);
-				context.SaveChanges();
-			}
-			if (Newlogin == null && HttpContext.Session.GetInt32(count) == 1)
-			{
-				ViewBag.n = "¬ведите логин";
-			}
-			if (Newpassword == null && HttpContext.Session.GetInt32(count) == 1)
-			{
-				ViewBag.num = "¬ведите пароль";
-			}
-			return RedirectToAction("Index");
-		}
 		public IActionResult DeleteTeacher(user us, string name, string objec)
 		{
 			string data = context.data.FirstOrDefault(t => t.Id == us.id + 1).teacher;

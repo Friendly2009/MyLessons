@@ -1,5 +1,15 @@
 ﻿@model user;
 @{user user = ViewBag.user;}
 <div>
-	<h1>Привет @user.login</h1>
+	<div class="justify-content-center row">
+		<h1 class="col-12 text-center">Главная панель @user.login</h1>
+	</div>
+	<h3>Учительская панель</h3>
+	<div class="segment">
+		<p>mainContent</p>
+	</div>
+	<h3>Предметная панель</h3>
+	<div class="segment">
+		<p>mainContent</p>
+	</div>
 </div>

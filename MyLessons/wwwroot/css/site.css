@@ -6,3 +6,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+.segment {
+    border-radius: 10px;
+    background: #F0F0F0;
+}

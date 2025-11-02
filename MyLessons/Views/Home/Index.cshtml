@@ -1,4 +1,5 @@
 ﻿@model user;
+
 <div>
 	<div style="margin-top: 100px; " class="row g-0">
 		<img src="https://avatars.mds.yandex.net/i?id=0baec8a2e048a7c817a6221f6108f5f48b46314e-15463503-images-thumbs&n=13" class="col-6 border-2" style="border-top-left-radius: 20px;  border-bottom-left-radius:20px" />
@@ -14,10 +15,11 @@
 			</div>	
 		</div>
 	</div>
+	<br />
+	<h1 class="text-dark m-2">У меня есть аккаунт</h1>
 	<div class="segment">
 		<form method="get" asp-action="Table" asp-controller="Home">
 			<div class="row justify-content-center">
-				<h1 class="text-dark m-2">У меня есть аккаунт</h1>
 				<input type="text" placeholder="Логин" value="kirill" class="input-group-text col-6 m-3" name="login"/>
 				<span asp-validation-for="login" class="col-6"></span>
 				<input type="text" placeholder="Пароль" value="1234" class="input-group-text col-6 m-3" name="password"/>
