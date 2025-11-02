@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MyLessons.ConverterSQLClass;
@@ -64,9 +65,15 @@ namespace MyLessons.Controllers
 			if (!ModelState.IsValid)
 			{
 				return RedirectToAction("Index", us);
-			}
+			}	
+			try
+			{
+				var obj = context.data.FirstOrDefault(t => t.Id == us.id);
+				ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
+			}catch{}
+			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 			ViewBag.user = us;
-			return View();
+			return View(us);
 		}
 		[HttpGet]
 		public IActionResult Choose(user us,string clas)
@@ -86,7 +93,6 @@ namespace MyLessons.Controllers
 					ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
 					ViewBag.Lessons = ControllerConvert.ConvertToData(obj.text);
 					ViewBag.Clas = clas;
-					ViewBag.res = $"{us.id} {obj.Id}";
 					return View("Table", us);
 				}
 			}

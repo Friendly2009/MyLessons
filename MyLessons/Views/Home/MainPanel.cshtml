@@ -5,8 +5,18 @@
 		<h1 class="col-12 text-center">Главная панель @user.login</h1>
 	</div>
 	<h3>Учительская панель</h3>
-	<div class="segment">
-		<p>mainContent</p>
+	<div class="segment row justify-content-center">
+		<form asp-action="AddTeacher" asp-controller="Home" method="post" class="row justify-content-center col-12">
+			<input type="text" name="name" class="form-control col-6 m-2" placeholder="имя учителя"/>
+			<select name="selectedSubject" class="form-select m-2 col-6" aria-label="Выберите значение" required>
+				<option class="col-6" selected disabled>Выберите Предмет</option>
+				@for (int i = 0; i < ViewBag.availableItems.Count; i++)
+				{
+					<option value="@ViewBag.availableItems[i]">@ViewBag.availableItems[i]</option>
+				}
+			</select>
+			<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
+		</form>
 	</div>
 	<h3>Предметная панель</h3>
 	<div class="segment">

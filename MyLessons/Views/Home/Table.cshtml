@@ -1,7 +1,6 @@
 ﻿@model user;
 @using MyLessons.ConverterSQLClass;
 @{
-	<p>@ViewBag.res</p>
 	List<lesson> ClassLessons = new List<lesson>();
 	if(!(ViewBag.Lessons is null))
 	{
@@ -165,7 +164,7 @@
 			}
 			<form asp-action="AddTeacher" method="post" class="row justify-content-center m-2">
 				<p>Добавить учителя</p>
-				<select id="myComboBox" name="selectedSubject" class="form-select m-2" aria-label="Выберите значение" required>
+				<select name="selectedSubject" class="form-select m-2" aria-label="Выберите значение" required>
 					<option selected disabled>Выберите Предмет</option>
 					@for (int i = 0; i < ViewBag.availableItems.Count; i++)
 					{
@@ -188,4 +187,3 @@
 		</form>
 	</div>
 </div>
-@ViewBag.result
