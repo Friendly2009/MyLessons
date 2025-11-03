@@ -12,18 +12,24 @@
 			{
 				for(int i = 0; i < ViewBag.teacher.Count; i++)
 				{
-					<div class="row align-items-center mb-2" style="margin: 10px 0;">
-						<p class="col-4 mb-0">@ViewBag.teachers[i]</p>
-						<p class="col-3 mb-0">@ViewBag.objects[i]</p>
-						<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
-							<input type="hidden" asp-for="login" />
-							<input type="hidden" asp-for="password" />
-							<input type="hidden" asp-for="id" />
-							<input type="hidden" name="name" value="@ViewBag.teachers[i]" />
-							<input type="hidden" name="objec" value="@ViewBag.objects[i]" />
-							<button class="btn btn-close btn-dark" type="submit"></button>
-						</form>
-					</div>
+					if (ViewBag.teacher[0] != "")
+					{
+						<div class="row align-items-center mb-2" style="margin: 10px 0;">
+							<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
+
+							<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
+								<input type="hidden" asp-for="login" />
+								<input type="hidden" asp-for="password" />
+								<input type="hidden" asp-for="id" />
+								<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
+								<button class="btn btn-close btn-dark" type="submit"></button>
+							</form>
+						</div>
+					}
+					else
+					{
+						<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
+					}
 				}
 			}
 			catch

@@ -48,7 +48,10 @@ namespace MyLessons.Controllers
 						ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 						ViewBag.teachers = ControllerConvert.SelectTeachers(obj.teacher);
 						ViewBag.objects = ControllerConvert.SelectObjects(obj.teacher);
-
+						if(obj.text == "")
+						{
+							return RedirectToAction("MainPanel", us);
+						}
 						return View(us);
 					}
 					catch
@@ -85,29 +88,31 @@ namespace MyLessons.Controllers
 		[HttpGet]
 		public IActionResult MainPanel(user us)
 		{
-			if (!ModelState.IsValid)
+			var thisUs = context.user.Where(t => t.login == us.login).ToList();
+			for (int i = 0; i < thisUs.Count; i++)
 			{
-				return RedirectToAction("Index", us);
-			}
-			try
-			{
-				var obj = context.data.FirstOrDefault(t => t.Id == us.id);
-				ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
-			}
-			catch { }
-			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
-			ViewBag.user = us;
+				if (thisUs[i].login == us.login && thisUs[i].password == us.password)
+				{
+					us = thisUs[i];
+					var obj = context.data.Find(us.id);
+					ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
+					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+					ViewBag.user = us;
+				}
+			}	
 			return View(us);
 		}
 		[HttpGet]
-		public IActionResult AddTeacher(user us)
+		public IActionResult AddTeacher(user us,string name, string selectedSubject)
 		{
-			if (!ModelState.IsValid)
-			{
-				return RedirectToAction("Index", us);
-			}
 			var obj = context.data.Find(us.id);
-			context.SaveChanges();
+			if(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(selectedSubject))
+			{
+				obj.teacher += "|" + name + "`" + selectedSubject;
+				context.SaveChanges();
+			}
+			
+			ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
 			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 			ViewBag.user = us;
 			return View("MainPanel",us);

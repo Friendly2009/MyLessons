@@ -20,7 +20,10 @@ namespace MyLessons.ConverterSQLClass
 			List<string> socials = new List<string>();
 			for (int i = 0; i < list.Count; i++)
 			{
-				socials.Add(Convert.ToString(list[i].clas));
+				if (list[i] != null && list[i].clas != null)
+				{
+					socials.Add(Convert.ToString(list[i].clas));
+				}
 			}
 			socials = socials.Distinct().ToList();
 			return socials;
