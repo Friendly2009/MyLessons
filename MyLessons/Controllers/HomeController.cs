@@ -60,22 +60,6 @@ namespace MyLessons.Controllers
 			return View("Index");
 		}
 		[HttpGet]
-		public IActionResult MainPanel(user us)
-		{
-			if (!ModelState.IsValid)
-			{
-				return RedirectToAction("Index", us);
-			}	
-			try
-			{
-				var obj = context.data.FirstOrDefault(t => t.Id == us.id);
-				ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
-			}catch{}
-			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
-			ViewBag.user = us;
-			return View(us);
-		}
-		[HttpGet]
 		public IActionResult Choose(user us,string clas)
 		{
 			var thisUs = context.user.Where(t => t.login == us.login).ToList();
@@ -98,16 +82,46 @@ namespace MyLessons.Controllers
 			}
 			return View("Index",us);
 		}
+		[HttpGet]
+		public IActionResult MainPanel(user us)
+		{
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction("Index", us);
+			}
+			try
+			{
+				var obj = context.data.FirstOrDefault(t => t.Id == us.id);
+				ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
+			}
+			catch { }
+			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+			ViewBag.user = us;
+			return View(us);
+		}
+		[HttpGet]
+		public IActionResult AddTeacher(user us)
+		{
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction("Index", us);
+			}
+			var obj = context.data.Find(us.id);
+			context.SaveChanges();
+			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+			ViewBag.user = us;
+			return View("MainPanel",us);
+		}
 		[HttpPost]
 		public IActionResult DeleteTeacher(user us, string name, string objec)
 		{
-			string data = context.data.FirstOrDefault(t => t.Id == us.id + 1).teacher;
+			string data = context.data.FirstOrDefault(t => t.Id == us.id).teacher;
             var teach = ControllerConvert.SelectTeachers(data);
 			var objects = ControllerConvert.SelectObjects(data);
 			teach.Remove(name);
 			objects.Remove(objec);
 			string result = ControllerConvert.ConvertToTeachers(teach, objects);
-			context.data.FirstOrDefault(t => t.Id == us.id + 1).teacher = result;
+			context.data.FirstOrDefault(t => t.Id == us.id).teacher = result;
 			context.SaveChanges();
             return RedirectToAction("Table", us);
 		}

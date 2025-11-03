@@ -3,10 +3,38 @@
 <div>
 	<div class="justify-content-center row">
 		<h1 class="col-12 text-center">Главная панель @user.login</h1>
+		<p>@ViewBag.us</p>
 	</div>
 	<h3>Учительская панель</h3>
 	<div class="segment row justify-content-center">
-		<form asp-action="AddTeacher" asp-controller="Home" method="post" class="row justify-content-center col-12">
+		@{
+			try
+			{
+				for(int i = 0; i < ViewBag.teacher.Count; i++)
+				{
+					<div class="row align-items-center mb-2" style="margin: 10px 0;">
+						<p class="col-4 mb-0">@ViewBag.teachers[i]</p>
+						<p class="col-3 mb-0">@ViewBag.objects[i]</p>
+						<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
+							<input type="hidden" asp-for="login" />
+							<input type="hidden" asp-for="password" />
+							<input type="hidden" asp-for="id" />
+							<input type="hidden" name="name" value="@ViewBag.teachers[i]" />
+							<input type="hidden" name="objec" value="@ViewBag.objects[i]" />
+							<button class="btn btn-close btn-dark" type="submit"></button>
+						</form>
+					</div>
+				}
+			}
+			catch
+			{
+				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
+			}
+		}
+		<form asp-action="AddTeacher" asp-controller="Home" method="get" class="row justify-content-center col-12">
+			<input type="hidden" asp-for="login"/>
+			<input type ="hidden" asp-for="password" />
+			<input type="hidden" asp-for="id" />
 			<input type="text" name="name" class="form-control col-6 m-2" placeholder="имя учителя"/>
 			<select name="selectedSubject" class="form-select m-2 col-6" aria-label="Выберите значение" required>
 				<option class="col-6" selected disabled>Выберите Предмет</option>

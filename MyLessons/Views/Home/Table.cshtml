@@ -156,6 +156,7 @@
 					<button class="btn btn-dark col-2">Назначить урок</button>
 					<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
 						<input type="hidden" asp-for="login" />
+						<input type="hidden" asp-for="password" />
 						<input type="hidden" name="name" value="@ViewBag.teachers[i]" />
 						<input type="hidden" name="objec" value="@ViewBag.objects[i]" />
 						<button class="btn btn-close btn-dark" type="submit"></button>
