@@ -128,18 +128,11 @@ namespace MyLessons.Controllers
 			ViewBag.user = us;
 			return RedirectToAction("MainPanel",us);
 		}
-		[HttpPost]
-		public IActionResult DeleteTeacher(user us, string name, string objec)
+		[HttpGet]
+		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
 		{
-			string data = context.data.FirstOrDefault(t => t.Id == us.id).teacher;
-            var teach = ControllerConvert.SelectTeachers(data);
-			var objects = ControllerConvert.SelectObjects(data);
-			teach.Remove(name);
-			objects.Remove(objec);
-			string result = ControllerConvert.ConvertToTeachers(teach, objects);
-			context.data.FirstOrDefault(t => t.Id == us.id).teacher = result;
-			context.SaveChanges();
-            return RedirectToAction("Table", us);
+			
+            return RedirectToAction(adres,us);
 		}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
