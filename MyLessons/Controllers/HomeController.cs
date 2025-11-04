@@ -95,6 +95,11 @@ namespace MyLessons.Controllers
 				{
 					us = thisUs[i];
 					var obj = context.data.Find(us.id);
+					try
+					{
+						ViewBag.objec = ControllerConvert.SelectObjects(context.data.Find(us.id).teacher);
+					}
+					catch { }
 					ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
 					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 					ViewBag.user = us;
@@ -108,14 +113,20 @@ namespace MyLessons.Controllers
 			var obj = context.data.Find(us.id);
 			if(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(selectedSubject))
 			{
-				obj.teacher += "|" + name + "`" + selectedSubject;
+				string res = context.data.Find(us.id).teacher + "|" + name + "`" + selectedSubject;
+				res = res.Trim('|');
+				context.data.Find(us.id).teacher = res;
 				context.SaveChanges();
 			}
-			
-			ViewBag.teacher = ControllerConvert.SelectTeachers(obj.teacher);
+			try
+			{
+				ViewBag.objec = ControllerConvert.SelectObjects(context.data.Find(us.id).teacher);
+			}
+			catch { }
+			ViewBag.teacher = ControllerConvert.SelectTeachers(context.data.Find(us.id).teacher);
 			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 			ViewBag.user = us;
-			return View("MainPanel",us);
+			return RedirectToAction("MainPanel",us);
 		}
 		[HttpPost]
 		public IActionResult DeleteTeacher(user us, string name, string objec)

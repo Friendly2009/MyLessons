@@ -16,12 +16,13 @@
 					{
 						<div class="row align-items-center mb-2" style="margin: 10px 0;">
 							<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
-
+							<p class="col-4 mb-0">@ViewBag.objec[i]</p>
 							<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
 								<input type="hidden" asp-for="login" />
 								<input type="hidden" asp-for="password" />
 								<input type="hidden" asp-for="id" />
 								<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
+								<input type="hidden" name="name" value="@ViewBag.objec[i]" />
 								<button class="btn btn-close btn-dark" type="submit"></button>
 							</form>
 						</div>
