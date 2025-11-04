@@ -104,7 +104,8 @@ namespace MyLessons.Controllers
 					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 					ViewBag.user = us;
 				}
-			}	
+			}
+			ViewBag.r = HttpContext.Session.GetString("a");
 			return View(us);
 		}
 		[HttpGet]
@@ -131,8 +132,14 @@ namespace MyLessons.Controllers
 		[HttpGet]
 		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
 		{
-			
-            return RedirectToAction(adres,us);
+			List<string> teach = ControllerConvert.SelectTeachers(context.data.Find(us.id).teacher);
+			List<string> objects = ControllerConvert.SelectObjects(context.data.Find(us.id).teacher);
+			teach.Remove(name);
+			objects.Remove(objec);
+			string result = ControllerConvert.ConvertToTeachers(teach,objects);
+			context.data.Find(us.id).teacher = result;
+			context.SaveChanges();
+			return RedirectToAction(adres, us);
 		}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

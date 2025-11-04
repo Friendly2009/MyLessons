@@ -55,13 +55,10 @@ namespace MyLessons.ConverterSQLClass
 			string result = "";
 			for (int i = 0; i < teach.Count; i++)
 			{
-				result += "|" + teach[i] + Objec[i] + "|";
+				result += "|" + teach[i] + "`" + Objec[i] + "|";
 			}
-			while (result.Contains("||"))
-			{
-				result.Replace("||", "|");
-			}
-			result.Trim('|');
+			result = result.Replace("||","|");
+			result = result.Trim('|');
 			return result;
 		}
 	}
