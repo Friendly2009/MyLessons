@@ -3,7 +3,7 @@ namespace MyLessons.ConverterSQLClass
 {
 	public static class ControllerConvert
 	{
-		public static List<lesson> ConvertToData(string data)
+		public static List<lesson> ConvertToLesson(string data)
 		{
 			var list = new List<lesson>();
 			string[] lessons = data.Split('|');
@@ -16,7 +16,7 @@ namespace MyLessons.ConverterSQLClass
 
 		public static List<string> FindAllClass(string data)
 		{
-			var list = ConvertToData(data);		
+			var list = ConvertToLesson(data);		
 			List<string> socials = new List<string>();
 			for (int i = 0; i < list.Count; i++)
 			{
@@ -28,7 +28,7 @@ namespace MyLessons.ConverterSQLClass
 			socials = socials.Distinct().ToList();
 			return socials;
 		}
-		public static List<string> SelectTeachers(string data)
+		public static List<string> SelectTeachersName(string data)
 		{
 			List<string> list = new List<string>();
 			string[] blocks = data.Split('|');
@@ -39,7 +39,7 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
-		public static List<string> SelectObjects(string data)
+		public static List<string> SelectTeachersItem(string data)
 		{
 			List<string> list = new List<string>();
 			string[] blocks = data.Split('|');
@@ -50,7 +50,7 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
-		public static string ConvertToTeachers(List<string> teach, List<string> Objec)
+		public static string ConvertTeachersToString(List<string> teach, List<string> Objec)
 		{
 			string result = "";
 			for (int i = 0; i < teach.Count; i++)
