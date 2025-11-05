@@ -31,7 +31,7 @@ namespace MyLessons.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return RedirectToAction("Index");
+				return View("Index", us);
 			}
 			var thisUs = context.user.Where(t => t.login == us.login).ToList();
 			for(int i = 0; i < thisUs.Count; i++)
@@ -139,12 +139,30 @@ namespace MyLessons.Controllers
 			return RedirectToAction(adres, us);
 		}
 		[HttpPost]
-		public IActionResult AddAccount(user us)
+		public IActionResult AddAccount(string log, string pass)
 		{
-			if (!ModelState.IsValid)
+			if (string.IsNullOrEmpty(log) && string.IsNullOrEmpty(pass))
 			{
+				ViewBag.MessageLog = "¬ведите Ћогин";
+				ViewBag.MessagePass = "¬ведите ѕароль";
 				return View("Index");
 			}
+			else if (string.IsNullOrEmpty(log))
+			{
+				ViewBag.MessageLog = "¬ведите Ћогин";
+				return View("Index");
+			}
+			else if (string.IsNullOrEmpty(pass))
+			{
+				ViewBag.MessagePass = "¬ведите ѕароль";
+				return View("Index");
+			}
+			else
+			{
+				ViewBag.MessageLog = "";
+				ViewBag.MessagePass = "";
+			}
+			user us = new user { password = pass, login = log };
 			context.user.Add(us);
 			context.SaveChanges();
 			var thisUs = context.user.Where(t => t.login == us.login).ToList();

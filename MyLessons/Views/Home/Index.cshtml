@@ -1,4 +1,5 @@
 ﻿@model user;
+
 <div>
 	<div style="margin-top: 100px; " class="row g-0">
 		<img src="https://avatars.mds.yandex.net/i?id=0baec8a2e048a7c817a6221f6108f5f48b46314e-15463503-images-thumbs&n=13" class="col-6 border-2" style="border-top-left-radius: 20px;  border-bottom-left-radius:20px" />
@@ -20,9 +21,9 @@
 		<form method="get" asp-action="Table" asp-controller="Home">
 			<div class="row justify-content-center">
 				<input asp-for="login" type="text" placeholder="Логин" value="kirill" class="input-group-text col-6 m-3" />
-				<span  asp-validation-for="login" class="col-6"></span>
+				<span asp-validation-for="login" class="col-6 text-danger"></span>
 				<input asp-for="password" type="text" placeholder="Пароль" value="1234" class="input-group-text col-6 m-3" />
-				<span asp-validation-for="password" class="col-6"></span>
+				<span asp-validation-for="password" class="col-6 text-danger"></span>
 				<button class="btn btn-dark col-6 m-3">
 					Войти
 				</button>
@@ -34,8 +35,10 @@
 	<div class="segment">
 		<form method="post" asp-action="AddAccount" asp-controller="Home">
 			<div class="row justify-content-center">
-				<input type="text" placeholder="Логин" class="input-group-text col-6 m-3" asp-for="login"/>
-				<input type="text" placeholder="Пароль" class="input-group-text col-6 m-3" asp-for="password" />
+				<input type="text" placeholder="Логин" class="input-group-text col-6 m-3" name="log"/>
+				<p class="col-6 text-danger">@ViewBag.MessageLog</p>
+				<input type="text" placeholder="Пароль" class="input-group-text col-6 m-3" name="pass"/>
+				<p class="col-6 text-danger">@ViewBag.MessagePass</p>
 				<button class="btn btn-dark col-6 m-3">
 					Зарегистрироваться
 				</button>

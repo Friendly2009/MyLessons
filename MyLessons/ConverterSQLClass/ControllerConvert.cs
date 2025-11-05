@@ -13,7 +13,6 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
-
 		public static List<string> FindAllClass(string data)
 		{
 			var list = ConvertToLesson(data);		
