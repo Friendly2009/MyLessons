@@ -31,7 +31,7 @@ namespace MyLessons.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return RedirectToAction("Index", us);
+				return RedirectToAction("Index");
 			}
 			var thisUs = context.user.Where(t => t.login == us.login).ToList();
 			for(int i = 0; i < thisUs.Count; i++)
@@ -138,7 +138,28 @@ namespace MyLessons.Controllers
 			context.SaveChanges();
 			return RedirectToAction(adres, us);
 		}
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[HttpPost]
+		public IActionResult AddAccount(user us)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View("Index");
+			}
+			context.user.Add(us);
+			context.SaveChanges();
+			var thisUs = context.user.Where(t => t.login == us.login).ToList();
+			foreach(var User in thisUs)
+			{
+				if (User.login == us.login && User.password == us.password)
+				{
+					us = User;
+				}
+			}
+			context.data.Add(new Data(us.id));
+			context.SaveChanges();
+			return View("Index");
+		}
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

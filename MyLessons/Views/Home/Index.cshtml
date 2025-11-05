@@ -19,9 +19,9 @@
 	<div class="segment">
 		<form method="get" asp-action="Table" asp-controller="Home">
 			<div class="row justify-content-center">
-				<input type="text" placeholder="Логин" value="kirill" class="input-group-text col-6 m-3" name="login"/>
-				<span asp-validation-for="login" class="col-6"></span>
-				<input type="text" placeholder="Пароль" value="1234" class="input-group-text col-6 m-3" name="password"/>
+				<input asp-for="login" type="text" placeholder="Логин" value="kirill" class="input-group-text col-6 m-3" />
+				<span  asp-validation-for="login" class="col-6"></span>
+				<input asp-for="password" type="text" placeholder="Пароль" value="1234" class="input-group-text col-6 m-3" />
 				<span asp-validation-for="password" class="col-6"></span>
 				<button class="btn btn-dark col-6 m-3">
 					Войти
@@ -34,21 +34,9 @@
 	<div class="segment">
 		<form method="post" asp-action="AddAccount" asp-controller="Home">
 			<div class="row justify-content-center">
-				<input type="text" placeholder="Логин" class="input-group-text col-6 m-3" name="login1" />
-				@{
-					if (ViewBag.n == "Введите логин")
-					{
-						<p class="text-black col-6">@ViewBag.n</p>
-					}
-				}
-				<input type="text" placeholder="Пароль" class="input-group-text col-6 m-3" name="password1" />				
-				@{
-					if (ViewBag.num == "Введите пароль")
-					{
-						<p class="text-black col-6">@ViewBag.num</p>
-					}				
-				}				
-				<button class="btn btn-dark col-6 m-3" onclick="aler">
+				<input type="text" placeholder="Логин" class="input-group-text col-6 m-3" asp-for="login"/>
+				<input type="text" placeholder="Пароль" class="input-group-text col-6 m-3" asp-for="password" />
+				<button class="btn btn-dark col-6 m-3">
 					Зарегистрироваться
 				</button>
 			</div>
