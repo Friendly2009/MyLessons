@@ -184,14 +184,17 @@ namespace MyLessons.Controllers
 			List<lesson> resultLess = new List<lesson>();
 			foreach(var obj in ChekListLesson)
 			{
-				if(!(obj.teacher == name && obj.less == objec))
+				if(obj.teacher == name && obj.less == objec)
 				{
                     resultLess.Add(obj);
                 } 
 			}
+            ViewBag.n = name;
+            ViewBag.objec = objec;
+            ViewBag.res = resultLess.Count;
             context.data.Find(us.id).text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
             context.SaveChanges();
-			return RedirectToAction(adres, us);
+			return View("Index");
 		}
 
 
