@@ -6,10 +6,6 @@ using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using static System.Net.Mime.MediaTypeNames;
 namespace MyLessons.Controllers
 {
     public class HomeController : Controller
@@ -86,6 +82,32 @@ namespace MyLessons.Controllers
 			return View("Index",us);
 		}
 		[HttpGet]
+		public IActionResult AddLesson(user us, string les,string teach, string clas,string room,string num,string day)
+		{
+            var obj = context.data.Find(us.id);
+
+            try { ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher); } catch { }
+            ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
+            ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+            ViewBag.user = us;
+            ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
+
+            if (string.IsNullOrEmpty(les) || string.IsNullOrEmpty(teach) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
+			{
+				ViewBag.ChekNull = true;
+				return View("MainPanel", us);
+            }
+			lesson NewLesson = new lesson(day, num, les, teach, clas,room);
+			string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
+			string DB;
+			ViewBag.res = NewLessonStr;
+			DB = obj.text += "|" +  NewLessonStr;
+			DB = ControllerConvert.CleanStringForBase(DB);
+            obj.text = DB;
+            context.SaveChanges();
+            return RedirectToAction("MainPanel",us);
+		}
+        [HttpGet]
 		public IActionResult MainPanel(user us)
 		{
 			var thisUs = context.user.Where(t => t.login == us.login).ToList();
@@ -102,7 +124,6 @@ namespace MyLessons.Controllers
 					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 				}
 			}
-			ViewBag.r = HttpContext.Session.GetString("a");
 			return View(us);
 		}
 		[HttpGet]

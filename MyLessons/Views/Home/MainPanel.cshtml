@@ -94,20 +94,40 @@
 				<br />
 			}
 		}
-		<form class="col-7 m-3 row justify-content-center" asp-action="AddLesson" asp-controller="Home" method="post">
+		<form class="col-7 m-3 row justify-content-center" asp-action="AddLesson" asp-controller="Home" method="get">
+			<input type="hidden" asp-for="login" />
+			<input type="hidden" asp-for="password" />
+			<input type="hidden" asp-for="id" />
 			<p>Урок</p>
-			<input type="text" class="form-control col-7 m-1" name="les" />
+			<input type="text" class="form-control col-7 m-1" name="les" value="Математика"/>
 			<p>Преподаватель</p>
-			<input type="text" class="form-control col-7 m-1" name="teach" />
+			<input type="text" class="form-control col-7 m-1" name="teach" value="Ирина Николаевна" />
 			<p>Класс</p>
-			<input type="text" class="form-control col-7 m-1" name="clas" />
+			<input type="text" class="form-control col-7 m-1" name="clas" value="3А" />
 			<p>Кабинет</p>
-			<input type="number" class="form-control col-7 m-1" name="room" />
+			<input type="number" class="form-control col-7 m-1" name="room" value="1" />
 			<p>Номер урока</p>
-			<input type="number" class="form-control col-7 m-1" name="num" />
+			<input type="number" class="form-control col-7 m-1" name="num" value="1" />
 			<p>День недели</p>
-			<input type="number" class="form-control col-7 m-1" name="day"/>
+			<input type="number" class="form-control col-7 m-1" name="day" value="1" />
 			<button type="submit" class="btn btn-dark col-5 m-2">Добавить урок</button>
 		</form>
 	</div>
 </div>
+@ViewBag.res
+@{
+	try
+	{
+		if (ViewBag.ChekNull)
+		{
+			<script>
+				alert("укажите все данные при создании нового урока");
+			</script>
+		}
+	}
+	catch
+	{
+
+	}
+
+}

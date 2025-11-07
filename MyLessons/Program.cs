@@ -3,9 +3,17 @@ using MyLessons;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-		ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
+try
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
+}
+catch
+{
+
+}
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromDays(1);

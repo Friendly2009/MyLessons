@@ -49,6 +49,18 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
+		public static string ConvertLessonToString(lesson les)
+		{
+			string result = "";
+			result = JsonConvert.SerializeObject(les);
+			return result;
+		}
+		public static string CleanStringForBase(string value)
+		{
+			value = value.Trim('|');
+			value = value.Replace("||", "|");
+			return value;
+		}
 		public static string ConvertTeachersToString(List<string> teach, List<string> Objec)
 		{
 			string result = "";
