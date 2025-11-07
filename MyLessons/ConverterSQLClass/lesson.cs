@@ -17,14 +17,15 @@
         {
 
         }
-        public lesson(string day, string num, string less, string teacher, string clas, string room)
+        public lesson(string day, string num,string selectedSubject, string clas, string room)
         {
             this.day = day;
             number = num;
-            this.less = less;
-            this.teacher = teacher;
             this.clas = clas;
             this.room = room;
+            string[] array = selectedSubject.Split(' ');
+            less = array[0];
+            teacher = array[1];
         }
     }
 }

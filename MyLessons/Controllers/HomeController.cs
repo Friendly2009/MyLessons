@@ -12,16 +12,19 @@ namespace MyLessons.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext context;
-		private readonly string count = "aldhkvf";
 		public HomeController(ILogger<HomeController> logger, ApplicationDbContext _context)
         {
             _logger = logger;
             context = _context;
         }
+
+
 		public IActionResult Index()
 		{
 			return View();
 		}
+
+
 		[HttpGet]
 		public IActionResult Table(user us)
 		{
@@ -58,6 +61,8 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
 		}
+
+
 		[HttpGet]
 		public IActionResult Choose(user us,string clas)
 		{
@@ -81,23 +86,29 @@ namespace MyLessons.Controllers
 			}
 			return View("Index",us);
 		}
+
+
 		[HttpGet]
-		public IActionResult AddLesson(user us, string les,string teach, string clas,string room,string num,string day)
+		public IActionResult AddLesson(user us, string selectedSubject, string clas,string room,string num,string day)
 		{
             var obj = context.data.Find(us.id);
 
-            try { ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher); } catch { }
+            try 
+			{ 
+				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
+                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+            } catch { }
             ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
             ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
             ViewBag.user = us;
             ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 
-            if (string.IsNullOrEmpty(les) || string.IsNullOrEmpty(teach) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
+            if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
 			{
 				ViewBag.ChekNull = true;
 				return View("MainPanel", us);
             }
-			lesson NewLesson = new lesson(day, num, les, teach, clas,room);
+			lesson NewLesson = new lesson(day, num, selectedSubject, clas,room);
 			string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
 			string DB;
 			ViewBag.res = NewLessonStr;
@@ -107,6 +118,8 @@ namespace MyLessons.Controllers
             context.SaveChanges();
             return RedirectToAction("MainPanel",us);
 		}
+
+
         [HttpGet]
 		public IActionResult MainPanel(user us)
 		{
@@ -117,15 +130,22 @@ namespace MyLessons.Controllers
 				{
 					us = thisUs[i];
 					var obj = context.data.Find(us.id);
-					try { ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);}catch { }
+					try 
+					{ 
+						ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
+						ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+                    }
+                    catch { }
 					ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
 					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 					ViewBag.user = us;
 					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
-				}
+                }
 			}
 			return View(us);
 		}
+
+
 		[HttpGet]
 		public IActionResult AddTeacher(user us,string name, string selectedSubject)
 		{
@@ -140,13 +160,16 @@ namespace MyLessons.Controllers
 			try
 			{
 				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
-			}
+                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+            }
 			catch { }
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(context.data.Find(us.id).teacher);
 			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
 			ViewBag.user = us;
 			return RedirectToAction("MainPanel",us);
 		}
+
+
 		[HttpGet]
 		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
 		{
@@ -154,11 +177,24 @@ namespace MyLessons.Controllers
 			List<string> objects = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
 			teach.Remove(name);
 			objects.Remove(objec);
-			string result = ControllerConvert.ConvertTeachersToString(teach,objects);
-			context.data.Find(us.id).teacher = result;
-			context.SaveChanges();
+			string resultTeach = ControllerConvert.ConvertTeachersToString(teach,objects);
+			context.data.Find(us.id).teacher = resultTeach;
+
+			List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(context.data.Find(us.id).text);
+			List<lesson> resultLess = new List<lesson>();
+			foreach(var obj in ChekListLesson)
+			{
+				if(!(obj.teacher == name && obj.less == objec))
+				{
+                    resultLess.Add(obj);
+                } 
+			}
+            context.data.Find(us.id).text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
+            context.SaveChanges();
 			return RedirectToAction(adres, us);
 		}
+
+
 		[HttpPost]
 		public IActionResult AddAccount(string log, string pass)
 		{

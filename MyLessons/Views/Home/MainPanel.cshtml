@@ -98,10 +98,19 @@
 			<input type="hidden" asp-for="login" />
 			<input type="hidden" asp-for="password" />
 			<input type="hidden" asp-for="id" />
-			<p>Урок</p>
-			<input type="text" class="form-control col-7 m-1" name="les" value="Математика"/>
-			<p>Преподаватель</p>
-			<input type="text" class="form-control col-7 m-1" name="teach" value="Ирина Николаевна" />
+			<p>Преподаватель && Урок</p>
+			<select name="selectedSubject" class="form-select m-2" aria-label="Выберите Преподавателя" required>
+				<option selected disabled>Выберите Предмет</option>
+				@{
+					try
+					{
+						for (int i = 0; i < ViewBag.AvaliableItemsTeachAndObjec.Count; i++)
+						{
+							<option value="@ViewBag.AvaliableItemsTeachAndObjec[i]">@ViewBag.AvaliableItemsTeachAndObjec[i]</option>
+						}
+					}catch{}
+				}
+			</select>
 			<p>Класс</p>
 			<input type="text" class="form-control col-7 m-1" name="clas" value="3А" />
 			<p>Кабинет</p>

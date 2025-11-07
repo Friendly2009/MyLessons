@@ -49,6 +49,28 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
+		public static List<string> GetListTeacherWithObjec(string data)
+		{
+			List<string> list = new List<string>();
+			string[] Help = data.Split("|");
+			foreach (string s in Help)
+			{
+				string a = s.Replace("`", " ");
+                list.Add(a);
+			}
+            return list;
+        }
+		public static string ConvertLessonsArrayToString(List<lesson> list)
+		{
+			string result = "";
+			foreach (lesson item in list)
+			{
+				result += "|" + JsonConvert.SerializeObject(item);
+			}
+            result = result.Replace("||", "|");
+            result = result.Trim('|');
+            return result;
+		} 
 		public static string ConvertLessonToString(lesson les)
 		{
 			string result = "";
