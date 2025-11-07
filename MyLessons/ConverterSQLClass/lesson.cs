@@ -27,5 +27,14 @@
             less = array[0];
             teacher = array[1];
         }
+        public lesson(string day, string num, string less,string teach, string clas, string room)
+        {
+            this.day = day;
+            number = num;
+            this.clas = clas;
+            this.room = room;
+            this.less = less;
+            teacher = teach;
+        }
     }
 }

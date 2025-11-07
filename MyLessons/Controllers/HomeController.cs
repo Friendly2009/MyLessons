@@ -171,9 +171,11 @@ namespace MyLessons.Controllers
 
 
 		[HttpGet]
-		public IActionResult DeleteLesson(user us)
+		public IActionResult DeleteLesson(user us,lesson less)
 		{
             var obj = context.data.Find(us.id);
+			ViewBag.les = less.less;
+			
             try
             {
                 ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
