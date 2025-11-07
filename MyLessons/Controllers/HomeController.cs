@@ -171,6 +171,23 @@ namespace MyLessons.Controllers
 
 
 		[HttpGet]
+		public IActionResult DeleteLesson(user us)
+		{
+            var obj = context.data.Find(us.id);
+            try
+            {
+                ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
+                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+            }
+            catch { }
+            ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
+            ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+            ViewBag.user = us;
+            ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
+            return View("MainPanel", us);
+		}
+
+        [HttpGet]
 		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
 		{
 			List<string> teach = ControllerConvert.SelectTeachersName(context.data.Find(us.id).teacher);

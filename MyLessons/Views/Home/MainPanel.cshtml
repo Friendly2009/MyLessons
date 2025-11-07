@@ -70,8 +70,8 @@
 					<p class="col-2">Номер урока</p>
 					<p class="col-2">Урок</p>
 					<p class="col-2">Преподаватель</p>
-					<p class="col-2">Класс</p>
-					<p class="col-2">Номер Кабинета</p>
+					<p class="col-1">Класс</p>
+					<p class="col-1">Номер Кабинета</p>
 				</div>
 				for (int i = 0; i < ViewBag.lesson.Count; i++)
 				{
@@ -80,8 +80,14 @@
 						<p class="col-2">@ViewBag.lesson[i].number</p>
 						<p class="col-2">@ViewBag.lesson[i].less</p>
 						<p class="col-2">@ViewBag.lesson[i].teacher</p>
-						<p class="col-2">@ViewBag.lesson[i].clas</p>
-						<p class="col-2">@ViewBag.lesson[i].room</p>
+						<p class="col-1">@ViewBag.lesson[i].clas</p>
+						<p class="col-1">@ViewBag.lesson[i].room</p>
+						<form asp-action="DeleteLesson" asp-controller="Home" method="get" class="col-1">
+							<input type="hidden" asp-for="login" />
+							<input type="hidden" asp-for="password" />
+							<input type="hidden" asp-for="id" />
+							<button class="btn btn-close btn-dark" type="submit"/>
+						</form>
 					</div>
 				}
 			}
