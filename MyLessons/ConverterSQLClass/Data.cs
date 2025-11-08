@@ -11,7 +11,7 @@
             Id = id;
             teacher = "";
             text = "";
-			Object = "";
+			Object = "Математика|Русский язык";
 		}
     }
 }

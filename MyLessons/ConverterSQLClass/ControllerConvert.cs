@@ -65,7 +65,7 @@ namespace MyLessons.ConverterSQLClass
 			string[] Help = data.Split("|");
 			foreach (string s in Help)
 			{
-				string a = s.Replace("`", " ");
+				string a = s.Replace("`", "  ");
                 list.Add(a);
 			}
             return list;

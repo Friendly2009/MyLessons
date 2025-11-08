@@ -23,9 +23,9 @@
             number = num;
             this.clas = clas;
             this.room = room;
-            string[] array = selectedSubject.Split(' ');
-            less = array[0];
-            teacher = array[1];
+            string[] array = selectedSubject.Split("  ");
+            less = array[1];
+            teacher = array[0];
         }
         public lesson(string day, string num, string less,string teach, string clas, string room)
         {

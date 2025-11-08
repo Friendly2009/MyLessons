@@ -93,16 +93,6 @@ namespace MyLessons.Controllers
 		{
             var obj = context.data.Find(us.id);
 
-            try 
-			{ 
-				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
-                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
-            } catch { }
-            ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
-			ViewBag.user = us;
-            ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
-
             if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
 			{
 				ViewBag.ChekNull = true;
@@ -110,13 +100,25 @@ namespace MyLessons.Controllers
             }
 			lesson NewLesson = new lesson(day, num, selectedSubject, clas,room);
 			string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
-			string DB;
+			string BD;
 			ViewBag.res = NewLessonStr;
-			DB = obj.text += "|" +  NewLessonStr;
-			DB = ControllerConvert.CleanStringForBase(DB);
-            obj.text = DB;
+			BD = obj.text += "|" +  NewLessonStr;
+			BD = ControllerConvert.CleanStringForBase(BD);
+            obj.text = BD;
             context.SaveChanges();
-            return RedirectToAction("MainPanel",us);
+
+			try
+			{
+				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
+				ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+			}
+			catch { }
+			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
+			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
+			ViewBag.user = us;
+			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
+
+			return RedirectToAction("MainPanel",us);
 		}
 
 

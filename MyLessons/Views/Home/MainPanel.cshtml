@@ -96,7 +96,7 @@
 			try
 			{
 				<input type="hidden" value="@ViewBag.lesson[0].day" />
-				<div class="col-12 m-2 row justify-content-start">		
+				<div class="col-12 m-2 row justify-content-start">
 					<p class="col-2">День недели</p>
 					<p class="col-2">Номер урока</p>
 					<p class="col-2">Урок</p>
@@ -117,17 +117,17 @@
 							@{
 								MyLessons.ConverterSQLClass.lesson DelLesson = new MyLessons.ConverterSQLClass.lesson
 								(@ViewBag.lesson[i].day,
-								@ViewBag.lesson[i].danumber,
+								@ViewBag.lesson[i].number,
 								@ViewBag.lesson[i].less,
-								@ViewBag.lesson[i].teach,
+								@ViewBag.lesson[i].teacher,
 								@ViewBag.lesson[i].clas,
 								@ViewBag.lesson[i].room);
 							}
 							<input type="hidden" asp-for="login" />
 							<input type="hidden" asp-for="password" />
 							<input type="hidden" asp-for="id" />
-							<input type="hidden" name="DelLesson" value="@DelLesson"/>
-							<button class="btn btn-close btn-dark" type="submit"/>
+							<input type="hidden" name="DelLesson" value="@DelLesson" />
+							<button class="btn btn-close btn-dark" type="submit" />
 						</form>
 					</div>
 				}
@@ -136,7 +136,7 @@
 			{
 				<br />
 				<br />
-				<p class="text-center m-5">У вас еще нет назначенных уроков</p>
+				<p>svfdsadvfdsarefd</p>
 				<br />
 				<br />
 			}
