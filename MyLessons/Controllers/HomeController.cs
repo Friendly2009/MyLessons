@@ -43,7 +43,7 @@ namespace MyLessons.Controllers
 					{
 						var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 						ViewBag.data = obj.text;
-						ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+						ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 						ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 						ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
 						ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
@@ -75,7 +75,7 @@ namespace MyLessons.Controllers
 					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 
 					ViewBag.data = obj.text;
-					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+					ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 					ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 					ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
 					ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
@@ -99,8 +99,8 @@ namespace MyLessons.Controllers
                 ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
             } catch { }
             ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-            ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
-            ViewBag.user = us;
+			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
+			ViewBag.user = us;
             ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 
             if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
@@ -137,7 +137,7 @@ namespace MyLessons.Controllers
                     }
                     catch { }
 					ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-					ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+					ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 					ViewBag.user = us;
 					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
                 }
@@ -164,7 +164,7 @@ namespace MyLessons.Controllers
             }
 			catch { }
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(context.data.Find(us.id).teacher);
-			ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 			ViewBag.user = us;
 			return RedirectToAction("MainPanel",us);
 		}
@@ -182,7 +182,7 @@ namespace MyLessons.Controllers
             }
             catch { }
             ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-            ViewBag.availableItems = new List<string>() { "Математика", "Русский язык" };
+			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
             ViewBag.user = us;
             ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
             return View("MainPanel", us);

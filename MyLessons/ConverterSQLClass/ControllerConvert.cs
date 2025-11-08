@@ -13,6 +13,16 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
+		public static List<string> ConvertToObject(string data)
+		{
+			var list = new List<string>();
+			string[] objec = data.Split("|");
+			foreach(string s in objec)
+			{
+				list.Add(s);
+			}
+			return list;
+		}
 		public static List<string> FindAllClass(string data)
 		{
 			var list = ConvertToLesson(data);		
