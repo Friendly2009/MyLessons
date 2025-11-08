@@ -56,8 +56,33 @@
 		</form>
 	</div>
 	<h3>Предметная панель</h3>
-	<div class="segment">
-		<p>mainContent</p>
+	<div class="segment row justify-content-center">
+		@{
+			try
+			{
+				for (int i = 0; i < ViewBag.availableItems.Count; i++)
+				{
+					<div class="row justify-content-center col-7 m-1">
+						<p class="col-10">@ViewBag.availableItems[i]</p>
+						<form asp-action="DeleteObjec" asp-controller="Home" class="col-2" method="get">
+							<input type="hidden" asp-for="login" />
+							<input type="hidden" asp-for="password" />
+							<input type="hidden" asp-for="id" />
+							<input type="hidden" name="DeletedObject" value="@ViewBag.availableItems[i]" />
+							<button type="submit" class="btn btn-dark btn-close"></button>
+						</form>
+					</div>
+				}
+			}
+			catch
+			{
+				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных предметов</p>
+			}
+		}
+		<form class="col-7 row justify-content-center" method="get" asp-action="AddObject" asp-controller="Home">
+			<input type="text" class="form-control col-7 m-1" name="NewObject" />
+			<button class="btn btn-dark col-7 m-2" type="submit">Добавить новый предмет</button>
+		</form>
 	</div>
 	<h3>Существующее уроки</h3>
 	<div class="segment row justify-content-center">
@@ -139,7 +164,6 @@
 		</form>
 	</div>
 </div>
-@ViewBag.res
 @{
 	try
 	{
@@ -156,4 +180,3 @@
 	}
 
 }
-@ViewBag.les

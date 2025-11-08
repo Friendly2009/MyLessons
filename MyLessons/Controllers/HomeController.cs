@@ -175,7 +175,6 @@ namespace MyLessons.Controllers
 		{
             var obj = context.data.Find(us.id);
 			ViewBag.les = less.less;
-			
             try
             {
                 ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
@@ -213,7 +212,7 @@ namespace MyLessons.Controllers
             ViewBag.res = resultLess.Count;
             context.data.Find(us.id).text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
             context.SaveChanges();
-			return View("Index");
+			return RedirectToAction("MainPanel",us);
 		}
 
 
