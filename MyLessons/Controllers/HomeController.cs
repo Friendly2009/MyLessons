@@ -25,6 +25,9 @@ namespace MyLessons.Controllers
 		}
 
 
+
+
+
 		[HttpGet]
 		public IActionResult Table(user us)
 		{
@@ -61,8 +64,6 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
 		}
-
-
 		[HttpGet]
 		public IActionResult Choose(user us,string clas)
 		{
@@ -88,6 +89,28 @@ namespace MyLessons.Controllers
 		}
 
 
+
+
+		[HttpGet]
+		public IActionResult AddObject(user us, string NewItem)
+		{
+			if (NewItem == null)
+			{
+				HttpContext.Session.SetInt32("ChekNullStringItem", 1);
+				return RedirectToAction("MainPanel", us);
+			}
+			HttpContext.Session.SetInt32("ChekNullStringItem", 0);
+			var obj = context.data.Find(us.id);
+			obj.Object += "|" + NewItem;
+			obj.Object = ControllerConvert.CleanStringForBase(obj.Object);
+			context.SaveChanges();
+			return RedirectToAction("MainPanel", us);
+		}
+
+
+
+
+
 		[HttpGet]
 		public IActionResult AddLesson(user us, string selectedSubject, string clas,string room,string num,string day)
 		{
@@ -96,7 +119,7 @@ namespace MyLessons.Controllers
             if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
 			{
 				ViewBag.ChekNull = true;
-				return View("MainPanel", us);
+				return RedirectToAction("MainPanel", us);
             }
 			lesson NewLesson = new lesson(day, num, selectedSubject, clas,room);
 			string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
@@ -106,7 +129,6 @@ namespace MyLessons.Controllers
 			BD = ControllerConvert.CleanStringForBase(BD);
             obj.text = BD;
             context.SaveChanges();
-
 			try
 			{
 				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
@@ -120,32 +142,14 @@ namespace MyLessons.Controllers
 
 			return RedirectToAction("MainPanel",us);
 		}
-
-
-        [HttpGet]
-		public IActionResult MainPanel(user us)
+		[HttpGet]
+		public IActionResult DeleteLesson(user us, lesson less)
 		{
-			var thisUs = context.user.Where(t => t.login == us.login).ToList();
-			for (int i = 0; i < thisUs.Count; i++)
-			{
-				if (thisUs[i].login == us.login && thisUs[i].password == us.password)
-				{
-					us = thisUs[i];
-					var obj = context.data.Find(us.id);
-					try 
-					{ 
-						ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
-						ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
-                    }
-                    catch { }
-					ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-					ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
-					ViewBag.user = us;
-					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
-                }
-			}
-			return View(us);
+			return RedirectToAction("MainPanel", us);
 		}
+
+
+
 
 
 		[HttpGet]
@@ -170,26 +174,6 @@ namespace MyLessons.Controllers
 			ViewBag.user = us;
 			return RedirectToAction("MainPanel",us);
 		}
-
-
-		[HttpGet]
-		public IActionResult DeleteLesson(user us,lesson less)
-		{
-            var obj = context.data.Find(us.id);
-			ViewBag.les = less.less;
-            try
-            {
-                ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
-                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
-            }
-            catch { }
-            ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
-            ViewBag.user = us;
-            ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
-            return View("MainPanel", us);
-		}
-
         [HttpGet]
 		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
 		{
@@ -216,6 +200,8 @@ namespace MyLessons.Controllers
             context.SaveChanges();
 			return RedirectToAction("MainPanel",us);
 		}
+
+
 
 
 		[HttpPost]
@@ -257,6 +243,35 @@ namespace MyLessons.Controllers
 			context.SaveChanges();
 			return View("Index");
 		}
+
+
+
+
+		[HttpGet]
+		public IActionResult MainPanel(user us)
+		{
+			var thisUs = context.user.Where(t => t.login == us.login).ToList();
+			for (int i = 0; i < thisUs.Count; i++)
+			{
+				if (thisUs[i].login == us.login && thisUs[i].password == us.password)
+				{
+					us = thisUs[i];
+					var obj = context.data.Find(us.id);
+					try
+					{
+						ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
+						ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+					}
+					catch { }
+					ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
+					ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
+					ViewBag.user = us;
+					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
+				}
+			}
+			ViewBag.ChekNullStringItem = HttpContext.Session.GetInt32("ChekNullStringItem");
+			return View(us);
+		}
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -264,3 +279,4 @@ namespace MyLessons.Controllers
         }
     }
 }
+

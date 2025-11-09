@@ -86,7 +86,11 @@
 			<input type="hidden" asp-for="login" />
 			<input type="hidden" asp-for="password" />
 			<input type="hidden" asp-for="id" />
-			<input type="text" class="form-control col-7 m-1" name="NewObject" />
+			@if (ViewBag.ChekNullStringItem == 1)
+			{
+				<p>Введите название предмета</p>
+			}
+			<input type="text" class="form-control col-7 m-1" name="NewItem" />
 			<button class="btn btn-dark col-7 m-2" type="submit">Добавить новый предмет</button>
 		</form>
 	</div>
@@ -136,7 +140,7 @@
 			{
 				<br />
 				<br />
-				<p>svfdsadvfdsarefd</p>
+				<p>У вас еще нет зарегестрированных уроков</p>
 				<br />
 				<br />
 			}
