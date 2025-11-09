@@ -17,8 +17,6 @@ namespace MyLessons.Controllers
             _logger = logger;
             context = _context;
         }
-
-
 		public IActionResult Index()
 		{
 			return View();
@@ -114,6 +112,18 @@ namespace MyLessons.Controllers
 			list.Remove(DeletedObject);
 			obj.Object = ControllerConvert.ConvertObjectToString(list);
 			context.SaveChanges();
+
+			List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
+			List<lesson> result = new List<lesson>();
+			foreach (lesson les in AllLessons)
+			{
+				if(les.less != DeletedObject)
+				{
+					result.Add(les);
+				}
+			}
+			obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
+			context.SaveChanges();
 			return RedirectToAction("MainPanel", us);
 		}
 
@@ -202,9 +212,6 @@ namespace MyLessons.Controllers
                     resultLess.Add(obj);
                 } 
 			}
-            ViewBag.n = name;
-            ViewBag.objec = objec;
-            ViewBag.res = resultLess.Count;
             context.data.Find(us.id).text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
             context.SaveChanges();
 			return RedirectToAction("MainPanel",us);
