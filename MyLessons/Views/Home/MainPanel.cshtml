@@ -3,10 +3,8 @@
 <div>
 	<div class="justify-content-center row">
 		<h1 class="col-12 text-center">Главная панель @user.login</h1>
-		<p>@ViewBag.us</p>
 	</div>
 	<h3>Учительская панель</h3>
-	<p>@ViewBag.r</p>
 	<div class="segment row justify-content-center">
 		@{
 			try
@@ -66,7 +64,7 @@
 					{
 						<div class="row justify-content-center col-7 m-1">
 							<p class="col-10">@ViewBag.availableItems[i]</p>
-							<form asp-action="DeleteObjec" asp-controller="Home" class="col-2" method="get">
+							<form asp-action="DeleteItem" asp-controller="Home" class="col-2" method="get">
 								<input type="hidden" asp-for="login" />
 								<input type="hidden" asp-for="password" />
 								<input type="hidden" asp-for="id" />

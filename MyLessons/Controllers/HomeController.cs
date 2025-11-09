@@ -106,7 +106,16 @@ namespace MyLessons.Controllers
 			context.SaveChanges();
 			return RedirectToAction("MainPanel", us);
 		}
-
+		[HttpGet]
+		public IActionResult DeleteItem(user us, string DeletedObject)
+		{
+			var obj = context.data.Find(us.id);
+			var list = ControllerConvert.ConvertToObject(obj.Object);
+			list.Remove(DeletedObject);
+			obj.Object = ControllerConvert.ConvertObjectToString(list);
+			context.SaveChanges();
+			return RedirectToAction("MainPanel", us);
+		}
 
 
 

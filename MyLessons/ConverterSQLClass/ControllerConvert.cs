@@ -3,7 +3,8 @@ namespace MyLessons.ConverterSQLClass
 {
 	public static class ControllerConvert
 	{
-		public static List<lesson> ConvertToLesson(string data)
+		//string => List<lesson>
+		public static List<lesson> ConvertToLesson(string data) 
 		{
 			var list = new List<lesson>();
 			string[] lessons = data.Split('|');
@@ -13,7 +14,8 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
-		public static List<string> ConvertToObject(string data)
+		//string => List<string>
+		public static List<string> ConvertToObject(string data) 
 		{
 			var list = new List<string>();
 			string[] objec = data.Split("|");
@@ -23,6 +25,7 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
+		//string => List<string>
 		public static List<string> FindAllClass(string data)
 		{
 			var list = ConvertToLesson(data);		
@@ -37,6 +40,7 @@ namespace MyLessons.ConverterSQLClass
 			socials = socials.Distinct().ToList();
 			return socials;
 		}
+		//string => List<string>
 		public static List<string> SelectTeachersName(string data)
 		{
 			List<string> list = new List<string>();
@@ -48,6 +52,7 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
+		//string => List<string>
 		public static List<string> SelectTeachersItem(string data)
 		{
 			List<string> list = new List<string>();
@@ -59,6 +64,7 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return list;
 		}
+		//string => List<string>
 		public static List<string> GetListTeacherWithObjec(string data)
 		{
 			List<string> list = new List<string>();
@@ -102,6 +108,16 @@ namespace MyLessons.ConverterSQLClass
 			}
 			result = result.Replace("||","|");
 			result = result.Trim('|');
+			return result;
+		}
+		public static string ConvertObjectToString(List<string> list)
+		{
+			string result = "";
+			foreach(string item in list)
+			{
+				result += item + "|";
+			}
+			result = CleanStringForBase(result);
 			return result;
 		}
 	}
