@@ -115,6 +115,10 @@ namespace MyLessons.Controllers
 
 			List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
 			List<lesson> result = new List<lesson>();
+			if(AllLessons == null || AllLessons[0] == null)
+			{
+				return RedirectToAction("MainPanel", us);
+			}
 			foreach (lesson les in AllLessons)
 			{
 				if(les.less != DeletedObject)
