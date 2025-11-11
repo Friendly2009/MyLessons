@@ -270,6 +270,10 @@ namespace MyLessons.Controllers
 		[HttpGet]
 		public IActionResult MainPanel(user us)
 		{
+			if(!ModelState.IsValid)
+			{
+				return View("Index");
+			}
 			var thisUs = context.user.Where(t => t.login == us.login).ToList();
 			for (int i = 0; i < thisUs.Count; i++)
 			{
