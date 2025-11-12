@@ -116,19 +116,17 @@
 						<p class="col-1">@ViewBag.lesson[i].clas</p>
 						<p class="col-1">@ViewBag.lesson[i].room</p>
 						<form asp-action="DeleteLesson" asp-controller="Home" method="get" class="col-1">
-							@{
-								MyLessons.ConverterSQLClass.lesson DelLesson = new MyLessons.ConverterSQLClass.lesson
-								(@ViewBag.lesson[i].day,
-								@ViewBag.lesson[i].number,
-								@ViewBag.lesson[i].less,
-								@ViewBag.lesson[i].teacher,
-								@ViewBag.lesson[i].clas,
-								@ViewBag.lesson[i].room);
-							}
 							<input type="hidden" asp-for="login" />
 							<input type="hidden" asp-for="password" />
 							<input type="hidden" asp-for="id" />
-							<input type="hidden" name="DelLesson" value="@DelLesson" />
+
+							<input type="hidden" name="less" value="@ViewBag.lesson[i].less" />
+							<input type="hidden" name="day" value="@ViewBag.lesson[i].day" />
+							<input type="hidden" name="number" value="@ViewBag.lesson[i].number" />
+							<input type="hidden" name="teacher" value="@ViewBag.lesson[i].teacher" />
+							<input type="hidden" name="clas" value="@ViewBag.lesson[i].clas" />
+							<input type="hidden" name="room" value="@ViewBag.lesson[i].room" />
+
 							<button class="btn btn-close btn-dark" type="submit" />
 						</form>
 					</div>
@@ -186,5 +184,4 @@
 	{
 
 	}
-
 }

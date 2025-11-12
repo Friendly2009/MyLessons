@@ -166,8 +166,14 @@ namespace MyLessons.Controllers
 			return RedirectToAction("MainPanel",us);
 		}
 		[HttpGet]
-		public IActionResult DeleteLesson(user us, lesson less)
+		public IActionResult DeleteLesson(user us, string less,string day,string number, string teacher,string clas,string room)
 		{
+			var obj = context.data.Find(us.id);
+			lesson les = new lesson(day, number, less,teacher, clas,room);
+			var list = ControllerConvert.ConvertToLesson(obj.text);
+			list.Remove(les);
+			obj.text = ControllerConvert.ConvertLessonsArrayToString(list);
+			context.SaveChanges();
 			return RedirectToAction("MainPanel", us);
 		}
 
