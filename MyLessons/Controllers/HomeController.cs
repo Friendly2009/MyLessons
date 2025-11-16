@@ -170,9 +170,9 @@ namespace MyLessons.Controllers
 		{
 			var obj = context.data.Find(us.id);
 			lesson les = new lesson(day, number, less,teacher, clas,room);
-			var list = ControllerConvert.ConvertToLesson(obj.text);
-			list.Remove(les);
-			obj.text = ControllerConvert.ConvertLessonsArrayToString(list);
+			string data = ControllerConvert.ConvertLessonToString(les);
+			obj.text = obj.text.Replace(data, "");
+			obj.text = ControllerConvert.CleanStringForBase(obj.text);
 			context.SaveChanges();
 			return RedirectToAction("MainPanel", us);
 		}
