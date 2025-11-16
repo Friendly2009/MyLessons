@@ -115,6 +115,8 @@ namespace MyLessons.Controllers
 
 			List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
 			List<lesson> result = new List<lesson>();
+			List<string> TeachWithItem = obj.teacher.Split("|").ToList();
+			List<string> resultTeach = new List<string>();
 			if(AllLessons == null || AllLessons[0] == null)
 			{
 				return RedirectToAction("MainPanel", us);
@@ -125,10 +127,19 @@ namespace MyLessons.Controllers
 				{
 					result.Add(les);
 				}
+				foreach (var ThisObjects in TeachWithItem)
+				{
+					var ThisArray = ThisObjects.Split("`");
+					if (!(ThisArray[0] == les.teacher) && ThisArray[1] == les.less)
+					{
+						resultTeach.Add(ThisObjects);
+					}
+				}
 			}
 			obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
 			context.SaveChanges();
-			return RedirectToAction("MainPanel", us);
+			ViewBag.a = resultTeach.Count;
+			return View("Index", us);
 		}
 
 
@@ -212,12 +223,16 @@ namespace MyLessons.Controllers
 			objects.Remove(objec);
 			string resultTeach = ControllerConvert.ConvertTeachersToString(teach,objects);
 			context.data.Find(us.id).teacher = resultTeach;
-
+			context.SaveChanges();
 			List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(context.data.Find(us.id).text);
 			List<lesson> resultLess = new List<lesson>();
 			foreach(var obj in ChekListLesson)
 			{
-				if(obj.teacher == name && obj.less == objec)
+				if (obj == null)
+				{
+					return RedirectToAction("MainPanel", us);
+				}
+				if (obj.teacher == name && obj.less == objec)
 				{
                     resultLess.Add(obj);
                 } 
