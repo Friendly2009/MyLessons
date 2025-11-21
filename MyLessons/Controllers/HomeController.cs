@@ -136,7 +136,17 @@ namespace MyLessons.Controllers
 					}
 				}
 			}
-			obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
+            List<string> ListTeach = obj.teacher.Split("|").ToList();
+            List<string> resultListteacher = new List<string>();
+            for(int i = 0; i <  ListTeach.Count; i++)
+			{
+				string j = ListTeach[i].Split("`")[1];
+				if(j == DeletedObject)
+				{
+					resultListteacher.Add(ListTeach[i]);
+				}
+			}
+            obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
 			context.SaveChanges();
 			ViewBag.a = resultTeach.Count;
 			return View("Index", us);
@@ -301,7 +311,7 @@ namespace MyLessons.Controllers
 				if (thisUs[i].login == us.login && thisUs[i].password == us.password)
 				{
 					us = thisUs[i];
-					var obj = context.data.Find(us.id);
+					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 					try
 					{
 						ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
