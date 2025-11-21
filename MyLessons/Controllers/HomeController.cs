@@ -108,22 +108,18 @@ namespace MyLessons.Controllers
 		public IActionResult DeleteItem(user us, string DeletedObject)
 		{
 			var obj = context.data.Find(us.id);
-			var list = ControllerConvert.ConvertToObject(obj.Object);
-			list.Remove(DeletedObject);
-			obj.Object = ControllerConvert.ConvertObjectToString(list);
-			context.SaveChanges();
+            List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
+            List<lesson> result = new List<lesson>();
+            List<string> TeachWithItem = obj.teacher.Split("|").ToList();
+            List<string> resultTeach = new List<string>();
 
-			List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
-			List<lesson> result = new List<lesson>();
-			List<string> TeachWithItem = obj.teacher.Split("|").ToList();
-			List<string> resultTeach = new List<string>();
-			if(AllLessons == null || AllLessons[0] == null)
+            if (AllLessons == null || AllLessons[0] == null)
 			{
 				return RedirectToAction("MainPanel", us);
 			}
 			foreach (lesson les in AllLessons)
 			{
-				if(les.less != DeletedObject)
+				if (les.less != DeletedObject)
 				{
 					result.Add(les);
 				}
@@ -136,21 +132,70 @@ namespace MyLessons.Controllers
 					}
 				}
 			}
-            List<string> ListTeach = obj.teacher.Split("|").ToList();
-            List<string> resultListteacher = new List<string>();
-            for(int i = 0; i <  ListTeach.Count; i++)
-			{
-				string j = ListTeach[i].Split("`")[1];
-				if(j == DeletedObject)
-				{
-					resultListteacher.Add(ListTeach[i]);
-				}
-			}
             obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
+			var list = ControllerConvert.ConvertToObject(obj.Object);
+			list.Remove(DeletedObject);
+			obj.Object = ControllerConvert.ConvertObjectToString(list);
 			context.SaveChanges();
-			ViewBag.a = resultTeach.Count;
-			return View("Index", us);
-		}
+
+            List<string> ResTeach = new List<string>();
+			for(int i = 0; i < TeachWithItem.Count; i++)
+			{
+				
+				//есть полный
+			}
+			return RedirectToAction("MainPanel", us);
+			//var list = ControllerConvert.ConvertToObject(obj.Object);
+			//list.Remove(DeletedObject);
+			//obj.Object = ControllerConvert.ConvertObjectToString(list);
+			//context.SaveChanges();
+
+			//List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
+			//List<lesson> result = new List<lesson>();
+			//List<string> TeachWithItem = obj.teacher.Split("|").ToList();
+			//List<string> resultTeach = new List<string>();
+			
+   //         List<string> ListTeach = obj.teacher.Split("|").ToList();
+   //         List<string> resultListteacher = new List<string>();
+   //         for(int i = 0; i <  ListTeach.Count; i++)
+			//{
+			//	string j = ListTeach[i].Split("`")[1];
+			//	if(j == DeletedObject)
+			//	{
+			//		resultListteacher.Add(ListTeach[i]);
+			//	}
+			//}
+			//string res = "";
+			//foreach (var Teach in resultListteacher)
+			//{
+			//	res += "|" + Teach;
+			//}
+   //         if (AllLessons == null || AllLessons[0] == null)
+   //         {
+   //             return RedirectToAction("MainPanel", us);
+   //         }
+   //         foreach (lesson les in AllLessons)
+   //         {
+   //             if (les.less != DeletedObject)
+   //             {
+   //                 result.Add(les);
+   //             }
+   //             foreach (var ThisObjects in TeachWithItem)
+   //             {
+   //                 var ThisArray = ThisObjects.Split("`");
+   //                 if (!(ThisArray[0] == les.teacher) && ThisArray[1] == les.less)
+   //                 {
+   //                     resultTeach.Add(ThisObjects);
+   //                 }
+   //             }
+   //         }
+   //         res = res.Trim('|');
+			//obj.teacher = res;
+   //         ViewBag.r = res;
+   //         obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
+			//context.SaveChanges();
+			//return View("Index");
+        }
 
 
 
@@ -325,7 +370,7 @@ namespace MyLessons.Controllers
 				}
 			}
 			ViewBag.ChekNullStringItem = HttpContext.Session.GetInt32("ChekNullStringItem");
-			return View(us);
+            return View(us);
 		}
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
