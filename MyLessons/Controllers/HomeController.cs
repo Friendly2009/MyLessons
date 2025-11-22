@@ -113,7 +113,29 @@ namespace MyLessons.Controllers
             List<string> TeachWithItem = obj.teacher.Split("|").ToList();
             List<string> resultTeach = new List<string>();
 
-            if (AllLessons == null || AllLessons[0] == null)
+			var list = ControllerConvert.ConvertToObject(obj.Object);
+			list.Remove(DeletedObject);
+			obj.Object = ControllerConvert.ConvertObjectToString(list);
+			context.SaveChanges();
+			HashSet<string> secondSetLower = new HashSet<string>(list.Select(s => s.ToLower()));
+			TeachWithItem = TeachWithItem
+				.Where(item =>
+				{
+					var parts = item.Split('`');
+					if (parts.Length < 2) return true;
+					string subject = parts[1].ToLower();
+					return secondSetLower.Contains(subject);
+				})
+				.ToList();
+			string resultTeacherWithItem = "";
+			foreach (var item in TeachWithItem)
+			{
+				resultTeacherWithItem += item + "|";
+			}
+			resultTeacherWithItem.Trim('|');
+			obj.teacher = resultTeacherWithItem;
+			context.SaveChanges();
+			if (AllLessons == null || AllLessons[0] == null)
 			{
 				return RedirectToAction("MainPanel", us);
 			}
@@ -123,27 +145,9 @@ namespace MyLessons.Controllers
 				{
 					result.Add(les);
 				}
-				foreach (var ThisObjects in TeachWithItem)
-				{
-					var ThisArray = ThisObjects.Split("`");
-					if (!(ThisArray[0] == les.teacher) && ThisArray[1] == les.less)
-					{
-						resultTeach.Add(ThisObjects);
-					}
-				}
 			}
-            obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
-			var list = ControllerConvert.ConvertToObject(obj.Object);
-			list.Remove(DeletedObject);
-			obj.Object = ControllerConvert.ConvertObjectToString(list);
+			obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
 			context.SaveChanges();
-
-            List<string> ResTeach = new List<string>();
-			for(int i = 0; i < TeachWithItem.Count; i++)
-			{
-				
-				//есть полный
-			}
 			return RedirectToAction("MainPanel", us);
 			//var list = ControllerConvert.ConvertToObject(obj.Object);
 			//list.Remove(DeletedObject);
