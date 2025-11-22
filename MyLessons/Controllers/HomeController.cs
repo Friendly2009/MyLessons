@@ -99,6 +99,15 @@ namespace MyLessons.Controllers
 			}
 			HttpContext.Session.SetInt32("ChekNullStringItem", 0);
 			var obj = context.data.Find(us.id);
+			var list = ControllerConvert.ConvertToObject(obj.Object);
+			foreach ( var item in list )
+			{
+				if(item == NewItem)
+				{
+					HttpContext.Session.SetInt32("CheckHave",1);
+					return RedirectToAction("MainPanel", us);
+				}
+			}
 			obj.Object += "|" + NewItem;
 			obj.Object = ControllerConvert.CleanStringForBase(obj.Object);
 			context.SaveChanges();
@@ -132,7 +141,7 @@ namespace MyLessons.Controllers
 			{
 				resultTeacherWithItem += item + "|";
 			}
-			resultTeacherWithItem.Trim('|');
+			resultTeacherWithItem = ControllerConvert.CleanStringForBase(resultTeacherWithItem);
 			obj.teacher = resultTeacherWithItem;
 			context.SaveChanges();
 			if (AllLessons == null || AllLessons[0] == null)
@@ -149,56 +158,6 @@ namespace MyLessons.Controllers
 			obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
 			context.SaveChanges();
 			return RedirectToAction("MainPanel", us);
-			//var list = ControllerConvert.ConvertToObject(obj.Object);
-			//list.Remove(DeletedObject);
-			//obj.Object = ControllerConvert.ConvertObjectToString(list);
-			//context.SaveChanges();
-
-			//List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
-			//List<lesson> result = new List<lesson>();
-			//List<string> TeachWithItem = obj.teacher.Split("|").ToList();
-			//List<string> resultTeach = new List<string>();
-			
-   //         List<string> ListTeach = obj.teacher.Split("|").ToList();
-   //         List<string> resultListteacher = new List<string>();
-   //         for(int i = 0; i <  ListTeach.Count; i++)
-			//{
-			//	string j = ListTeach[i].Split("`")[1];
-			//	if(j == DeletedObject)
-			//	{
-			//		resultListteacher.Add(ListTeach[i]);
-			//	}
-			//}
-			//string res = "";
-			//foreach (var Teach in resultListteacher)
-			//{
-			//	res += "|" + Teach;
-			//}
-   //         if (AllLessons == null || AllLessons[0] == null)
-   //         {
-   //             return RedirectToAction("MainPanel", us);
-   //         }
-   //         foreach (lesson les in AllLessons)
-   //         {
-   //             if (les.less != DeletedObject)
-   //             {
-   //                 result.Add(les);
-   //             }
-   //             foreach (var ThisObjects in TeachWithItem)
-   //             {
-   //                 var ThisArray = ThisObjects.Split("`");
-   //                 if (!(ThisArray[0] == les.teacher) && ThisArray[1] == les.less)
-   //                 {
-   //                     resultTeach.Add(ThisObjects);
-   //                 }
-   //             }
-   //         }
-   //         res = res.Trim('|');
-			//obj.teacher = res;
-   //         ViewBag.r = res;
-   //         obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
-			//context.SaveChanges();
-			//return View("Index");
         }
 
 
@@ -371,6 +330,7 @@ namespace MyLessons.Controllers
 					ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 					ViewBag.user = us;
 					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
+					ViewBag.CheckHave = HttpContext.Session.GetInt32("CheckHave");
 				}
 			}
 			ViewBag.ChekNullStringItem = HttpContext.Session.GetInt32("ChekNullStringItem");
