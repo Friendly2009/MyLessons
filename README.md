@@ -15,4 +15,6 @@ The first thing you'll see is this screen:
 ### Functional
 - Button "Начать работу": When you click the button, the registration and login forms are displayed on the screen
 #### Registration
-<img src="https://github.com/Friendly2009/MyLessons/blob/fit-add-ReadMe/Images/sreen%231.png" width="600" />
+<img src="https://github.com/Friendly2009/MyLessons/blob/fit-add-ReadMe/Images/screen%233.png" width="600" />
+- E
+- e
