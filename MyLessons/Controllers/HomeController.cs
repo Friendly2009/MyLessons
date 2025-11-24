@@ -305,7 +305,6 @@ namespace MyLessons.Controllers
 
 
 
-
 		[HttpGet]
 		public IActionResult MainPanel(user us)
 		{
