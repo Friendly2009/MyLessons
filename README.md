@@ -16,5 +16,7 @@ The first thing you'll see is this screen:
 - Button "Начать работу": When you click the button, the registration and login forms are displayed on the screen
 #### Registration
 <img src="https://github.com/Friendly2009/MyLessons/blob/fit-add-ReadMe/Images/screen%233.png" width="600" />
-- E
-- e
+# awe
+- Easy to learn
+- it has a simple design based on bootstrap 4, which gives the screen a clean look
+- Absolutely free and without ads!
