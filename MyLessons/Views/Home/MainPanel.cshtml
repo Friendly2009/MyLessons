@@ -1,5 +1,13 @@
 ﻿@model user;
 @{user user = ViewBag.user;}
+@if (TempData["message"] != null)
+{
+	<input id="obj" type="hidden" value="@TempData["message"]"/>
+	<script>
+		var obj = document.getElementById("obj").getAttribute("value");
+		alert(obj);
+	</script>
+}
 <div>
 	<div class="justify-content-center row">
 		<h1 class="col-12 text-center">Главная панель @user.login</h1>
@@ -84,10 +92,6 @@
 			<input type="hidden" asp-for="login" />
 			<input type="hidden" asp-for="password" />
 			<input type="hidden" asp-for="id" />
-			@if (ViewBag.ChekNullStringItem == 1)
-			{
-				<p>Введите название предмета</p>
-			}
 			<input type="text" class="form-control col-7 m-1" name="NewItem" />
 			<button class="btn btn-dark col-7 m-2" type="submit">Добавить новый предмет</button>
 		</form>
@@ -170,31 +174,3 @@
 		</form>
 	</div>
 </div>
-@{
-	try
-	{
-		if (ViewBag.ChekNull)
-		{
-			<script>
-				alert("укажите все данные при создании нового урока");
-			</script>
-		}
-	}
-	catch
-	{
-
-	}
-	try
-	{
-		if (ViewBag.CheckHave == true)
-		{
-			<script>
-				alert("У вас уже записан такой предмет");
-			</script>
-		}
-	}
-	catch
-	{
-
-	}
-}

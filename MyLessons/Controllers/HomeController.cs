@@ -92,9 +92,9 @@ namespace MyLessons.Controllers
 		[HttpGet]
 		public IActionResult AddObject(user us, string NewItem)
 		{
-			if (NewItem == null)
+			if (string.IsNullOrEmpty(NewItem))
 			{
-				HttpContext.Session.SetInt32("ChekNullStringItem", 1);
+				HttpContext.Session.SetString("message", "¬ведите предмет");
 				return RedirectToAction("MainPanel", us);
 			}
 			HttpContext.Session.SetInt32("ChekNullStringItem", 0);
@@ -170,8 +170,8 @@ namespace MyLessons.Controllers
 
             if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
 			{
-				ViewBag.ChekNull = true;
-				return RedirectToAction("MainPanel", us);
+                HttpContext.Session.SetString("message", "¬ведите все параметры");
+                return RedirectToAction("MainPanel", us);
             }
 			lesson NewLesson = new lesson(day, num, selectedSubject, clas,room);
 			string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
@@ -221,6 +221,10 @@ namespace MyLessons.Controllers
 				context.data.Find(us.id).teacher = res;
 				context.SaveChanges();
 			}
+			if(string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(name))
+			{
+                HttpContext.Session.SetString("message", "¬ведите данные");
+            }
 			try
 			{
 				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
@@ -332,7 +336,7 @@ namespace MyLessons.Controllers
 					ViewBag.CheckHave = HttpContext.Session.GetInt32("CheckHave");
 				}
 			}
-			ViewBag.ChekNullStringItem = HttpContext.Session.GetInt32("ChekNullStringItem");
+			TempData["Message"] = HttpContext.Session.GetString("message");
             return View(us);
 		}
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
