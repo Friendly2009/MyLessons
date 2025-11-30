@@ -15,17 +15,6 @@ namespace MyLessons.ConverterSQLClass
 			return list;
 		}
 		//string => List<string>
-		public static List<string> ConvertToObject(string data) 
-		{
-			var list = new List<string>();
-			string[] objec = data.Split("|");
-			foreach(string s in objec)
-			{
-				list.Add(s);
-			}
-			return list;
-		}
-		//string => List<string>
 		public static List<string> FindAllClass(string data)
 		{
 			var list = ConvertToLesson(data);		
@@ -108,16 +97,6 @@ namespace MyLessons.ConverterSQLClass
 			}
 			result = result.Replace("||","|");
 			result = result.Trim('|');
-			return result;
-		}
-		public static string ConvertObjectToString(List<string> list)
-		{
-			string result = "";
-			foreach(string item in list)
-			{
-				result += item + "|";
-			}
-			result = CleanStringForBase(result);
 			return result;
 		}
 	}

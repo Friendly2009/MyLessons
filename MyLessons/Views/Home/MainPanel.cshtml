@@ -51,49 +51,8 @@
 			<input type ="hidden" asp-for="password" />
 			<input type="hidden" asp-for="id" />
 			<input type="text" name="name" class="form-control col-6 m-2" placeholder="имя учителя"/>
-			<select name="selectedSubject" class="form-select m-2 col-6" aria-label="Выберите значение" required>
-				<option class="col-6" selected disabled>Выберите Предмет</option>
-				@for (int i = 0; i < ViewBag.availableItems.Count; i++)
-				{
-					<option value="@ViewBag.availableItems[i]">@ViewBag.availableItems[i]</option>
-				}
-			</select>
+			<input type="text" name="selectedSubject" class="form-control col-6 m-2" placeholder="Предмет" />
 			<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
-		</form>
-	</div>
-	<h3>Предметная панель</h3>
-	<div class="segment row justify-content-center">
-		@{
-			try
-			{
-				for (int i = 0; i < ViewBag.availableItems.Count; i++)
-				{
-					if (ViewBag.availableItems[0] != "")
-					{
-						<div class="row justify-content-center col-7 m-1">
-							<p class="col-10">@ViewBag.availableItems[i]</p>
-							<form asp-action="DeleteItem" asp-controller="Home" class="col-2" method="get">
-								<input type="hidden" asp-for="login" />
-								<input type="hidden" asp-for="password" />
-								<input type="hidden" asp-for="id" />
-								<input type="hidden" name="DeletedObject" value="@ViewBag.availableItems[i]" />
-								<button type="submit" class="btn btn-dark btn-close"></button>
-							</form>
-						</div>
-					}	
-				}
-			}
-			catch
-			{
-				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных предметов</p>
-			}
-		}
-		<form class="col-7 row justify-content-center" method="get" asp-action="AddObject" asp-controller="Home">
-			<input type="hidden" asp-for="login" />
-			<input type="hidden" asp-for="password" />
-			<input type="hidden" asp-for="id" />
-			<input type="text" class="form-control col-7 m-1" name="NewItem" />
-			<button class="btn btn-dark col-7 m-2" type="submit">Добавить новый предмет</button>
 		</form>
 	</div>
 	<h3>Существующее уроки</h3>

@@ -5,13 +5,11 @@
         public int Id { get; set; }
         public string text { get; set; }
         public string teacher { get; set; }
-		public string Object { get; set; }
 		public Data(int id)
         {
             Id = id;
             teacher = "";
             text = "";
-			Object = "Математика|Русский язык";
 		}
     }
 }

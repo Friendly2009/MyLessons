@@ -168,8 +168,7 @@
 						<input type="hidden" asp-for="login" />
 						<input type="hidden" asp-for="password" />
 						<input type="hidden" asp-for="id" />
-						<input type="hidden" name="name" value="@ViewBag.teachers[i]" />
-						<input type="hidden" name="objec" value="@ViewBag.objects[i]" />
+						<input type="hidden" name="name" value="@ViewBag.teachers[i]"/>
 						<input type="hidden" name="adres" value="Table" />
 						<button class="btn btn-close btn-dark" type="submit"></button>
 					</form>
@@ -180,14 +179,8 @@
 				<input type="hidden" asp-for="password" />
 				<input type="hidden" asp-for="id" />
 				<p>Добавить учителя</p>
-				<select name="selectedSubject" class="form-select m-2" aria-label="Выберите значение" required>
-					<option selected disabled>Выберите Предмет</option>
-					@for (int i = 0; i < ViewBag.availableItems.Count; i++)
-					{
-						<option value="@ViewBag.availableItems[i]">@ViewBag.availableItems[i]</option>
-					}
-				</select>
 				<input type="text" class="form-control col-3" placeholder="Имя учителя" name="teacherName" required>
+				<input type="text" name="selectedSubject" class="form-control col-6 m-2" placeholder="Предмет" />
 				<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
 			</form>
 		</div>

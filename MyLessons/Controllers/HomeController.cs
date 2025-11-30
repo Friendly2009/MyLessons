@@ -44,7 +44,6 @@ namespace MyLessons.Controllers
 					{
 						var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 						ViewBag.data = obj.text;
-						ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 						ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 						ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
 						ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
@@ -74,7 +73,6 @@ namespace MyLessons.Controllers
 					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 
 					ViewBag.data = obj.text;
-					ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 					ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 					ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
 					ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
@@ -89,80 +87,7 @@ namespace MyLessons.Controllers
 
 
 
-		[HttpGet]
-		public IActionResult AddObject(user us, string NewItem)
-		{
-			if (string.IsNullOrEmpty(NewItem))
-			{
-				HttpContext.Session.SetString("message", "Введите предмет");
-				return RedirectToAction("MainPanel", us);
-			}
-			HttpContext.Session.SetInt32("ChekNullStringItem", 0);
-			var obj = context.data.Find(us.id);
-			var list = ControllerConvert.ConvertToObject(obj.Object);
-			foreach ( var item in list )
-			{
-				if(item == NewItem)
-				{
-					HttpContext.Session.SetInt32("CheckHave",1);
-					return RedirectToAction("MainPanel", us);
-				}
-			}
-			obj.Object += "|" + NewItem;
-			obj.Object = ControllerConvert.CleanStringForBase(obj.Object);
-			context.SaveChanges();
-			return RedirectToAction("MainPanel", us);
-		}
-		[HttpGet]
-		public IActionResult DeleteItem(user us, string DeletedObject)
-		{
-			var obj = context.data.Find(us.id);
-            List<lesson> AllLessons = ControllerConvert.ConvertToLesson(obj.text);
-            List<lesson> result = new List<lesson>();
-            List<string> TeachWithItem = obj.teacher.Split("|").ToList();
-            List<string> resultTeach = new List<string>();
-
-			var list = ControllerConvert.ConvertToObject(obj.Object);
-			list.Remove(DeletedObject);
-			obj.Object = ControllerConvert.ConvertObjectToString(list);
-			context.SaveChanges();
-			HashSet<string> secondSetLower = new HashSet<string>(list.Select(s => s.ToLower()));
-			TeachWithItem = TeachWithItem
-				.Where(item =>
-				{
-					var parts = item.Split('`');
-					if (parts.Length < 2) return true;
-					string subject = parts[1].ToLower();
-					return secondSetLower.Contains(subject);
-				})
-				.ToList();
-			string resultTeacherWithItem = "";
-			foreach (var item in TeachWithItem)
-			{
-				resultTeacherWithItem += item + "|";
-			}
-			resultTeacherWithItem = ControllerConvert.CleanStringForBase(resultTeacherWithItem);
-			obj.teacher = resultTeacherWithItem;
-			context.SaveChanges();
-			if (AllLessons == null || AllLessons[0] == null)
-			{
-				return RedirectToAction("MainPanel", us);
-			}
-			foreach (lesson les in AllLessons)
-			{
-				if (les.less != DeletedObject)
-				{
-					result.Add(les);
-				}
-			}
-			obj.text = ControllerConvert.ConvertLessonsArrayToString(result);
-			context.SaveChanges();
-			return RedirectToAction("MainPanel", us);
-        }
-
-
-
-
+		
 		[HttpGet]
 		public IActionResult AddLesson(user us, string selectedSubject, string clas,string room,string num,string day)
 		{
@@ -187,8 +112,7 @@ namespace MyLessons.Controllers
 				ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
 			}
 			catch { }
-			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
+			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);			
 			ViewBag.user = us;
 			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 
@@ -232,7 +156,6 @@ namespace MyLessons.Controllers
             }
 			catch { }
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(context.data.Find(us.id).teacher);
-			ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 			ViewBag.user = us;
 			return RedirectToAction("MainPanel",us);
 		}
@@ -330,7 +253,6 @@ namespace MyLessons.Controllers
 					}
 					catch { }
 					ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-					ViewBag.availableItems = ControllerConvert.ConvertToObject(obj.Object);
 					ViewBag.user = us;
 					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 					ViewBag.CheckHave = HttpContext.Session.GetInt32("CheckHave");
