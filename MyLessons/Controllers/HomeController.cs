@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
-using Newtonsoft.Json;
 using System.Diagnostics;
 namespace MyLessons.Controllers
 {
@@ -108,8 +104,8 @@ namespace MyLessons.Controllers
             context.SaveChanges();
 			try
 			{
-				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
-				ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+				ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
+				ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
 			}
 			catch { }
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);			
@@ -140,49 +136,47 @@ namespace MyLessons.Controllers
 			var obj = context.data.Find(us.id);
 			if(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(selectedSubject))
 			{
-				string res = context.data.Find(us.id).teacher + "|" + name + "`" + selectedSubject;
+				string res = obj.teacher + "|" + name + "`" + selectedSubject;
 				res = res.Trim('|');
-				context.data.Find(us.id).teacher = res;
+				obj.teacher = res;
 				context.SaveChanges();
 			}
-			if(string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(name))
-			{
-                HttpContext.Session.SetString("message", "¬ведите данные");
-            }
+			else { HttpContext.Session.SetString("message", "¬ведите данные"); }
 			try
 			{
-				ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
-                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+				ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
+                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
             }
 			catch { }
-			ViewBag.teacher = ControllerConvert.SelectTeachersName(context.data.Find(us.id).teacher);
+			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.user = us;
 			return RedirectToAction("MainPanel",us);
 		}
         [HttpGet]
 		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
 		{
-			List<string> teach = ControllerConvert.SelectTeachersName(context.data.Find(us.id).teacher);
-			List<string> objects = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
+			var obj = context.data.Find(us.id);
+			List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
+			List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
 			teach.Remove(name);
 			objects.Remove(objec);
 			string resultTeach = ControllerConvert.ConvertTeachersToString(teach,objects);
-			context.data.Find(us.id).teacher = resultTeach;
+			obj.teacher = resultTeach;
 			context.SaveChanges();
-			List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(context.data.Find(us.id).text);
+			List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(obj.text);
 			List<lesson> resultLess = new List<lesson>();
-			foreach(var obj in ChekListLesson)
+			foreach(var item in ChekListLesson)
 			{
-				if (obj == null)
+				if (item == null)
 				{
 					return RedirectToAction("MainPanel", us);
 				}
-				if (obj.teacher == name && obj.less == objec)
+				if (item.teacher == name && item.less == objec)
 				{
-                    resultLess.Add(obj);
+                    resultLess.Add(item);
                 } 
 			}
-            context.data.Find(us.id).text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
+            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
             context.SaveChanges();
 			return RedirectToAction("MainPanel",us);
 		}
@@ -248,8 +242,8 @@ namespace MyLessons.Controllers
 					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
 					try
 					{
-						ViewBag.objec = ControllerConvert.SelectTeachersItem(context.data.Find(us.id).teacher);
-						ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(context.data.Find(us.id).teacher);
+						ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
+						ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
 					}
 					catch { }
 					ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
