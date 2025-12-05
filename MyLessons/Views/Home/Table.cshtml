@@ -151,20 +151,23 @@
 		<div class="collapse col-8" id="TeacherDiv">
 			@for (int i = 0; i < ViewBag.teachers.Count; i++)
 			{
-				<div class="row align-items-center mb-2" style="margin: 10px 0;">
-					<p class="col-3 mb-0">@ViewBag.teachers[i]</p>
-					<p class="col-3 mb-0">@ViewBag.objects[i]</p>
-					<form asp-action="AddLesson" asp-controller="Home" method="get">
-						<input type="hidden" id="Newday" />
-						<input type="hidden" id="Newnumber" />
-						<input type="hidden" id="Newless" />
-						<input type="hidden" id="Newteacher" />
-						<input type="hidden" id="Newroom" />
-						<input type="hidden" id="Newclas" />
-						<button class="btn btn-dark col-2" id="AddLesson">Назначить урок</button>
+				<div class="row justify-content-center align-items-center mb-2" style="margin: 10px 0;">
+					<p class="col-2 mb-0">@ViewBag.teachers[i]</p>
+					<p class="col-2 mb-0">@ViewBag.objects[i]</p>
+					<form asp-action="AddLesson" asp-controller="Home" method="get" class="col-2 d-flex justify-content-end mb-0">
+						<input type="hidden" asp-for="login" />
+						<input type="hidden" asp-for="password" />
+						<input type="hidden" asp-for="id" />
+						<input type="hidden" name="day" id="Newday" />
+						<input type="hidden" name="num" id="Newnumber" />
+						<input type="hidden" name="less" id="Newless" />
+						<input type="hidden" name="teach" id="Newteacher" />
+						<input type="hidden" name="clas" value="@ViewBag.Clas" />
+						<input type="hidden" name="room" id="Newroom" />
+						<button class="btn btn-dark col-12" id="AddLesson">Назначить урок</button>
 					</form>
 					
-					<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
+					<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-2 d-flex justify-content-end mb-0">
 						<input type="hidden" asp-for="login" />
 						<input type="hidden" asp-for="password" />
 						<input type="hidden" asp-for="id" />

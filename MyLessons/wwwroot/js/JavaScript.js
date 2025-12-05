@@ -2,6 +2,15 @@
 var AddLesson_Button = document.getElementById('AddLesson');
 var reader = document.querySelectorAll('td');
 let Tracking_for_Add_Lesson = false;
+
+
+let Newday = document.getElementsByName('Newday');
+let Newnumber = document.getElementsByName('Newnumber');
+let Newless = document.getElementsByName('Newless');
+let Newteacher = document.getElementsByName('Newteacher');
+let Newroom = document.getElementsByName('Newroom');
+let Newclas = document.getElementsByName('Newclas');
+
 for (let i = 0; i < Buttons_Star.length; i++) {
     Buttons_Star[i].setAttribute("num", (i + 1).toString());
 }
@@ -32,21 +41,26 @@ AddLesson_Button.addEventListener("click", clicable => {
 
 function AddLessonInBase(td) {
     Tracking_for_Add_Lesson = false;
-    var ItemForNewLesson = td.querySelectorAll('Input');
-    let Newday = document.getElementsByName('Newday');
-    let Newnumber = document.getElementsByName('Newnumber');
-    let Newless = document.getElementsByName('Newless');
-    let Newteacher = document.getElementsByName('Newteacher');
-    let Newroom = document.getElementsByName('Newroom');
-    let Newclas = document.getElementsByName('Newclas');
+
 
 }
 
 function SelectClick(td) {
+    alert(td.querySelector("#day"));
     for (let i = 0; i < reader.length; i++) {
         reader[i].style.color = "black";
         reader[i].style.background = "none";
     }
     td.style.background = "#90EE90";
     td.style.color = "#2e8b57";
+    Newday.setAttribute("value", );
+    //Newnumber.setAttribute("Newnumber", td.getAttribute("number"));
+    //Newless.setAttribute("Newless", td.getAttribute("less"));
+    //Newteacher.setAttribute("Newteacher", td.getAttribute("teacher"));
+    //Newclas.setAttribute("value", td.getAttribute("clas"));
+    alert(Newday.getAttribute("value"));
+    //alert(Newnumber.getAttribute("value"));
+    //alert(Newless.getAttribute("value"));
+    //alert(Newteacher.getAttribute("value"));
+    //alert(Newclas.getAttribute("value"));
 }
