@@ -4,7 +4,7 @@ var reader = document.querySelectorAll('td');
 let Tracking_for_Add_Lesson = false;
 
 
-let Newday = document.getElementsByName('Newday');
+var Newday = document.getElementsById('Newday');
 let Newnumber = document.getElementsByName('Newnumber');
 let Newless = document.getElementsByName('Newless');
 let Newteacher = document.getElementsByName('Newteacher');
@@ -46,20 +46,19 @@ function AddLessonInBase(td) {
 }
 
 function SelectClick(td) {
-    alert(td.querySelector("#day"));
     for (let i = 0; i < reader.length; i++) {
         reader[i].style.color = "black";
         reader[i].style.background = "none";
     }
     td.style.background = "#90EE90";
     td.style.color = "#2e8b57";
-    Newday.setAttribute("value", );
-    //Newnumber.setAttribute("Newnumber", td.getAttribute("number"));
+    Newday.setAttribute("value", td.getAttribute("day"));
+    //Newnumber.setAttribute("value", td.getAttribute("lesson"));
     //Newless.setAttribute("Newless", td.getAttribute("less"));
     //Newteacher.setAttribute("Newteacher", td.getAttribute("teacher"));
     //Newclas.setAttribute("value", td.getAttribute("clas"));
     alert(Newday.getAttribute("value"));
-    //alert(Newnumber.getAttribute("value"));
+   // alert(Newnumber.getAttribute("value"));
     //alert(Newless.getAttribute("value"));
     //alert(Newteacher.getAttribute("value"));
     //alert(Newclas.getAttribute("value"));
