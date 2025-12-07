@@ -1,4 +1,18 @@
-﻿var Buttons_Star = document.querySelectorAll('.mx-1');
+﻿class NewLesson {
+    constructor(day, number, objec, name, room, clas) {
+        this.name = name;
+        this.number = number;
+        this.day = day;
+        this.objec = objec;
+        this.room = room;
+        this.clas = clas;
+    }
+}
+function NewLessToJson(NewLessonArgument) {
+    return JSON.stringify(NewLessonArgument);
+}
+
+var Buttons_Star = document.querySelectorAll('.mx-1');
 var AddLesson_Button = document.querySelectorAll('#AddLesson');
 var reader = document.querySelectorAll('td');
 let Tracking_for_Add_Lesson = false;
@@ -43,8 +57,9 @@ function AddLessonInBase(td) {
     var Newnumber = td.getAttribute("lesson");
     var Newroom = document.getElementById("NumberRoomInput").value;
     var Newclas = document.getElementById("CurrentClass").textContent;
-
-
+    const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, NewLess, NewTeach, Newclas, Newroom);
+    let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
+    alert(JsonFormatNewLesson);
 }
 
 function SelectClick(td) {
