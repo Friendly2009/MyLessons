@@ -156,18 +156,7 @@
 				<div class="row justify-content-center align-items-center mb-2" style="margin: 10px 0;">
 					<p class="col-2 mb-0">@ViewBag.teachers[i]</p>
 					<p class="col-2 mb-0">@ViewBag.objects[i]</p>
-					<form asp-action="AddLesson" asp-controller="Home" method="get" class="col-2 d-flex justify-content-end mb-0">
-						<input type="hidden" asp-for="login" />
-						<input type="hidden" asp-for="password" />
-						<input type="hidden" asp-for="id" />
-						<input type="hidden" name="day" id="Newday" />
-						<input type="hidden" name="num" id="Newnumber" />
-						<input type="hidden" name="less" id="Newless" />
-						<input type="hidden" name="teach" id="Newteacher" />
-						<input type="hidden" name="clas" value="@ViewBag.Clas" />
-						<input type="hidden" name="room" id="Newroom" />
-						<button class="btn btn-dark col-12" id="AddLesson">Назначить урок</button>
-					</form>
+					<button class="btn btn-dark col-3" id="AddLesson">Назначить урок</button>
 					
 					<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-2 d-flex justify-content-end mb-0">
 						<input type="hidden" asp-for="login" />
@@ -196,7 +185,7 @@
 			</button>
 		</div>
 		<form asp-action="UpdateTable" asp-controller="Home" method="post" class="row justify-content-center m-1">
-			<input type="hidden" name="data" value="@ViewBag.data" />
+			<input type="hidden" name="data" id="data" value="@ViewBag.data" />
 			<button class="btn btn-dark col-8">Сохранить изменения</button>
 		</form>
 	</div>
