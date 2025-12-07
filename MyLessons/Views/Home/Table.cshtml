@@ -153,9 +153,9 @@
 		<div class="collapse col-8" id="TeacherDiv">
 			@for (int i = 0; i < ViewBag.teachers.Count; i++)
 			{
-				<div class="row justify-content-center align-items-center mb-2" style="margin: 10px 0;">
-					<p class="col-2 mb-0">@ViewBag.teachers[i]</p>
-					<p class="col-2 mb-0">@ViewBag.objects[i]</p>
+				<div class="row justify-content-center align-items-center mb-2" style="margin: 10px 0;" id="parentAddLessonDiv">
+					<p class="col-2 mb-0" id="IdTeachersForNewLesson">@ViewBag.teachers[i]</p>
+					<p class="col-2 mb-0" id="IdObjectForNewLesson">@ViewBag.objects[i]</p>
 					<button class="btn btn-dark col-3" id="AddLesson">Назначить урок</button>
 					
 					<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-2 d-flex justify-content-end mb-0">

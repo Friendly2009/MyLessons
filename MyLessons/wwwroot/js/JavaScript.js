@@ -1,8 +1,10 @@
 ﻿var Buttons_Star = document.querySelectorAll('.mx-1');
-var AddLesson_Button = document.getElementById('AddLesson');
+var AddLesson_Button = document.querySelectorAll('#AddLesson');
 var reader = document.querySelectorAll('td');
 let Tracking_for_Add_Lesson = false;
 var MainJson = document.getElementById('data');
+var NewLess = "";
+var NewTeach = "";
 for (let i = 0; i < Buttons_Star.length; i++) {
     Buttons_Star[i].setAttribute("num", (i + 1).toString());
 }
@@ -26,30 +28,25 @@ reader.forEach(td => {
         }
     })
 });
-
-AddLesson_Button.addEventListener("click", clicable => {
-    Tracking_for_Add_Lesson = true;
+AddLesson_Button.forEach(button => {
+    button.addEventListener("click", clickable => {
+        Tracking_for_Add_Lesson = true;
+        var ParentTeacher = button.parentNode;
+        Newteach = ParentTeacher.querySelector("#IdTeachersForNewLesson").textContent;
+        NewLess = ParentTeacher.querySelector("#IdObjectForNewLesson").textContent;
+    })
 });
 
 function AddLessonInBase(td) {
     Tracking_for_Add_Lesson = false;
-    alert(MainJson.getAttribute("value"));
-    ////let Newnumber = document.getElementsByName('Newnumber');
-    ////let Newless = document.getElementsByName('Newless');
-    ////let Newteacher = document.getElementsByName('Newteacher');
-    ////let Newroom = document.getElementsByName('Newroom');
-    ////let Newclas = document.getElementsByName('Newclas');
-    //Newday.setAttribute("value", td.getAttribute("day"));
-    ////Newnumber.setAttribute("value", td.getAttribute("lesson"));
-    ////Newless.setAttribute("Newless", td.getAttribute("less"));
-    ////Newteacher.setAttribute("Newteacher", td.getAttribute("teacher"));
-    ////Newclas.setAttribute("value", td.getAttribute("clas"));
-    //alert(Newday.getAttribute("value"));
-    //// alert(Newnumber.getAttribute("value"));
-    ////alert(Newless.getAttribute("value"));
-    ////alert(Newteacher.getAttribute("value"));
-    ////alert(Newclas.getAttribute("value"));
+    var Newday = td.getAttribute("day");
+    var Newnumber = td.getAttribute("lesson");
 
+    //var Newless = td.querySelector("#less").getAttribute("value");
+    //var Newteacher = td.querySelector("#teacher").getAttribute("value");
+    //var Newroom = td.querySelector("#room").getAttribute("value");
+    //var Newclas = td.querySelector("#clas").getAttribute("value");
+    alert(MainJson.getAttribute("value"));
 }
 
 function SelectClick(td) {
