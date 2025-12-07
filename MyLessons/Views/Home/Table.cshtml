@@ -48,7 +48,7 @@
 			}
 		}
 	</div>
-	<h1 class="align-content-center">@ViewBag.Clas</h1>
+	<h1 class="align-content-center" id="CurrentClass">@ViewBag.Clas</h1>
 	<table class="table">
 		<tr>
 			<td>@ViewBag.Clas</td>
@@ -143,7 +143,7 @@
 	</table>
 	<div class="row justify-content-center">
 		<div class="row justify-content-center col-8">
-			<input type="number" class="input-group-text col-12 m-3" placeholder="Номер кабинета" />
+			<input type="number" class="form-check col-8 m-3" value="0" placeholder="Номер кабинета" id="NumberRoomInput"/>
 		</div>
 		<div class="row justify-content-center col-8">
 			<button class="btn btn-dark col-12 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#TeacherDiv" aria-expanded="false" aria-controls="TeacherDiv">

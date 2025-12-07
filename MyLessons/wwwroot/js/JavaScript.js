@@ -41,12 +41,10 @@ function AddLessonInBase(td) {
     Tracking_for_Add_Lesson = false;
     var Newday = td.getAttribute("day");
     var Newnumber = td.getAttribute("lesson");
+    var Newroom = document.getElementById("NumberRoomInput").value;
+    var Newclas = document.getElementById("CurrentClass").textContent;
 
-    //var Newless = td.querySelector("#less").getAttribute("value");
-    //var Newteacher = td.querySelector("#teacher").getAttribute("value");
-    //var Newroom = td.querySelector("#room").getAttribute("value");
-    //var Newclas = td.querySelector("#clas").getAttribute("value");
-    alert(MainJson.getAttribute("value"));
+
 }
 
 function SelectClick(td) {
