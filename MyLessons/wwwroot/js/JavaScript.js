@@ -16,7 +16,7 @@ var Buttons_Star = document.querySelectorAll('.mx-1');
 var AddLesson_Button = document.querySelectorAll('#AddLesson');
 var reader = document.querySelectorAll('td');
 let Tracking_for_Add_Lesson = false;
-var MainJson = document.getElementById('data');
+var MainJson = document.getElementById('data').value;
 var NewLess = "";
 var NewTeach = "";
 for (let i = 0; i < Buttons_Star.length; i++) {
@@ -59,6 +59,16 @@ function AddLessonInBase(td) {
     var Newclas = document.getElementById("CurrentClass").textContent;
     const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
     let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
+    MainJson = MainJson + "|" + JsonFormatNewLesson;
+    var less_paragraph = document.createElement("p");
+    less_paragraph.textContent = NewLess;
+    var room_paragraph = document.createElement("p");
+    room_paragraph.textContent = Newroom;
+    var teach_paragraph = document.createElement("p");
+    teach_paragraph.textContent = Newteach;
+    td.appendChild(less_paragraph);
+    td.appendChild(room_paragraph);
+    td.appendChild(NewLessonForAdd);
 }
 
 function SelectClick(td) {
@@ -68,6 +78,4 @@ function SelectClick(td) {
     }
     td.style.background = "#90EE90";
     td.style.color = "#2e8b57";
-
-   
 }

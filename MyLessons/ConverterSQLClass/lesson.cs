@@ -13,6 +13,7 @@
         public string clas { get; set; }
 
         public string room { get; set; }
+        
         public lesson()
         {
 
@@ -36,5 +37,6 @@
             this.less = less;
             teacher = teach;
         }
+        
     }
 }
