@@ -1,11 +1,11 @@
 ﻿class NewLesson {
-    constructor(day, number, objec, name, room, clas) {
-        this.name = name;
-        this.number = number;
+    constructor(day, number, less, name, room, clas) {
         this.day = day;
-        this.objec = objec;
-        this.room = room;
+        this.number = number;
+        this.less = less;
+        this.name = name;
         this.clas = clas;
+        this.room = room;
     }
 }
 function NewLessToJson(NewLessonArgument) {
@@ -57,8 +57,9 @@ function AddLessonInBase(td) {
     var Newnumber = td.getAttribute("lesson");
     var Newroom = document.getElementById("NumberRoomInput").value;
     var Newclas = document.getElementById("CurrentClass").textContent;
-    const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, NewLess, NewTeach, Newclas, Newroom);
+    const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
     let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
+    alert(Newday);
     alert(JsonFormatNewLesson);
 }
 

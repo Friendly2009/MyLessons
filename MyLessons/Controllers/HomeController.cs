@@ -17,8 +17,7 @@ namespace MyLessons.Controllers
 		{
 			return View();
 		}
-
-
+		
 
 
 
