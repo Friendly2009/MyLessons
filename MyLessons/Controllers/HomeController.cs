@@ -284,7 +284,13 @@ namespace MyLessons.Controllers
 			TempData["Message"] = HttpContext.Session.GetString("message");
             return View(us);
 		}
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[HttpGet]
+		public IActionResult UpdateTable(user us,string data)
+		{
+
+			return RedirectToAction("Table", us);
+		}
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -59,8 +59,6 @@ function AddLessonInBase(td) {
     var Newclas = document.getElementById("CurrentClass").textContent;
     const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
     let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
-    alert(Newday);
-    alert(JsonFormatNewLesson);
 }
 
 function SelectClick(td) {

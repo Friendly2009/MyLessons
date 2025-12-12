@@ -184,7 +184,10 @@
 				Удалить Урок
 			</button>
 		</div>
-		<form asp-action="UpdateTable" asp-controller="Home" method="post" class="row justify-content-center m-1">
+		<form asp-action="UpdateTable" asp-controller="Home" method="get" class="row justify-content-center m-1">
+			<input type="hidden" asp-for="login" />
+			<input type="hidden" asp-for="password" />
+			<input type="hidden" asp-for="id" />
 			<input type="hidden" name="data" id="data" value="@ViewBag.data" />
 			<button class="btn btn-dark col-8">Сохранить изменения</button>
 		</form>
