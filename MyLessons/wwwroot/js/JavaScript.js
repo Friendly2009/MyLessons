@@ -3,7 +3,7 @@
         this.day = day;
         this.number = number;
         this.less = less;
-        this.name = name;
+        this.teacher = name;
         this.clas = clas;
         this.room = room;
     }
@@ -60,15 +60,20 @@ function AddLessonInBase(td) {
     const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
     let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
     MainJson = MainJson + "|" + JsonFormatNewLesson;
+    //select the new lesson in table
     var less_paragraph = document.createElement("p");
     less_paragraph.textContent = NewLess;
+    less_paragraph.setAttribute("class", "m-1");
     var room_paragraph = document.createElement("p");
     room_paragraph.textContent = Newroom;
+    room_paragraph.setAttribute("class", "m-1");
     var teach_paragraph = document.createElement("p");
     teach_paragraph.textContent = Newteach;
+    teach_paragraph.setAttribute("class", "m-1");
     td.appendChild(less_paragraph);
     td.appendChild(room_paragraph);
-    td.appendChild(NewLessonForAdd);
+    td.appendChild(teach_paragraph);
+    document.getElementById("data").setAttribute("value", MainJson);
 }
 
 function SelectClick(td) {
