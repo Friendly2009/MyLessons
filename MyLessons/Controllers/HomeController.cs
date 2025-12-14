@@ -82,9 +82,38 @@ namespace MyLessons.Controllers
 
 
 
-		
-		
-        [HttpGet]
+		[HttpGet]
+		public IActionResult AddLessonThroughPanel(user us, string selectedSubject, string clas, string room, string num, string day)
+		{
+			var obj = context.data.Find(us.id);
+
+			if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
+			{
+				HttpContext.Session.SetString("message", "введите необходимые параметры");
+				return RedirectToAction("MainPanel", us);
+			}
+			lesson NewLesson = new lesson(day, num, selectedSubject, clas, room);
+			string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
+			string BD;
+			ViewBag.res = NewLessonStr;
+			BD = obj.text += "|" + NewLessonStr;
+			BD = ControllerConvert.CleanStringForBase(BD);
+			obj.text = BD;
+			context.SaveChanges();
+			try
+			{
+				ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
+				ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
+			}
+			catch { }
+			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
+			ViewBag.user = us;
+			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
+
+			return RedirectToAction("MainPanel", us);
+		}
+
+		[HttpGet]
         public IActionResult AddLesson(user us, string day, string num, string less, string teach, string clas, string room)
         {
             var obj = context.data.Find(us.id);
