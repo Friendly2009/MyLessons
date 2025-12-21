@@ -15,10 +15,13 @@ function NewLessToJson(NewLessonArgument) {
 var Buttons_Star = document.querySelectorAll('.mx-1');
 var AddLesson_Button = document.querySelectorAll('#AddLesson');
 var reader = document.querySelectorAll('td');
+var deleteLessonButton = document.getElementById("deleteLessonButton");
 let Tracking_for_Add_Lesson = false;
+let Tracking_for_Delete_Lesson = false;
 var MainJson = document.getElementById('data').value;
 var NewLess = "";
 var NewTeach = "";
+
 for (let i = 0; i < Buttons_Star.length; i++) {
     Buttons_Star[i].setAttribute("num", (i + 1).toString());
 }
@@ -34,11 +37,16 @@ Buttons_Star.forEach(function (element) {
         //    price.setAttribute('value', count);
     });
 });
+
+
 reader.forEach(td => {
     td.addEventListener("click", clickable => {
         SelectClick(td);
         if (Tracking_for_Add_Lesson === true) {
             AddLessonInBase(td);
+        }
+        if (Tracking_for_Delete_Lesson === true) {
+            DeleteLesson(td);
         }
     })
 });
@@ -49,6 +57,9 @@ AddLesson_Button.forEach(button => {
         Newteach = ParentTeacher.querySelector("#IdTeachersForNewLesson").textContent;
         NewLess = ParentTeacher.querySelector("#IdObjectForNewLesson").textContent;
     })
+});
+deleteLessonButton.addEventListener("click", clickable => {
+    Tracking_for_Delete_Lesson = true;
 });
 
 function AddLessonInBase(td) {
@@ -74,6 +85,10 @@ function AddLessonInBase(td) {
     td.appendChild(room_paragraph);
     td.appendChild(teach_paragraph);
     document.getElementById("data").setAttribute("value", MainJson);
+}
+function DeleteLesson(td) {
+    Tracking_for_Delete_Lesson = false;
+    alert();
 }
 
 function SelectClick(td) {
