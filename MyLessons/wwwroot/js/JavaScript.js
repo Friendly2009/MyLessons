@@ -53,6 +53,7 @@ reader.forEach(td => {
 AddLesson_Button.forEach(button => {
     button.addEventListener("click", clickable => {
         Tracking_for_Add_Lesson = true;
+        Tracking_for_Delete_Lesson = false;
         var ParentTeacher = button.parentNode;
         Newteach = ParentTeacher.querySelector("#IdTeachersForNewLesson").textContent;
         NewLess = ParentTeacher.querySelector("#IdObjectForNewLesson").textContent;
@@ -60,6 +61,7 @@ AddLesson_Button.forEach(button => {
 });
 deleteLessonButton.addEventListener("click", clickable => {
     Tracking_for_Delete_Lesson = true;
+    Tracking_for_Add_Lesson = false;
 });
 
 function AddLessonInBase(td) {
