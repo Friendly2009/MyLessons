@@ -18,9 +18,9 @@
 		{
 			if (ClassLessons[i].day == $"{day}" && ClassLessons[i].number == $"{num}")
 			{
-				<p class="m-1">@ClassLessons[i].less</p>
-				<p class="m-1">@ClassLessons[i].room</p>
-				<p class="m-1">@ClassLessons[i].teacher</p>
+				<p class="m-1" id="paragraph_Less">@ClassLessons[i].less</p>
+				<p class="m-1" id="paragraph_Room">@ClassLessons[i].room</p>
+				<p class="m-1" id="paragraph_Teacher">@ClassLessons[i].teacher</p>
 				<input type="hidden" id="day" value="@ClassLessons[i].day"/>
 				<input type="hidden" id="number" value="@ClassLessons[i].number" />
 				<input type="hidden" id="less" value="@ClassLessons[i].less" />

@@ -88,7 +88,15 @@ function AddLessonInBase(td) {
 }
 function DeleteLesson(td) {
     Tracking_for_Delete_Lesson = false;
-    alert();
+    var Oldday = td.getAttribute("day");
+    var Oldnumber = td.getAttribute("lesson");
+    var Oldroom = td.querySelector("#paragraph_Room").textContent;
+    var OldTeacher = td.querySelector("#paragraph_Teacher").textContent;
+    var OldLesson = td.querySelector("#paragraph_Less").textContent;
+    var OldClass = document.getElementById("CurrentClass").textContent;
+    const OldLessonForDel = new NewLesson(Oldday, Oldnumber, OldLesson, OldTeacher, Oldroom, OldClass);
+    let JsonFormatOldLesson = NewLessToJson(OldLessonForDel);
+    alert(JsonFormatOldLesson);
 }
 
 function SelectClick(td) {
