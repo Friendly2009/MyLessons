@@ -96,7 +96,8 @@ function DeleteLesson(td) {
     var OldClass = document.getElementById("CurrentClass").textContent;
     const OldLessonForDel = new NewLesson(Oldday, Oldnumber, OldLesson, OldTeacher, Oldroom, OldClass);
     let JsonFormatOldLesson = NewLessToJson(OldLessonForDel);
-    alert(JsonFormatOldLesson);
+    MainJson = MainJson.replace(JsonFormatOldLesson, "");
+    document.getElementById("data").setAttribute("value", MainJson);
 }
 
 function SelectClick(td) {

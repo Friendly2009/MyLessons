@@ -261,6 +261,7 @@ namespace MyLessons.Controllers
 		public IActionResult UpdateTable(user us,string data, string clas)
 		{
 			var obj = context.data.Find(us.id);
+			data = ControllerConvert.CleanStringForBase(data);
 			obj.text = data;
 			ViewBag.data = obj.text;
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
