@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
@@ -15,6 +16,7 @@ namespace MyLessons.Controllers
         }
 		public IActionResult Index()
 		{
+
 			return View();
 		}
 		
@@ -256,17 +258,23 @@ namespace MyLessons.Controllers
             return View(us);
 		}
 		[HttpGet]
-		public IActionResult UpdateTable(user us,string data)
+		public IActionResult UpdateTable(user us,string data, string clas)
 		{
 			var obj = context.data.Find(us.id);
 			obj.text = data;
+			ViewBag.data = obj.text;
+			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+			ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
+			ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
+			ViewBag.Lessons = ControllerConvert.ConvertToLesson(obj.text);
+			ViewBag.Clas = clas;
 			context.SaveChanges();
-			return RedirectToAction("Table", us);
+			return View("Table", us);
 		}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        {		
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
