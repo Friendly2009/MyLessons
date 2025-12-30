@@ -66,40 +66,51 @@ deleteLessonButton.addEventListener("click", clickable => {
 
 function AddLessonInBase(td) {
     Tracking_for_Add_Lesson = false;
-    var Newday = td.getAttribute("day");
-    var Newnumber = td.getAttribute("lesson");
-    var Newroom = document.getElementById("NumberRoomInput").value;
-    var Newclas = document.getElementById("CurrentClass").textContent;
-    const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
-    let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
-    MainJson = MainJson + "|" + JsonFormatNewLesson;
-    //select the new lesson in table
-    var less_paragraph = document.createElement("p");
-    less_paragraph.textContent = NewLess;
-    less_paragraph.setAttribute("class", "m-1");
-    var room_paragraph = document.createElement("p");
-    room_paragraph.textContent = Newroom;
-    room_paragraph.setAttribute("class", "m-1");
-    var teach_paragraph = document.createElement("p");
-    teach_paragraph.textContent = Newteach;
-    teach_paragraph.setAttribute("class", "m-1");
-    td.appendChild(less_paragraph);
-    td.appendChild(room_paragraph);
-    td.appendChild(teach_paragraph);
-    document.getElementById("data").setAttribute("value", MainJson);
+    try {
+        var Replaceroom = td.querySelector("#paragraph_Room").textContent;
+        var paragraph_Less = td.querySelector("#paragraph_Less").textContent;
+        var paragraph_Teacher = td.querySelector("#paragraph_Teacher").textContent;
+
+    } catch {
+        var Newday = td.getAttribute("day");
+        var Newnumber = td.getAttribute("lesson");
+        var Newroom = document.getElementById("NumberRoomInput").value;
+        var Newclas = document.getElementById("CurrentClass").textContent;
+        const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
+        let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
+        MainJson = MainJson + "|" + JsonFormatNewLesson;
+        //select the new lesson in table
+        var less_paragraph = document.createElement("p");
+        less_paragraph.textContent = NewLess;
+        less_paragraph.setAttribute("class", "m-1");
+        less_paragraph.setAttribute("id", "paragraph_Less");
+        var room_paragraph = document.createElement("p");
+        room_paragraph.textContent = Newroom;
+        room_paragraph.setAttribute("class", "m-1");
+        room_paragraph.setAttribute("id", "paragraph_Room");
+        var teach_paragraph = document.createElement("p");
+        teach_paragraph.textContent = Newteach;
+        teach_paragraph.setAttribute("class", "m-1");
+        teach_paragraph.setAttribute("id", "paragraph_Teacher");
+        td.appendChild(less_paragraph);
+        td.appendChild(room_paragraph);
+        td.appendChild(teach_paragraph);
+        document.getElementById("data").setAttribute("value", MainJson);
+    }
 }
 function DeleteLesson(td) {
     Tracking_for_Delete_Lesson = false;
     var Oldday = td.getAttribute("day");
     var Oldnumber = td.getAttribute("lesson");
-    var Oldroom = td.querySelector("#paragraph_Room").textContent;
-    var OldTeacher = td.querySelector("#paragraph_Teacher").textContent;
-    var OldLesson = td.querySelector("#paragraph_Less").textContent;
+    var Oldroom = td.querySelector("#paragraph_Room");
+    var OldTeacher = td.querySelector("#paragraph_Teacher");
+    var OldLesson = td.querySelector("#paragraph_Less");
     var OldClass = document.getElementById("CurrentClass").textContent;
-    const OldLessonForDel = new NewLesson(Oldday, Oldnumber, OldLesson, OldTeacher, Oldroom, OldClass);
+    const OldLessonForDel = new NewLesson(Oldday, Oldnumber, OldLesson.textContent, OldTeacher.textContent, Oldroom.textContent, OldClass);
     let JsonFormatOldLesson = NewLessToJson(OldLessonForDel);
     MainJson = MainJson.replace(JsonFormatOldLesson, "");
     document.getElementById("data").setAttribute("value", MainJson);
+    RemoveObjectTd(td);
 }
 
 function SelectClick(td) {
@@ -109,4 +120,10 @@ function SelectClick(td) {
     }
     td.style.background = "#90EE90";
     td.style.color = "#2e8b57";
+}
+
+function RemoveObjectTd(td) {
+    td.querySelector("#paragraph_Room").remove();
+    td.querySelector("#paragraph_Teacher").remove();
+    td.querySelector("#paragraph_Less").remove();
 }
