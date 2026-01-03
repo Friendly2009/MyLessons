@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using System.Diagnostics;
@@ -9,76 +10,32 @@ namespace MyLessons.Views.Shared.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext context;
+		DbSet<user> UsersTable;
 		public HomeController(ILogger<HomeController> logger, ApplicationDbContext _context)
         {
             _logger = logger;
             context = _context;
-        }
+			UsersTable = _context.user;
+		}
 		public IActionResult Index()
 		{
-
 			return View();
 		}
-		
-
-
-
 		[HttpGet]
-		public IActionResult Table(user us)
+		public IActionResult Table(user model)
 		{
-			if (!ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
-				return View("Index", us);
-			}
-			var thisUs = context.user.Where(t => t.login == us.login).ToList();
-			for(int i = 0; i < thisUs.Count; i++)
-			{
-				if (thisUs[i].login == us.login && thisUs[i].password == us.password)
+				foreach(var user in UsersTable)
 				{
-					us = thisUs[i];
-					ViewBag.res = $"{thisUs[i].id}";
-					try
+					if(user.login == model.login && user.password == model.password)
 					{
-						var obj = context.data.FirstOrDefault(t => t.Id == us.id);
-						ViewBag.data = obj.text;
-						ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-						ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
-						ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
-						if(obj.text == "")
-						{
-							return RedirectToAction("MainPanel", us);
-						}
-						return View(us);
+						HttpContext.Session.SetInt32("id", user.id);
+						return RedirectToAction("Table","Main");
 					}
-					catch
-					{
-						return RedirectToAction("MainPanel", us);
-					}				
 				}
 			}
 			return View("Index");
-		}
-		[HttpGet]
-		public IActionResult Choose(user us,string clas)
-		{
-			var thisUs = context.user.Where(t => t.login == us.login).ToList();
-			for (int i = 0; i < thisUs.Count; i++)
-			{
-				if (thisUs[i].login == us.login && thisUs[i].password == us.password) 
-				{ 
-					us = thisUs[i];
-					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
-
-					ViewBag.data = obj.text;
-					ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-					ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
-					ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
-					ViewBag.Lessons = ControllerConvert.ConvertToLesson(obj.text);
-					ViewBag.Clas = clas;
-					return View("Table", us);
-				}
-			}
-			return View("Index",us);
 		}
 
 
@@ -256,21 +213,6 @@ namespace MyLessons.Views.Shared.Controllers
 			}
 			TempData["Message"] = HttpContext.Session.GetString("message");
             return View(us);
-		}
-		[HttpGet]
-		public IActionResult UpdateTable(user us,string data, string clas)
-		{
-			var obj = context.data.Find(us.id);
-			data = ControllerConvert.CleanStringForBase(data);
-			obj.text = data;
-			ViewBag.data = obj.text;
-			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
-			ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
-			ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
-			ViewBag.Lessons = ControllerConvert.ConvertToLesson(obj.text);
-			ViewBag.Clas = clas;
-			context.SaveChanges();
-			return View("Table", us);
 		}
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
