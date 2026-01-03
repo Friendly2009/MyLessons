@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using System.Diagnostics;
-namespace MyLessons.Controllers
+namespace MyLessons.Views.Shared.Controllers
 {
     public class HomeController : Controller
     {
