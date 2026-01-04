@@ -19,6 +19,7 @@ namespace MyLessons.Views.Shared.Controllers
 		}
 		public IActionResult Index()
 		{
+			HttpContext.Session.Clear();
 			return View();
 		}
 		[HttpGet]
@@ -185,35 +186,7 @@ namespace MyLessons.Views.Shared.Controllers
 
 
 
-		[HttpGet]
-		public IActionResult MainPanel(user us)
-		{
-			if(!ModelState.IsValid)
-			{
-				return View("Index");
-			}
-			var thisUs = context.user.Where(t => t.login == us.login).ToList();
-			for (int i = 0; i < thisUs.Count; i++)
-			{
-				if (thisUs[i].login == us.login && thisUs[i].password == us.password)
-				{
-					us = thisUs[i];
-					var obj = context.data.FirstOrDefault(t => t.Id == us.id);
-					try
-					{
-						ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
-						ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
-					}
-					catch { }
-					ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-					ViewBag.user = us;
-					ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
-					ViewBag.CheckHave = HttpContext.Session.GetInt32("CheckHave");
-				}
-			}
-			TempData["Message"] = HttpContext.Session.GetString("message");
-            return View(us);
-		}
+		
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {		

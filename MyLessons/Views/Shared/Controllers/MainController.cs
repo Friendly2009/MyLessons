@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace MyLessons.Views.Shared.Controllers
@@ -23,15 +24,28 @@ namespace MyLessons.Views.Shared.Controllers
         }
         public IActionResult Table()
         {
-            Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
+			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
+			if( obj == null) { return RedirectToAction("Index", "Home"); }
 			ViewBag.data = obj.text;
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 			ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
-            if(string.IsNullOrEmpty(obj.text) || string.IsNullOrEmpty(obj.teacher))
-            {
-                return RedirectToAction("MainPanel");
-            }
+			if (string.IsNullOrEmpty(obj.text) || string.IsNullOrEmpty(obj.teacher))
+			{
+				return RedirectToAction("MainPanel");
+			}
+			return View();
+        }
+        public IActionResult MainPanel()
+        {
+            int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
+            Data obj = DataTable.Find(id);
+			if (obj == null) { return RedirectToAction("Index", "Home"); }
+			ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
+			ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
+			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
+			ViewBag.user = _context.user.Find(id);
+			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 			return View();
         }
         public IActionResult Choose(string clas)
