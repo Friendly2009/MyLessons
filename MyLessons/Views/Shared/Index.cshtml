@@ -1,4 +1,8 @@
-﻿@model user;
+﻿@model user
+@if (!string.IsNullOrEmpty(ViewBag.msg))
+{
+	<script>alert('@Html.Raw(ViewBag.msg)');</script>
+}
 <div>
 	<div style="margin-top: 100px; " class="row g-0">
 		<img src="https://avatars.mds.yandex.net/i?id=0baec8a2e048a7c817a6221f6108f5f48b46314e-15463503-images-thumbs&n=13" class="col-6 border-2" style="border-top-left-radius: 20px;  border-bottom-left-radius:20px" />
@@ -32,7 +36,7 @@
 	<br />
 	<h1 class="text-dark m-2" id="reg">Зарегистрироваться</h1>
 	<div class="segment">
-		<form method="post" asp-action="AddAccount" asp-controller="Home">
+		<form asp-action="AddUser" asp-controller="Home">
 			<div class="row justify-content-center">
 				<input type="text" placeholder="Логин" class="input-group-text col-6 m-3" name="log"/>
 				<p class="col-6 text-danger">@ViewBag.MessageLog</p>
@@ -69,3 +73,9 @@
 		</div>
 	</div>
 </div>
+@{
+	if (ViewBag.msg != null)
+	{
+		
+	}
+}

@@ -144,8 +144,7 @@ namespace MyLessons.Views.Shared.Controllers
 
 
 
-		[HttpPost]
-		public IActionResult AddAccount(string log, string pass)
+		public IActionResult AddUser(string log, string pass)
 		{
 			if (string.IsNullOrEmpty(log) && string.IsNullOrEmpty(pass))
 			{
@@ -168,18 +167,17 @@ namespace MyLessons.Views.Shared.Controllers
 				ViewBag.MessageLog = "";
 				ViewBag.MessagePass = "";
 			}
-			user us = new user { password = pass, login = log };
-			context.user.Add(us);
-			context.SaveChanges();
-			var thisUs = context.user.Where(t => t.login == us.login).ToList();
-			foreach(var User in thisUs)
+			user new_user = new user { password = pass, login = log };
+			foreach(var user in UsersTable)
 			{
-				if (User.login == us.login && User.password == us.password)
+				if(user.login == log)
 				{
-					us = User;
+					ViewBag.msg = "Этот пользователь уже существует";
+					return View("Index");
 				}
 			}
-			context.data.Add(new Data(us.id));
+			context.user.Add(new_user);
+			context.data.Add(new Data(context.user.Count() + 1));
 			context.SaveChanges();
 			return View("Index");
 		}
