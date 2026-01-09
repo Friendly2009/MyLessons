@@ -69,7 +69,7 @@
 					<p class="col-2">@ViewBag.lesson[i].teacher</p>
 					<p class="col-1">@ViewBag.lesson[i].clas</p>
 					<p class="col-1">@ViewBag.lesson[i].room</p>
-					<form asp-action="DeleteLesson" asp-controller="Main" method="get" class="col-1">
+					<form asp-action="DeleteLesson" asp-controller="Main" class="col-1">
 						<input type="hidden" name="less" value="@ViewBag.lesson[i].less" />
 						<input type="hidden" name="day" value="@ViewBag.lesson[i].day" />
 						<input type="hidden" name="number" value="@ViewBag.lesson[i].number" />

@@ -96,6 +96,17 @@ namespace MyLessons.Controllers
             _context.SaveChanges();
             return RedirectToAction("MainPanel");
         }
+        public IActionResult DeleteLesson(string less, string day, string number, string teacher, string clas, string room)
+        {
+            int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
+            var obj = DataTable.Find(id);
+            lesson les = new lesson(day, number, less, teacher, clas, room);
+            string data = ControllerConvert.ConvertLessonToString(les);
+            obj.text = obj.text.Replace(data, "");
+            obj.text = ControllerConvert.CleanStringForBase(obj.text);
+            _context.SaveChanges();
+            return RedirectToAction("MainPanel");
+        }
         public IActionResult Choose(string clas)
         {
 			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
