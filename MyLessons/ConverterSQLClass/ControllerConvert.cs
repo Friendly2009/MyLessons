@@ -49,7 +49,12 @@ namespace MyLessons.ConverterSQLClass
 			for (int i = 0; i < blocks.Length; i++)
 			{
 				string[] names = blocks[i].Split("`");
-				list.Add(names[1]);
+				try
+				{
+                    list.Add(names[1]);
+
+                }
+                catch { }
 			}
 			return list;
 		}
@@ -65,17 +70,14 @@ namespace MyLessons.ConverterSQLClass
 			}
             return list;
         }
-		public static string ConvertLessonsArrayToString(List<lesson> list)
+		public static string TeachersParametrToBase(string Base, string name,string subject)
 		{
-			string result = "";
-			foreach (lesson item in list)
+			if (string.IsNullOrEmpty(Base))
 			{
-				result += "|" + JsonConvert.SerializeObject(item);
+				return name + "`" + subject;
 			}
-            result = result.Replace("||", "|");
-            result = result.Trim('|');
-            return result;
-		} 
+			return Base + "|" +name + "`" + subject;
+		}
 		public static string ConvertLessonToString(lesson les)
 		{
 			string result = "";

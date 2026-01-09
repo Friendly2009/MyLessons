@@ -1,22 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MyLessons;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-
-namespace MyLessons.Views.Shared.Controllers
+namespace MyLessons.Controllers
 {
     public class MainController : Controller
     {
         private readonly ApplicationDbContext _context;
         private DbSet<Data> DataTable;
+
         public MainController(ApplicationDbContext context)
         {
             _context = context;
@@ -48,6 +44,14 @@ namespace MyLessons.Views.Shared.Controllers
 			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 			return View();
         }
+		public IActionResult AddTeacher(string name, string teacher)
+		{
+            int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
+            Data obj = DataTable.Find(id);
+			obj.teacher = ControllerConvert.TeachersParametrToBase(obj.teacher, name, teacher);
+			_context.SaveChanges();
+            return RedirectToAction("MainPanel");
+		}
         public IActionResult Choose(string clas)
         {
 			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));

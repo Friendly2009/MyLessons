@@ -24,10 +24,7 @@
 						<div class="row align-items-center mb-2" style="margin: 10px 0;">
 							<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
 							<p class="col-4 mb-0">@ViewBag.objec[i]</p>
-							<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-3 d-flex justify-content-end mb-0">
-								<input type="hidden" asp-for="login" />
-								<input type="hidden" asp-for="password" />
-								<input type="hidden" asp-for="id" />
+							<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
 								<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
 								<input type="hidden" name="name" value="@ViewBag.objec[i]" />
 								<input type="hidden" name="adres" value="MainPanel" />
@@ -46,12 +43,9 @@
 				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
 			}
 		}
-		<form asp-action="AddTeacher" asp-controller="Home" method="get" class="row justify-content-center col-12">
-			<input type="hidden" asp-for="login"/>
-			<input type ="hidden" asp-for="password" />
-			<input type="hidden" asp-for="id" />
-			<input type="text" name="name" class="form-control col-6 m-2" placeholder="имя учителя"/>
-			<input type="text" name="selectedSubject" class="form-control col-6 m-2" placeholder="Предмет" />
+		<form asp-action="AddTeacher" asp-controller="Main" class="row justify-content-center col-12">
+			<input type="text" name="name" class="form-control col-6 m-2" placeholder="Предмет" />
+			<input type="text" name="teacher" class="form-control col-6 m-2" placeholder="имя учителя" />
 			<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
 		</form>
 	</div>

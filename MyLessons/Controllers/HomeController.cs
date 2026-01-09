@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
 using System.Diagnostics;
-namespace MyLessons.Views.Shared.Controllers
+namespace MyLessons.Controllers
 {
     public class HomeController : Controller
     {
@@ -85,65 +85,6 @@ namespace MyLessons.Views.Shared.Controllers
 			context.SaveChanges();
 			return RedirectToAction("MainPanel", us);
 		}
-
-
-
-
-
-		[HttpGet]
-		public IActionResult AddTeacher(user us,string name, string selectedSubject)
-		{
-			var obj = context.data.Find(us.id);
-			if(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(selectedSubject))
-			{
-				string res = obj.teacher + "|" + name + "`" + selectedSubject;
-				res = res.Trim('|');
-				obj.teacher = res;
-				context.SaveChanges();
-			}
-			else { HttpContext.Session.SetString("message", "¬ведите данные"); }
-			try
-			{
-				ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
-                ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
-            }
-			catch { }
-			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-			ViewBag.user = us;
-			return RedirectToAction("MainPanel",us);
-		}
-        [HttpGet]
-		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
-		{
-			var obj = context.data.Find(us.id);
-			List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
-			List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
-			teach.Remove(name);
-			objects.Remove(objec);
-			string resultTeach = ControllerConvert.ConvertTeachersToString(teach,objects);
-			obj.teacher = resultTeach;
-			context.SaveChanges();
-			List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(obj.text);
-			List<lesson> resultLess = new List<lesson>();
-			foreach(var item in ChekListLesson)
-			{
-				if (item == null)
-				{
-					return RedirectToAction("MainPanel", us);
-				}
-				if (item.teacher == name && item.less == objec)
-				{
-                    resultLess.Add(item);
-                } 
-			}
-            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
-            context.SaveChanges();
-			return RedirectToAction("MainPanel",us);
-		}
-
-
-
-
 		public IActionResult AddUser(string log, string pass)
 		{
 			if (string.IsNullOrEmpty(log) && string.IsNullOrEmpty(pass))
