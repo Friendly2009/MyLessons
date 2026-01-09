@@ -14,34 +14,32 @@
 	</div>
 	<h3>Учительская панель</h3>
 	<div class="segment row justify-content-center">
-		@{
-			try
+		@try
+		{
+			for (int i = 0; i < ViewBag.teacher.Count; i++)
 			{
-				for(int i = 0; i < ViewBag.teacher.Count; i++)
+				if (ViewBag.teacher[0] != "")
 				{
-					if (ViewBag.teacher[0] != "")
-					{
-						<div class="row align-items-center mb-2" style="margin: 10px 0;">
-							<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
-							<p class="col-4 mb-0">@ViewBag.objec[i]</p>
-							<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
-								<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
-								<input type="hidden" name="subject" value="@ViewBag.objec[i]" />
-								<input type="hidden" name="adres" value="MainPanel"/>
-								<button class="btn btn-close btn-dark" type="submit"></button>
-							</form>
-						</div>
-					}
-					else
-					{
-						<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
-					}
+					<div class="row align-items-center mb-2" style="margin: 10px 0;">
+						<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
+						<p class="col-4 mb-0">@ViewBag.objec[i]</p>
+						<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
+							<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
+							<input type="hidden" name="subject" value="@ViewBag.objec[i]" />
+							<input type="hidden" name="adres" value="MainPanel" />
+							<button class="btn btn-close btn-dark" type="submit"></button>
+						</form>
+					</div>
+				}
+				else
+				{
+					<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
 				}
 			}
-			catch
-			{
-				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
-			}
+		}
+		catch
+		{
+			<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
 		}
 		<form asp-action="AddTeacher" asp-controller="Main" class="row justify-content-center col-12">
 			<input type="text" name="name" class="form-control col-6 m-2" placeholder="Предмет" />
@@ -51,69 +49,58 @@
 	</div>
 	<h3>Существующее уроки</h3>
 	<div class="segment row justify-content-center">
-		@{
-			try
+		@try
+		{
+			<input type="hidden" value="@ViewBag.lesson[0].day" />
+			<div class="col-12 m-2 row justify-content-start">
+				<p class="col-2">День недели</p>
+				<p class="col-2">Номер урока</p>
+				<p class="col-2">Урок</p>
+				<p class="col-2">Преподаватель</p>
+				<p class="col-1">Класс</p>
+				<p class="col-1">Номер Кабинета</p>
+			</div>
+			for (int i = 0; i < ViewBag.lesson.Count; i++)
 			{
-				<input type="hidden" value="@ViewBag.lesson[0].day" />
 				<div class="col-12 m-2 row justify-content-start">
-					<p class="col-2">День недели</p>
-					<p class="col-2">Номер урока</p>
-					<p class="col-2">Урок</p>
-					<p class="col-2">Преподаватель</p>
-					<p class="col-1">Класс</p>
-					<p class="col-1">Номер Кабинета</p>
+					<p class="col-2">@ViewBag.lesson[i].day</p>
+					<p class="col-2">@ViewBag.lesson[i].number</p>
+					<p class="col-2">@ViewBag.lesson[i].less</p>
+					<p class="col-2">@ViewBag.lesson[i].teacher</p>
+					<p class="col-1">@ViewBag.lesson[i].clas</p>
+					<p class="col-1">@ViewBag.lesson[i].room</p>
+					<form asp-action="DeleteLesson" asp-controller="Main" method="get" class="col-1">
+						<input type="hidden" name="less" value="@ViewBag.lesson[i].less" />
+						<input type="hidden" name="day" value="@ViewBag.lesson[i].day" />
+						<input type="hidden" name="number" value="@ViewBag.lesson[i].number" />
+						<input type="hidden" name="teacher" value="@ViewBag.lesson[i].teacher" />
+						<input type="hidden" name="clas" value="@ViewBag.lesson[i].clas" />
+						<input type="hidden" name="room" value="@ViewBag.lesson[i].room" />
+						<button class="btn btn-close btn-dark" type="submit" />
+					</form>
 				</div>
-				for (int i = 0; i < ViewBag.lesson.Count; i++)
-				{
-					<div class="col-12 m-2 row justify-content-start">
-						<p class="col-2">@ViewBag.lesson[i].day</p>
-						<p class="col-2">@ViewBag.lesson[i].number</p>
-						<p class="col-2">@ViewBag.lesson[i].less</p>
-						<p class="col-2">@ViewBag.lesson[i].teacher</p>
-						<p class="col-1">@ViewBag.lesson[i].clas</p>
-						<p class="col-1">@ViewBag.lesson[i].room</p>
-						<form asp-action="DeleteLesson" asp-controller="Home" method="get" class="col-1">
-							<input type="hidden" asp-for="login" />
-							<input type="hidden" asp-for="password" />
-							<input type="hidden" asp-for="id" />
-
-							<input type="hidden" name="less" value="@ViewBag.lesson[i].less" />
-							<input type="hidden" name="day" value="@ViewBag.lesson[i].day" />
-							<input type="hidden" name="number" value="@ViewBag.lesson[i].number" />
-							<input type="hidden" name="teacher" value="@ViewBag.lesson[i].teacher" />
-							<input type="hidden" name="clas" value="@ViewBag.lesson[i].clas" />
-							<input type="hidden" name="room" value="@ViewBag.lesson[i].room" />
-
-							<button class="btn btn-close btn-dark" type="submit" />
-						</form>
-					</div>
-				}
-			}
-			catch
-			{
-				<br />
-				<br />
-				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных уроков</p>
-				<br />
-				<br />
 			}
 		}
-		<form class="col-7 m-3 row justify-content-center" asp-action="AddLessonThroughPanel" asp-controller="Home" method="get">
-			<input type="hidden" asp-for="login" />
-			<input type="hidden" asp-for="password" />
-			<input type="hidden" asp-for="id" />
+		catch
+		{
+			<br />
+			<br />
+			<p class="col-12 text-center m-5">У вас еще нет зарегестрированных уроков</p>
+			<br />
+			<br />
+		}
+		<form class="col-7 m-3 row justify-content-center" asp-action="AddLesson" asp-controller="Main">
 			<p>Преподаватель && Урок</p>
 			<select name="selectedSubject" class="form-select m-2" aria-label="Выберите Преподавателя" required>
 				<option selected disabled>Выберите Предмет</option>
-				@{
-					try
+				@try
+				{
+					for (int i = 0; i < ViewBag.AvaliableItemsTeachAndObjec.Count; i++)
 					{
-						for (int i = 0; i < ViewBag.AvaliableItemsTeachAndObjec.Count; i++)
-						{
-							<option value="@ViewBag.AvaliableItemsTeachAndObjec[i]">@ViewBag.AvaliableItemsTeachAndObjec[i]</option>
-						}
-					}catch{}
+						<option value="@ViewBag.AvaliableItemsTeachAndObjec[i]">@ViewBag.AvaliableItemsTeachAndObjec[i]</option>
+					}
 				}
+				catch { }
 			</select>
 			<p>Класс</p>
 			<input type="text" class="form-control col-7 m-1" name="clas" value="3А" />

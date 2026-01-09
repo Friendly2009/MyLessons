@@ -38,91 +38,6 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
 		}
-
-
-
-
-		[HttpGet]
-		public IActionResult AddLessonThroughPanel(user us, string selectedSubject, string clas, string room, string num, string day)
-		{
-			var obj = context.data.Find(us.id);
-
-			if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
-			{
-				HttpContext.Session.SetString("message", "введите необходимые параметры");
-				return RedirectToAction("MainPanel", us);
-			}
-			lesson NewLesson = new lesson(day, num, selectedSubject, clas, room);
-			string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
-			string BD;
-			ViewBag.res = NewLessonStr;
-			BD = obj.text += "|" + NewLessonStr;
-			BD = ControllerConvert.CleanStringForBase(BD);
-			obj.text = BD;
-			context.SaveChanges();
-			try
-			{
-				ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
-				ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
-			}
-			catch { }
-			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
-			ViewBag.user = us;
-			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
-
-			return RedirectToAction("MainPanel", us);
-		}
-
-		
-        [HttpGet]
-		public IActionResult DeleteLesson(user us, string less,string day,string number, string teacher,string clas,string room)
-		{
-			var obj = context.data.Find(us.id);
-			lesson les = new lesson(day, number, less,teacher, clas,room);
-			string data = ControllerConvert.ConvertLessonToString(les);
-			obj.text = obj.text.Replace(data, "");
-			obj.text = ControllerConvert.CleanStringForBase(obj.text);
-			context.SaveChanges();
-			return RedirectToAction("MainPanel", us);
-		}
-
-
-
-
-
-		
-        [HttpGet]
-		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
-		{
-			var obj = context.data.Find(us.id);
-			List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
-			List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
-			teach.Remove(name);
-			objects.Remove(objec);
-			string resultTeach = ControllerConvert.ConvertTeachersToString(teach,objects);
-			obj.teacher = resultTeach;
-			context.SaveChanges();
-			List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(obj.text);
-			List<lesson> resultLess = new List<lesson>();
-			foreach(var item in ChekListLesson)
-			{
-				if (item == null)
-				{
-					return RedirectToAction("MainPanel", us);
-				}
-				if (item.teacher == name && item.less == objec)
-				{
-                    resultLess.Add(item);
-                } 
-			}
-            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
-            context.SaveChanges();
-			return RedirectToAction("MainPanel",us);
-		}
-
-
-
-
 		public IActionResult AddUser(string log, string pass)
 		{
 			if (string.IsNullOrEmpty(log) && string.IsNullOrEmpty(pass))
@@ -160,10 +75,6 @@ namespace MyLessons.Controllers
 			context.SaveChanges();
 			return View("Index");
 		}
-
-
-
-		
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {		

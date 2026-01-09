@@ -80,6 +80,22 @@ namespace MyLessons.Controllers
             _context.SaveChanges();
             return RedirectToAction(adres);
         }
+        public IActionResult AddLesson(string selectedSubject, string clas, string room, string num, string day)
+        {
+            int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
+            var obj = DataTable.Find(id);
+            if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day))
+            {
+                return RedirectToAction("MainPanel");
+            }
+            lesson NewLesson = new lesson(day, num, selectedSubject, clas, room);
+            string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
+            string BD = obj.text += "|" + NewLessonStr;
+            BD = ControllerConvert.CleanStringForBase(BD);
+            obj.text = BD;
+            _context.SaveChanges();
+            return RedirectToAction("MainPanel");
+        }
         public IActionResult Choose(string clas)
         {
 			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
