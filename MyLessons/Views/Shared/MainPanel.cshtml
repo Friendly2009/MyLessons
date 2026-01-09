@@ -26,8 +26,8 @@
 							<p class="col-4 mb-0">@ViewBag.objec[i]</p>
 							<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
 								<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
-								<input type="hidden" name="name" value="@ViewBag.objec[i]" />
-								<input type="hidden" name="adres" value="MainPanel" />
+								<input type="hidden" name="subject" value="@ViewBag.objec[i]" />
+								<input type="hidden" name="adres" value="MainPanel"/>
 								<button class="btn btn-close btn-dark" type="submit"></button>
 							</form>
 						</div>

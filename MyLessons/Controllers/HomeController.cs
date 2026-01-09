@@ -85,6 +85,44 @@ namespace MyLessons.Controllers
 			context.SaveChanges();
 			return RedirectToAction("MainPanel", us);
 		}
+
+
+
+
+
+		
+        [HttpGet]
+		public IActionResult DeleteTeacher(user us, string name, string objec, string adres)
+		{
+			var obj = context.data.Find(us.id);
+			List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
+			List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
+			teach.Remove(name);
+			objects.Remove(objec);
+			string resultTeach = ControllerConvert.ConvertTeachersToString(teach,objects);
+			obj.teacher = resultTeach;
+			context.SaveChanges();
+			List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(obj.text);
+			List<lesson> resultLess = new List<lesson>();
+			foreach(var item in ChekListLesson)
+			{
+				if (item == null)
+				{
+					return RedirectToAction("MainPanel", us);
+				}
+				if (item.teacher == name && item.less == objec)
+				{
+                    resultLess.Add(item);
+                } 
+			}
+            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
+            context.SaveChanges();
+			return RedirectToAction("MainPanel",us);
+		}
+
+
+
+
 		public IActionResult AddUser(string log, string pass)
 		{
 			if (string.IsNullOrEmpty(log) && string.IsNullOrEmpty(pass))

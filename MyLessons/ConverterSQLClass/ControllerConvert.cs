@@ -101,5 +101,16 @@ namespace MyLessons.ConverterSQLClass
 			result = result.Trim('|');
 			return result;
 		}
-	}
+        public static string ConvertLessonsArrayToString(List<lesson> list)
+        {
+            string result = "";
+            foreach (lesson item in list)
+            {
+                result += "|" + JsonConvert.SerializeObject(item);
+            }
+            result = result.Replace("||", "|");
+            result = result.Trim('|');
+            return result;
+        }
+    }
 }

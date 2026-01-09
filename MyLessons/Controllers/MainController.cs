@@ -52,6 +52,34 @@ namespace MyLessons.Controllers
 			_context.SaveChanges();
             return RedirectToAction("MainPanel");
 		}
+		public IActionResult DeleteTeacher(string subject, string name, string adres)
+		{
+            int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
+            var obj = DataTable.Find(id);
+            List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
+            List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
+            teach.Remove(name);
+            objects.Remove(subject);
+            string resultTeach = ControllerConvert.ConvertTeachersToString(teach, objects);
+            obj.teacher = resultTeach;
+            _context.SaveChanges();
+            List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(obj.text);
+            List<lesson> resultLess = new List<lesson>();
+            foreach (var item in ChekListLesson)
+            {
+                if (item == null)
+                {
+                    return RedirectToAction("MainPanel");
+                }
+                if (item.teacher == name && item.less == subject)
+                {
+                    resultLess.Add(item);
+                }
+            }
+            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
+            _context.SaveChanges();
+            return RedirectToAction(adres);
+        }
         public IActionResult Choose(string clas)
         {
 			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
