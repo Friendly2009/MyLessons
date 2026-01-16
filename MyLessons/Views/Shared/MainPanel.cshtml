@@ -8,6 +8,28 @@
 		alert(obj);
 	</script>
 }
+
+<script src="~/js/sidebar.js"></script>
+<button id="toggleSidebar" class="btn btn-light position-fixed" style="top: 60px; left: 0px; z-index: 1050; transition: left 0.3s ease;">
+	☰
+</button>
+<div id="sidebar"
+	 style="
+        width: 500px;
+        height: 100vh;
+        background: #343a40;
+        color: white;
+        position: fixed;
+        top: 55px;
+        left: -500px;
+        transition: left 0.3s ease;
+        padding: 20px;
+        z-index: 1040;
+        border-radius: 0 10px 10px 0;
+       ">
+	<h4>personal data</h4>
+	
+</div>
 <div class="container">
 	<div class="justify-content-center row">
 		<h1 class="col-12 text-center">Главная панель @user.login</h1>
