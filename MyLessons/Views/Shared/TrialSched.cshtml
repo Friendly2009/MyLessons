@@ -1,1 +1,35 @@
-﻿
+﻿<div class="container">
+	<div class="row justify-content-center container">
+		@{
+			for (int i = 0; i < ViewBag.socials.Count; i++)
+			{
+				<form asp-action="Choose" asp-controller="Main" class="col-1 m-1">
+					<input type="hidden" name="clas" value="@ViewBag.socials[i]" />
+					<button type="submit" class="btn btn-dark w-100">@ViewBag.socials[i]</button>
+				</form>
+			}
+		}
+	</div>
+	<h1 class="align-content-center" id="CurrentClass">@ViewBag.Clas</h1>
+	<table class="table">
+		<tr>
+			<td>@ViewBag.Clas</td>
+			<td>Понедельник</td>
+			<td>Вторник</td>
+			<td>Среда</td>
+			<td>Четверг</td>
+			<td>Пятница</td>
+			<td>Суббота</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td style="width: 250px" day="1" lesson="1"></td>
+		</tr>
+	</table>
+	<div class="row justify-content-center">
+		<form asp-action="SaveChanges" asp-controller="Trial" class="row justify-content-center m-1">
+			<button class="btn btn-dark col-8">Продолжить работу с этой таблицей</button>
+		</form>
+	</div>
+</div>
+
