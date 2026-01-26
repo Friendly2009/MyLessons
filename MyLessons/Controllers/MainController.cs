@@ -125,5 +125,10 @@ namespace MyLessons.Controllers
 			await _context.SaveChangesAsync();
             return Choose(clas);
 		}
-    }
+        public IActionResult TrialSched()
+        {
+            return View();
+        }
+
+	}
 }
