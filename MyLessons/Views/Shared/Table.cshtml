@@ -159,10 +159,9 @@
 					</form>
 				</div>
 			}
-			<form asp-action="AddTeacher" method="post" class="row justify-content-center m-2">
-				<p>Добавить учителя</p>
-				<input type="text" class="form-control col-3" placeholder="Имя учителя" name="teacherName" required>
-				<input type="text" name="selectedSubject" class="form-control col-6 m-2" placeholder="Предмет" />
+			<form asp-action="AddTeacher" asp-controller="Main" class="row justify-content-center col-12 m-2">
+				<input type="text" name="name" class="form-control col-6 m-2" placeholder="Предмет" />
+				<input type="text" name="teacher" class="form-control col-6 m-2" placeholder="имя учителя" />
 				<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
 			</form>
 		</div>

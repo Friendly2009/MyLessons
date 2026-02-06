@@ -76,7 +76,7 @@ namespace MyLessons.ConverterSQLClass
 			{
 				return name + "`" + subject;
 			}
-			return Base + "|" +name + "`" + subject;
+			return Base + "|" + name + "`" + subject;
 		}
 		public static string ConvertLessonToString(lesson les)
 		{
