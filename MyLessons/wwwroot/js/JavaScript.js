@@ -59,29 +59,12 @@ AddLesson_Button.forEach(button => {
         NewLess = ParentTeacher.querySelector("#IdObjectForNewLesson").textContent;
         //visual changes table
         reader.forEach(td => {
+            td.style.background = "#EE0000";
             try {
-                //let paragraph_Less = td.querySelector("#paragraph_Less").textContent;
-                //let paragraph_Room = td.querySelector("#paragraph_Room").textContent;
-                let paragraph_Teacher = td.querySelector("#paragraph_Teacher").textContent;
-                let IdTeachersForNewLesson = document.getElementById("IdTeachersForNewLesson").value
-                //let paragraph_Room = document.getElementById("paragraph_Room").value
-                //let paragraph_Teacher = document.getElementById("paragraph_Teacher").value
-                //var Newroom = document.getElementById("NumberRoomInput").value;
-                alert(Newteach);
-                alert(paragraph_Teacher);
-
-                //alert(NewLess);
-                //alert(paragraph_Less);
-
-                //alert(Newroom);
-                //alert(paragraph_Room);
-
-                //alert("end");
-                if (paragraph_Teacher === Newteach) {
-                    alert("the end");
-                }
-            } catch(err) {
-                alert(err);
+                var check_Less = td.querySelector("#less").getAttribute("value");
+            } catch{
+                td.style.background = "#90EE90";
+                td.style.color = "#2e8b57";
             }
         })
     })
