@@ -60,6 +60,7 @@ AddLesson_Button.forEach(button => {
         //visual changes table
         reader.forEach(td => {
             td.style.background = "#EE0000";
+            td.style.color = "#000000";
             try {
                 var check_Less = td.querySelector("#less").getAttribute("value");
             } catch{
@@ -124,10 +125,10 @@ function DeleteLesson(td) {
 }
 
 function SelectClick(td) {
-    for (let i = 0; i < reader.length; i++) {
-        reader[i].style.color = "black";
-        reader[i].style.background = "none";
-    }
+    reader.forEach(ReaderObject => {
+        ReaderObject.style.color = "black";
+        ReaderObject.style.background = "none";
+    })
     td.style.background = "#90EE90";
     td.style.color = "#2e8b57";
 }
