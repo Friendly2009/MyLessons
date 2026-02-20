@@ -147,7 +147,7 @@
 					<p class="col-2 mb-0" id="IdObjectForNewLesson">@ViewBag.objects[i]</p>
 					<button class="btn btn-dark col-3" id="AddLesson">Назначить урок</button>
 					
-					<form asp-action="DeleteTeacher" asp-controller="Home" method="get" class="col-2 d-flex justify-content-end mb-0">
+					<form asp-action="DeleteTeacher" asp-controller="Main" method="get" class="col-2 d-flex justify-content-end mb-0">
 						<input type="hidden" name="name" value="@ViewBag.teachers[i]"/>
 						<input type="hidden" name="adres" value="Table" />
 						<button class="btn btn-close btn-dark" type="submit"></button>

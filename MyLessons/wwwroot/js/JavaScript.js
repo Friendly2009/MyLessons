@@ -95,17 +95,27 @@ function AddLessonInBase(td) {
         less_paragraph.textContent = NewLess;
         less_paragraph.setAttribute("class", "m-1");
         less_paragraph.setAttribute("id", "paragraph_Less");
+
         var room_paragraph = document.createElement("p");
         room_paragraph.textContent = Newroom;
         room_paragraph.setAttribute("class", "m-1");
         room_paragraph.setAttribute("id", "paragraph_Room");
+
         var teach_paragraph = document.createElement("p");
         teach_paragraph.textContent = Newteach;
         teach_paragraph.setAttribute("class", "m-1");
         teach_paragraph.setAttribute("id", "paragraph_Teacher");
+
+
+        var hidden_input_less = document.createElement("input");
+        hidden_input_less.setAttribute("type", "hidden");
+        hidden_input_less.setAttribute("id", "less");
+        hidden_input_less.setAttribute("value", NewLess);
+
         td.appendChild(less_paragraph);
         td.appendChild(room_paragraph);
         td.appendChild(teach_paragraph);
+        td.appendChild(hidden_input_less);
         document.getElementById("data").setAttribute("value", MainJson);
     }
 }
