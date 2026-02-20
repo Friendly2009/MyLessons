@@ -62,7 +62,7 @@ AddLesson_Button.forEach(button => {
             td.style.background = "#EE0000";
             td.style.color = "#000000";
             try {
-                var check_Less = td.querySelector("#less").getAttribute("value");
+                td.querySelector("#less").getAttribute("value"); //<---
             } catch{
                 td.style.background = "#90EE90";
                 td.style.color = "#2e8b57";
@@ -73,6 +73,18 @@ AddLesson_Button.forEach(button => {
 deleteLessonButton.addEventListener("click", clickable => {
     Tracking_for_Delete_Lesson = true;
     Tracking_for_Add_Lesson = false;
+
+    reader.forEach(td => {
+        td.style.background = "#90EE90";
+        td.style.color = "#2e8b57";
+        try {
+            td.querySelector("#less").getAttribute("value");
+        } catch {
+            td.style.color = "black";
+            td.style.background = "none";
+
+        }
+    })
 });
 
 function AddLessonInBase(td) {
