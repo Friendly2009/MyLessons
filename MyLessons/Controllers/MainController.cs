@@ -49,6 +49,7 @@ namespace MyLessons.Controllers
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             Data obj = DataTable.Find(id);
 			obj.teacher = ControllerConvert.TeachersParametrToBase(obj.teacher, name, teacher);
+            obj.teacher = ControllerConvert.CleanStringForBase(obj.teacher);
 			_context.SaveChanges();
             return RedirectToAction("MainPanel");
 		}

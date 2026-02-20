@@ -137,4 +137,5 @@ function RemoveObjectTd(td) {
     td.querySelector("#paragraph_Room").remove();
     td.querySelector("#paragraph_Teacher").remove();
     td.querySelector("#paragraph_Less").remove();
+    td.querySelector("#less").remove();
 }
