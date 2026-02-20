@@ -44,16 +44,16 @@ namespace MyLessons.Controllers
 			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
 			return View();
         }
-		public IActionResult AddTeacher(string name, string teacher)
+		public IActionResult AddTeacher(string name, string teacher, string action)
 		{
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             Data obj = DataTable.Find(id);
 			obj.teacher = ControllerConvert.TeachersParametrToBase(obj.teacher, name, teacher);
             obj.teacher = ControllerConvert.CleanStringForBase(obj.teacher);
 			_context.SaveChanges();
-            return RedirectToAction("MainPanel");
+            return RedirectToAction(action);
 		}
-		public IActionResult DeleteTeacher(string subject, string name, string adres)
+		public IActionResult DeleteTeacher(string subject, string name, string action)
 		{
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             var obj = DataTable.Find(id);
@@ -79,7 +79,7 @@ namespace MyLessons.Controllers
             }
             obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
             _context.SaveChanges();
-            return RedirectToAction(adres);
+            return RedirectToAction(action);
         }
         public IActionResult AddLesson(string selectedSubject, string clas, string room, string num, string day)
         {

@@ -53,7 +53,7 @@
 						<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
 							<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
 							<input type="hidden" name="subject" value="@ViewBag.objec[i]" />
-							<input type="hidden" name="adres" value="MainPanel" />
+							<input type="hidden" name="acrion" value="MainPanel" />
 							<button class="btn btn-close btn-dark" type="submit"></button>
 						</form>
 					</div>
@@ -71,6 +71,7 @@
 		<form asp-action="AddTeacher" asp-controller="Main" class="row justify-content-center col-12">
 			<input type="text" name="name" class="form-control col-6 m-2" placeholder="Предмет" />
 			<input type="text" name="teacher" class="form-control col-6 m-2" placeholder="имя учителя" />
+			<input type="hidden" name="action" value="MainPanel" />
 			<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
 		</form>
 	</div>
