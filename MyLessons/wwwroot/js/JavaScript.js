@@ -59,15 +59,21 @@ AddLesson_Button.forEach(button => {
         NewLess = ParentTeacher.querySelector("#IdObjectForNewLesson").textContent;
         //visual changes table
         reader.forEach(td => {
-            td.style.background = "#EE0000";
-            td.style.color = "#000000";
-            try {
-                td.querySelector("#less").getAttribute("value"); //<---
-            } catch{
+            const hasDay = td.hasAttribute('day');
+            const hasLesson = td.hasAttribute('lesson');
+            const hasStyle = td.hasAttribute('style');
+            const childrenParagraphs = td.querySelectorAll('p');
+            if (!hasDay && !hasLesson && !hasStyle) {
+                td.style.background = "transparent";   
+                td.style.color = "#000000";             
+            } else if (hasDay && hasLesson && hasStyle && childrenParagraphs.length === 3) {
+                td.style.background = "#EE0000";         
+                td.style.color = "#000000";              
+            } else if (hasDay && hasLesson && hasStyle) {
                 td.style.background = "#90EE90";
-                td.style.color = "#2e8b57";
+                td.style.color = "#2e8b57"; 
             }
-        })
+        });
     })
 });
 deleteLessonButton.addEventListener("click", clickable => {
@@ -75,14 +81,13 @@ deleteLessonButton.addEventListener("click", clickable => {
     Tracking_for_Add_Lesson = false;
 
     reader.forEach(td => {
-        td.style.background = "#90EE90";
-        td.style.color = "#2e8b57";
         try {
             td.querySelector("#less").getAttribute("value");
+            td.style.background = "#90EE90";
+            td.style.color = "#2e8b57"; 
         } catch {
             td.style.color = "black";
             td.style.background = "none";
-
         }
     })
 });
