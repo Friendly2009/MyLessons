@@ -8,7 +8,7 @@
 - Absolutely free and without ads!
 ### Functional
 - Button "Начать работу": When you click the button, the registration and login forms are displayed on the screen
-# awe
+## awe
 - Easy to learn
 - it has a simple design based on bootstrap 4, which gives the screen a clean look
 - Absolutely free and without ads!
