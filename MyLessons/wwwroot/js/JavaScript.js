@@ -101,7 +101,17 @@ function AddLessonInBase(td) {
         var Newclas = document.getElementById("CurrentClass").textContent;
         const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
         let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
+
+        JsonFormatNewLesson = JsonFormatNewLesson.replace(/^(\|)+|(\|)+$/g, '');
+
+        // Заменяем все двойные '||' на одинарный '|' (повторяем пока есть двойные)
+        while (JsonFormatNewLesson.includes("||")) {
+            JsonFormatNewLesson = JsonFormatNewLesson.replace(/\|\|/g, "|");
+        }
+
+        // Добавляем в MainJson
         MainJson = MainJson + "|" + JsonFormatNewLesson;
+
         //select the new lesson in table
         var less_paragraph = document.createElement("p");
         less_paragraph.textContent = NewLess;

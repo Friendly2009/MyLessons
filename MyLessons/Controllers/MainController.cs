@@ -111,19 +111,24 @@ namespace MyLessons.Controllers
         public IActionResult Choose(string clas)
         {
 			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
-			ViewBag.data = obj.text;
-			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
+            if (obj.text.Contains("||"))
+            {
+                obj.text = obj.text.Replace("||", "|");
+                _context.SaveChanges();
+            }
+            ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 			ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);
 			ViewBag.Lessons = ControllerConvert.ConvertToLesson(obj.text);
 			ViewBag.Clas = clas;
+            ViewBag.data = obj.text;
             return View("Table");
 		}
-        public async Task<IActionResult> SaveChanges(string data, string clas)
+        public IActionResult SaveChanges(string data, string clas)
         {
-            data = ControllerConvert.CleanStringForBase(data);
-            DataTable.Find(HttpContext.Session.GetInt32("id")).text = data;
-			await _context.SaveChangesAsync();
+            string Newdata = ControllerConvert.CleanStringForBase(data);
+            DataTable.Find(HttpContext.Session.GetInt32("id")).text = Newdata;
+			_context.SaveChanges();
             return Choose(clas);
 		}
 	}
