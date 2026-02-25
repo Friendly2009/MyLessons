@@ -6,21 +6,19 @@
 - Easy to learn
 - it has a simple design based on bootstrap 4, which gives the screen a clean look
 - Absolutely free and without ads!
-# Documentation
-The first thing you'll see is this screen:
-
-
-<img src="https://github.com/Friendly2009/MyLessons/blob/fit-add-ReadMe/Images/sreen%231.png" width="600" />
-
 ### Functional
 - Button "Начать работу": When you click the button, the registration and login forms are displayed on the screen
-#### Registration
-<img src="https://github.com/Friendly2009/MyLessons/blob/fit-add-ReadMe/Images/screen%233.png" width="600" />
 # awe
 - Easy to learn
 - it has a simple design based on bootstrap 4, which gives the screen a clean look
 - Absolutely free and without ads!
 
+## Screenshots
+
+| ![Фото1](Images/Снимок экрана 2026-02-25 143510.png) | ![Фото2](Images/Снимок экрана 2026-02-25 143536.png) | ![Фото3](Images/Снимок экрана 2026-02-25 151617.png) |
+|-------------------------------------------------------|-------------------------------------------------------|-------------------------------------------------------|
+| ![Фото4](Images/Снимок экрана 2026-02-25 151933.png) | ![Фото5](Images/Снимок экрана 2026-02-25 151920.png) | ![Фото6](Images/Снимок экрана 2026-02-25 143428.png) |
+| ![Фото7](Images/Снимок экрана 2026-02-25 143454.png) |                                                       |                                                       |
 
 ## SQL Code
 ```
