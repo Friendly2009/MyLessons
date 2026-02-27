@@ -75,7 +75,7 @@ namespace MyLessons.Controllers
             }
             obj.text = ControllerConvert.ConvertLessonsArrayToString(NewListLesson);
             _context.SaveChanges();
-            return RedirectToAction(action);
+            return RedirectToAction("Table");
         }
         public IActionResult AddLesson(string selectedSubject, string clas, string room, string num, string day)
         {
