@@ -57,6 +57,7 @@ namespace MyLessons.Controllers
 		{
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             var obj = DataTable.Find(id);
+            List<lesson> sourceLessons = ControllerConvert.ConvertToLesson(obj.text); 
             List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
             List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
             teach.Remove(name);
@@ -64,20 +65,15 @@ namespace MyLessons.Controllers
             string resultTeach = ControllerConvert.ConvertTeachersToString(teach, objects);
             obj.teacher = resultTeach;
             _context.SaveChanges();
-            List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(obj.text);
-            List<lesson> resultLess = new List<lesson>();
-            foreach (var item in ChekListLesson)
+            List<lesson> NewListLesson = new List<lesson>();
+            foreach (var lesson in sourceLessons)
             {
-                if (item == null)
+                if (lesson.teacher != name)
                 {
-                    return RedirectToAction("MainPanel");
-                }
-                if (item.teacher == name && item.less == subject)
-                {
-                    resultLess.Add(item);
+                    NewListLesson.Add(lesson);
                 }
             }
-            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
+            obj.text = ControllerConvert.ConvertLessonsArrayToString(NewListLesson);
             _context.SaveChanges();
             return RedirectToAction(action);
         }
