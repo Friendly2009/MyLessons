@@ -53,16 +53,17 @@ namespace MyLessons.Controllers
 			_context.SaveChanges();
             return RedirectToAction(action);
 		}
-		public IActionResult DeleteTeacher(string subject, string name, string action)
-		{
-            int id = Convert.ToInt16(HttpContext.Session.GetInt32("id"));
+        public IActionResult DeleteTeacher(string subject, string name, string action)
+        {
+            int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             var obj = DataTable.Find(id);
-            List<lesson> sourceLessons = ControllerConvert.ConvertToLesson(obj.text); 
+            List<lesson> sourceLessons = ControllerConvert.ConvertToLesson(obj.text);
             List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
             List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
             teach.Remove(name);
             objects.Remove(subject);
-            obj.teacher = ControllerConvert.ConvertTeachersToString(teach, objects);
+            string resultTeach = ControllerConvert.ConvertTeachersToString(teach, objects);
+            obj.teacher = resultTeach;
             _context.SaveChanges();
             List<lesson> NewListLesson = new List<lesson>();
             foreach (var lesson in sourceLessons)
@@ -73,50 +74,8 @@ namespace MyLessons.Controllers
                 }
             }
             obj.text = ControllerConvert.ConvertLessonsArrayToString(NewListLesson);
-                    MyNewTeachers.Remove(lesson);
-                }
-            }
-            obj.text = ControllerConvert.ConvertLessonsArrayToString(MyTeachers);
-                    resultLess.Add(item);
-            return RedirectToAction("Table");
-            return RedirectToAction(action);
-
-
-
-
-            //int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
-            //var obj = DataTable.Find(id);
-            //List<string> teach = ControllerConvert.SelectTeachersName(obj.teacher);
-            //List<string> objects = ControllerConvert.SelectTeachersItem(obj.teacher);
-            //teach.Remove(name);
-            //objects.Remove(subject);
-            //string resultTeach = ControllerConvert.ConvertTeachersToString(teach, objects);
-            //obj.teacher = resultTeach;
-            //_context.SaveChanges();
-            //List<lesson> ChekListLesson = ControllerConvert.ConvertToLesson(obj.text);
-            //List<lesson> resultLess = new List<lesson>();
-            //foreach (var item in ChekListLesson)
-            //{
-            //    if (item == null)
-            //    {
-            //        return RedirectToAction("MainPanel");
-            //    }
-            //    if (item.teacher == name && item.less == subject)
-            //    {
-            //        resultLess.Add(item);
-            //    }
-            //}
-            //obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
-            //_context.SaveChanges();
-            //return RedirectToAction(action);
-            }
-            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
-                    resultLess.Add(item);
-            return RedirectToAction(action);
-            }
-            obj.text = ControllerConvert.ConvertLessonsArrayToString(resultLess);
             _context.SaveChanges();
-            return RedirectToAction(action);
+            return RedirectToAction("Table");
         }
         public IActionResult AddLesson(string selectedSubject, string clas, string room, string num, string day)
         {
