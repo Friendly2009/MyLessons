@@ -53,7 +53,7 @@ namespace MyLessons.Controllers
 			_context.SaveChanges();
             return RedirectToAction(action);
 		}
-        public IActionResult DeleteTeacher(string subject, string name, string action)
+        public IActionResult DeleteTeacher(string subject, string name)
         {
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             var obj = DataTable.Find(id);

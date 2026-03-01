@@ -149,7 +149,7 @@
 					
 					<form asp-action="DeleteTeacher" asp-controller="Main" method="get" class="col-2 d-flex justify-content-end mb-0">
 						<input type="hidden" name="name" value="@ViewBag.teachers[i]"/>
-						<input type="hidden" name="action" value="Table" />
+						<input type="hidden" name="subject" value="@ViewBag.objects[i]" />
 						<button class="btn btn-close btn-dark" type="submit"></button>
 					</form>
 				</div>
