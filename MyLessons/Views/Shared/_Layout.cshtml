@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/MyLessons.style.css" asp-append-version="true" />
 </head>
 <body>
-    @model user;
+@model user;
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <div class="container-fluid">
@@ -31,14 +31,36 @@
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
-    <footer class="border-top footer text-muted">
+    <footer class="bg-dark text-white py-4">
         <div class="container">
-           Итоговый проект Цыганова К. 2026
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>О нас</h5>
+                    <p>Мы помогаем создавать удобные и эффективные расписания для школ, чтобы учащиеся могли максимально использовать свое время.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Для вас</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-action="Index" asp-controller="Home" class="text-white">Главная</a></li>
+                        <li><a asp-action="Support" asp-controller="Home" class="text-white">Контакты</a></li>
+                        <li><a asp-action="UsersQuestion" asp-controller="Home" class="text-white">Часто задаваемые вопросы</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Контактная информация</h5>
+                    <p>Email: myemail@example.com</p>
+                    <p>Телефон: +7 999 99 99</p>
+                    <p>Адрес: г. Москва, ул. Примерная, д. 1</p>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p>&copy; 2026 My Lesson. Все права защищены.</p>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="~/js/JavaScript.js"></script>
+    <script src="~/js/JavaScript.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

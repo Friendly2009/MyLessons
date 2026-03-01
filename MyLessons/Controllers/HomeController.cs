@@ -38,7 +38,15 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
 		}
-		public IActionResult AddUser(string log, string pass)
+		public IActionResult Support()
+		{
+			return View();
+		}
+        public IActionResult UsersQuestion()
+        {
+            return View();
+        }
+        public IActionResult AddUser(string log, string pass)
 		{
 			if (string.IsNullOrEmpty(log) && string.IsNullOrEmpty(pass))
 			{
