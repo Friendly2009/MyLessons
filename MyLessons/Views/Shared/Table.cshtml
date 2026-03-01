@@ -25,6 +25,34 @@
 		}
 	}
 }
+<button id="toggleSidebar" class="btn btn-light position-sticky" style="top: 60px; left: 0px; z-index: 1050; transition: top 0.3s ease, left 0.3s ease;">
+	☰
+</button>
+
+<div id="sidebar"
+	 style="
+        width: 500px;
+        height: 100vh;
+        background: #343a40;
+        color: white;
+        position: fixed;
+        top: 58px;
+        left: -500px;
+        transition: left 0.3s ease, top 0.3s ease;
+        padding: 20px;
+        z-index: 64;
+        border-radius: 0 10px 10px 0;
+       ">
+</div>
+<script>
+	const btn = document.getElementById('toggleSidebar');
+	const sidebar = document.getElementById('sidebar');
+	window.addEventListener('scroll', () => {
+	  const topValue = window.scrollY > 0 ? '0px' : '60px';
+	  btn.style.top = topValue;
+	  sidebar.style.top = topValue;
+	});
+</script>
 <div class="container">
 	<div class="row justify-content-center container">
 		@{
@@ -174,3 +202,5 @@
 		</form>
 	</div>
 </div>
+<script src="~/js/sidebar.js"></script>
+

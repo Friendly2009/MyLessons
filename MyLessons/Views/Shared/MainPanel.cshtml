@@ -8,11 +8,10 @@
 		alert(obj);
 	</script>
 }
-
-<script src="~/js/sidebar.js"></script>
-<button id="toggleSidebar" class="btn btn-light position-fixed" style="top: 60px; left: 0px; z-index: 1050; transition: left 0.3s ease;">
+<button id="toggleSidebar" class="btn btn-light position-sticky" style="top: 60px; left: 0px; z-index: 1050; transition: top 0.3s ease, left 0.3s ease;">
 	☰
 </button>
+
 <div id="sidebar"
 	 style="
         width: 500px;
@@ -20,21 +19,23 @@
         background: #343a40;
         color: white;
         position: fixed;
-        top: 55px;
+        top: 58px;
         left: -500px;
-        transition: left 0.3s ease;
+        transition: left 0.3s ease, top 0.3s ease;
         padding: 20px;
-        z-index: 1040;
+        z-index: 64;
         border-radius: 0 10px 10px 0;
        ">
-	<h4>Авто составление</h4>
-	<form asp-action="TrialSched" asp-controller="Trial" class="row justify-content-center">
-		<p>Составить расписание на основе базовых требований от МинПросвещения</p>
-		<button type="submit" class="btn btn-light col-6">
-			Составить!
-		</button>
-	</form>
 </div>
+<script>
+	const btn = document.getElementById('toggleSidebar');
+	const sidebar = document.getElementById('sidebar');
+	window.addEventListener('scroll', () => {
+	  const topValue = window.scrollY > 0 ? '0px' : '60px';
+	  btn.style.top = topValue;
+	  sidebar.style.top = topValue;
+	});
+</script>
 <div class="container">
 	<div class="justify-content-center row">
 		<h1 class="col-12 text-center">Главная панель @user.login</h1>
@@ -141,3 +142,4 @@
 		</form>
 	</div>
 </div>
+<script src="~/js/sidebar.js"></script>
