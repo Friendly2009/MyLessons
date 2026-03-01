@@ -3,12 +3,19 @@ html, body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    font-family: 'JetBrainFont';
 }
-
 main {
     flex: 1;
+    font-family: 'JetBrainFont';
 }
 .segment {
     border-radius: 10px;
     background: #F0F0F0;
+}
+@font-face {
+    font-family: 'JetBrainFont';
+    src: url('../font/jetbrainsmonoregular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal
 }
