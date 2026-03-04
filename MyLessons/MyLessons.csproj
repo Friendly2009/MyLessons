@@ -30,4 +30,8 @@
     <Resource Include="wwwroot\css\start.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Screenshots\" />
+  </ItemGroup>
+
 </Project>

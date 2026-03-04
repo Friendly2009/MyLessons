@@ -1,33 +1,71 @@
-﻿<button id="toggleSidebar" class="btn btn-outline-info position-sticky" style="top: 60px; left: 0px; z-index: 1050; transition: top 0.3s ease, left 0.3s ease;">
-    Ориентир
-</button>
-<div id="sidebar"
-     style="
-        width: 500px;
-        height: 100vh;
-        background: #343a40;
-        color: white;
-        position: fixed;
-        top: 58px;
-        left: -500px;
-        transition: left 0.3s ease, top 0.3s ease;
-        padding: 20px;
-        z-index: 64;
-        border-radius: 0 10px 10px 0;
-       ">
+﻿<div class="container py-5">
+    <h1 class="mb-4 text-primary">Страница поддержки</h1>
+    <p class="lead mb-5">
+        Добро пожаловать на страницу поддержки! Здесь вы можете оставить свои вопросы, предложения или жалобы. Наша команда всегда готова помочь вам и улучшить качество обслуживания. Заполните форму обратной связи, чтобы мы могли быстро связаться с вами и решить любые проблемы.
+    </p>
+    <form id="supportForm" class="mb-5">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Имя</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Ваше имя" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="surname" class="form-label">Фамилия</label>
+                <input type="text" class="form-control" id="surname" name="surname" placeholder="Ваша фамилия" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="example@mail.com" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Телефон (необязательно)</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7 (___) ___-__-__">
+            </div>
+
+            <div class="col-12">
+                <label for="message" class="form-label">Сообщение</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Опишите вашу проблему или вопрос" required></textarea>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <div class="mt-4">
+        <h5>Контактные данные</h5>
+        <p>
+            📞 Телефон: <a href="tel:+78005553535">8-800-555-35-35</a><br>
+            📧 Email: <a href="mailto:support@example.com">support@example.com</a><br>
+            📍 Адрес: Москва, ул. Примерная, д. 10
+        </p>
+
+        <h6>Пожелания</h6>
+        <ul>
+            <li>Будьте максимально подробны в описании</li>
+            <li>Указывайте контактные данные для обратной связи</li>
+            <li>Спасибо, что помогаете нам стать лучше!</li>
+        </ul>
+    </div>
 </div>
 <script>
-    const btn = document.getElementById('toggleSidebar');
-    const sidebar = document.getElementById('sidebar');
-    window.addEventListener('scroll', () => {
-      const topValue = window.scrollY > 0 ? '0px' : '60px';
-      btn.style.top = topValue;
-      sidebar.style.top = topValue;
-    });
-</script>
-<div class="container">
-    <h1 class="text-center">Поддержка</h1>
+    document.getElementById('supportForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-</div>
+      const email = this.email.value.trim();
+      const message = this.message.value.trim();
+
+      if (!email || !message) {
+        alert('Пожалуйста, заполните обязательные поля Email и Сообщение.');
+        return;
+      }
+      alert('Спасибо за ваше обращение! Мы свяжемся с вами в ближайшее время.');
+      this.reset();
+    });
+  </script>
 <script src="~/js/sidebar.js"></script>
 
