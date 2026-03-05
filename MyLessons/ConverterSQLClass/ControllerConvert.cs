@@ -3,15 +3,9 @@ namespace MyLessons.ConverterSQLClass
 {
 	public static class ControllerConvert
 	{
-		public static List<lesson> ConvertToLesson(string data) 
-		{
-            List<lesson> list = JsonConvert.DeserializeObject<List<lesson>>(data);
-			return list;
-		}
-		//string => List<string>
 		public static List<string> FindAllClass(string data)
 		{
-			var list = ConvertToLesson(data);		
+			var list = JsonConvert.DeserializeObject<List<lesson>>(data);		
 			List<string> socials = new List<string>();
 			for (int i = 0; i < list.Count; i++)
 			{
@@ -77,12 +71,6 @@ namespace MyLessons.ConverterSQLClass
 			string result = "";
 			result = JsonConvert.SerializeObject(les);
 			return result;
-		}
-		public static string CleanStringForBase(string value)
-		{
-			value = value.Trim('|');
-			value = value.Replace("||", "|");
-			return value;
 		}
 		public static string ConvertTeachersToString(List<string> teach, List<string> Objec)
 		{

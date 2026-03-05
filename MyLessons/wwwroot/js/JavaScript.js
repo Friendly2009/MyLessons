@@ -92,11 +92,11 @@ deleteLessonButton.addEventListener("click", clickable => {
     })
 });
 
-function AddLessonInBase(td) {
+function AddLessonInBase(td) { // и замена уроков (для удобства) 
     Tracking_for_Add_Lesson = false;
     try {
-        var Replaceroom = td.querySelector("#paragraph_Room").textContent;                                                                                        //| проверка на существует ли этот урок
-        var paragraph_Less = td.querySelector("#paragraph_Less").textContent;                                                                                        //| если нет то вызывется исключение и отрабаывается catch
+        var Replaceroom = td.querySelector("#paragraph_Room").textContent;                                                                                       
+        var paragraph_Less = td.querySelector("#paragraph_Less").textContent;                                                                                       
         var paragraph_Teacher = td.querySelector("#paragraph_Teacher").textContent;     
 
         DeleteLesson(td);
@@ -107,7 +107,9 @@ function AddLessonInBase(td) {
         var Newclas = document.getElementById("CurrentClass").textContent;
         const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
         let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
-        MainJson = MainJson + "|" + JsonFormatNewLesson;
+        MainJson = MainJson.replace("]", "");
+        MainJson = MainJson + "," + JsonFormatNewLesson;
+        MainJson += "]";
 
         //select the new lesson in table
         var less_paragraph = document.createElement("p");
@@ -143,7 +145,9 @@ function AddLessonInBase(td) {
         var Newclas = document.getElementById("CurrentClass").textContent;
         const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
         let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
-        MainJson = MainJson + "|" + JsonFormatNewLesson;
+        MainJson = MainJson.replace("]", "");
+        MainJson = MainJson + "," + JsonFormatNewLesson;
+        MainJson += "]";
 
         //select the new lesson in table
         var less_paragraph = document.createElement("p");
