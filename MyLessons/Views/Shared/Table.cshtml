@@ -14,32 +14,35 @@
 
 
 
-
-	@using MyLessons.ConverterSQLClass;
-	List<lesson> ClassLessons = new List<lesson>();
-	if(!(ViewBag.Lessons is null))
+@using MyLessons.ConverterSQLClass;
+@using Newtonsoft.Json;
+List<lesson> ClassLessons = new List<lesson>();
+if(!(ViewBag.Lessons is null))
+{
+	for(int i = 0; i < ViewBag.Lessons.Count; i++)
 	{
-		for(int i = 0; i < ViewBag.Lessons.Count; i++)
+		if(ViewBag.Lessons[i].clas == ViewBag.Clas)
 		{
-			if(ViewBag.Lessons[i].clas == ViewBag.Clas)
-			{
-				ClassLessons.Add(ViewBag.Lessons[i]);
-			}
-		}
-	}	
-	void GetElementTable(int num,int day)
-	{
-		for(int i = 0; i < ClassLessons.Count; i++)
-		{
-			if (ClassLessons[i].day == $"{day}" && ClassLessons[i].number == $"{num}")
-			{
-				<p class="m-1" id="paragraph_Less">@ClassLessons[i].less</p>
-				<p class="m-1" id="paragraph_Room">@ClassLessons[i].room</p>
-				<p class="m-1" id="paragraph_Teacher">@ClassLessons[i].teacher</p>
-				<input type="hidden" id="less" value="@ClassLessons[i].less" />
-			}
+			ClassLessons.Add(ViewBag.Lessons[i]);
 		}
 	}
+}	
+		<p>@JsonConvert.SerializeObject(ClassLessons)</p>
+
+
+void GetElementTable(int num,int day)
+{
+	for(int i = 0; i < ClassLessons.Count; i++)
+	{
+		if (ClassLessons[i].day == $"{day}" && ClassLessons[i].number == $"{num}")
+		{
+			<p class="m-1" id="paragraph_Less">@ClassLessons[i].less</p>
+			<p class="m-1" id="paragraph_Room">@ClassLessons[i].room</p>
+			<p class="m-1" id="paragraph_Teacher">@ClassLessons[i].teacher</p>
+			<input type="hidden" id="less" value="@ClassLessons[i].less" />
+		}
+	}
+}
 <button id="toggleSidebar" class="btn btn-light position-sticky" style="top: 60px; left: 0px; z-index: 1050; transition: top 0.3s ease, left 0.3s ease;">
 	☰
 </button>

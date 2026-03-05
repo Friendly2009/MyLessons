@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyLessons.ConverterSQLClass;
 using MyLessons.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -41,8 +42,8 @@ namespace MyLessons.Controllers
 			ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.user = _context.user.Find(id);
-			ViewBag.lesson = ControllerConvert.ConvertToLesson(obj.text);
-			return View();
+			ViewBag.lesson = JsonConvert.DeserializeObject<List<lesson>>(obj.text);
+            return View();
         }
 		public IActionResult AddTeacher(string name, string teacher, string action)
 		{
@@ -107,11 +108,6 @@ namespace MyLessons.Controllers
         public IActionResult Choose(string clas)
         {
 			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
-            if (obj.text.Contains("||"))
-            {
-                obj.text = obj.text.Replace("||", "|");
-                _context.SaveChanges();
-            }
             ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 			ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.objects = ControllerConvert.SelectTeachersItem(obj.teacher);

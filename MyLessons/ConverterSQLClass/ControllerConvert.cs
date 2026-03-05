@@ -3,15 +3,9 @@ namespace MyLessons.ConverterSQLClass
 {
 	public static class ControllerConvert
 	{
-		//string => List<lesson>
 		public static List<lesson> ConvertToLesson(string data) 
 		{
-			var list = new List<lesson>();
-			string[] lessons = data.Split('|');
-			for (int i = 0; i < lessons.Length; i++)
-			{
-				list.Add(JsonConvert.DeserializeObject<lesson>(lessons[i]));
-			}
+            List<lesson> list = JsonConvert.DeserializeObject<List<lesson>>(data);
 			return list;
 		}
 		//string => List<string>
