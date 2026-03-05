@@ -1,5 +1,21 @@
-﻿@using MyLessons.ConverterSQLClass;
-@{
+﻿@{
+	try
+	{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@using MyLessons.ConverterSQLClass;
 	List<lesson> ClassLessons = new List<lesson>();
 	if(!(ViewBag.Lessons is null))
 	{
@@ -24,7 +40,6 @@
 			}
 		}
 	}
-}
 <button id="toggleSidebar" class="btn btn-light position-sticky" style="top: 60px; left: 0px; z-index: 1050; transition: top 0.3s ease, left 0.3s ease;">
 	☰
 </button>
@@ -197,4 +212,40 @@
 	</div>
 </div>
 <script src="~/js/sidebar.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+	catch
+	{
+		<form id="dataForm" action="@Url.Action("Error", "Home")"></form>
+		<script>
+			function autoSubmitForm() {
+				document.getElementById('dataForm').submit();
+			}
+			window.onload = function() {
+				autoSubmitForm();
+			};
+		</script>
+	}
+}
 

@@ -1,5 +1,23 @@
-﻿@model user;
-@{user user = ViewBag.user;}
+﻿@{
+	try
+	{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@model user;
+user user = ViewBag.user;	
 @if (TempData["message"] != null)
 {
 	<input id="obj" type="hidden" value="@TempData["message"]"/>
@@ -143,3 +161,39 @@
 	</div>
 </div>
 <script src="~/js/sidebar.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+	catch
+	{
+		<form id="dataForm" action="@Url.Action("Error", "Home")"></form>
+		<script>
+			function autoSubmitForm() {
+				document.getElementById('dataForm').submit();
+			}
+			window.onload = function() {
+				autoSubmitForm();
+			};
+		</script>
+	}
+}
+
