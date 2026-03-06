@@ -23,6 +23,11 @@ namespace MyLessons.Controllers
         {
 			Data obj = DataTable.Find(HttpContext.Session.GetInt32("id"));
 			if( obj == null) { return RedirectToAction("Index", "Home"); }
+            else if ( obj.text == "")
+            {
+                obj.text = "[]";
+            }
+            _context.SaveChanges();
 			ViewBag.data = obj.text;
 			ViewBag.socials = ControllerConvert.FindAllClass(obj.text);
 			ViewBag.teachers = ControllerConvert.SelectTeachersName(obj.teacher);
@@ -37,8 +42,19 @@ namespace MyLessons.Controllers
         {
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             Data obj = DataTable.Find(id);
-			if (obj == null) { return RedirectToAction("Index", "Home"); }
-			ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
+            if (obj == null) { return RedirectToAction("Index", "Home"); }
+            else if (obj.text == "")
+            {
+                obj.text = "[]";
+            }
+            while (obj.text.Contains("]"))
+            {
+                string a = obj.text;
+                obj.text = a.Replace("]","");
+            }
+            obj.text += "]";
+            _context.SaveChanges();
+            ViewBag.objec = ControllerConvert.SelectTeachersItem(obj.teacher);
 			ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.user = _context.user.Find(id);
@@ -82,12 +98,9 @@ namespace MyLessons.Controllers
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             var obj = DataTable.Find(id);
             if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day)){return RedirectToAction("MainPanel");}
-            lesson NewLesson = new lesson(day, num, selectedSubject, clas, room);
-            string NewLessonStr = ControllerConvert.ConvertLessonToString(NewLesson);
-            string BD = obj.text += "," + NewLessonStr;
-            BD.Replace("]", "");
-            BD += "]";
-            obj.text = BD;
+            string NewLessonStr = JsonConvert.SerializeObject(new lesson(day, num, selectedSubject, clas, room));
+            obj.text.Replace("]", "");
+            obj.text += NewLessonStr + "]";
             _context.SaveChanges();
             return RedirectToAction("MainPanel");
         }
@@ -114,6 +127,17 @@ namespace MyLessons.Controllers
 		}
         public IActionResult SaveChanges(string data, string clas)
         {
+            while (data.Contains(",,"))
+            {
+                data.Replace(",,", ",");
+            }
+            if(data == "[,]")
+            {
+                data = "";
+                DataTable.Find(HttpContext.Session.GetInt32("id")).text = data;
+                _context.SaveChanges();
+                return RedirectToAction("MainPanel");
+            }
             DataTable.Find(HttpContext.Session.GetInt32("id")).text = data;
 			_context.SaveChanges();
             return Choose(clas);
