@@ -94,5 +94,16 @@ namespace MyLessons.ConverterSQLClass
             result = result.Trim('|');
             return result;
         }
+		public static bool isEqualsLesson(lesson one, lesson two)
+		{
+            if (one == null || two == null) return false;
+
+            return one.less == two.less &&
+                   one.teacher == two.teacher &&
+                   one.clas == two.clas &&
+                   one.day == two.day &&
+                   one.room == two.room &&
+                   one.number == two.number;
+        }
     }
 }

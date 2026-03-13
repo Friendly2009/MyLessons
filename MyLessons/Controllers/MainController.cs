@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace MyLessons.Controllers
 {
     public class MainController : Controller
@@ -84,6 +85,10 @@ namespace MyLessons.Controllers
             List<lesson> NewListLesson = new List<lesson>();
             foreach (var lesson in sourceLessons)
             {
+                if(lesson is null)
+                {
+                    return RedirectToAction("Table");
+                }
                 if (lesson.teacher != name)
                 {
                     NewListLesson.Add(lesson);
@@ -91,16 +96,22 @@ namespace MyLessons.Controllers
             }
             obj.text = ControllerConvert.ConvertLessonsArrayToString(NewListLesson);
             _context.SaveChanges();
-            return RedirectToAction("Table");
+            return RedirectToAction("MainPanel");
         }
         public IActionResult AddLesson(string selectedSubject, string clas, string room, string num, string day)
         {
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             var obj = DataTable.Find(id);
             if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day)){return RedirectToAction("MainPanel");}
-            string NewLessonStr = JsonConvert.SerializeObject(new lesson(day, num, selectedSubject, clas, room));
-            obj.text.Replace("]", "");
-            obj.text += NewLessonStr + "]";
+            lesson newlesson = new lesson(day,num, selectedSubject,clas,room);
+            List<lesson> mainList = new List<lesson>();
+            try
+            {
+                mainList = JsonConvert.DeserializeObject<List<lesson>>(obj.text);
+            }
+            catch{}
+            mainList.Add(newlesson);
+            obj.text = JsonConvert.SerializeObject(mainList);
             _context.SaveChanges();
             return RedirectToAction("MainPanel");
         }
@@ -108,9 +119,17 @@ namespace MyLessons.Controllers
         {
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             var obj = DataTable.Find(id);
-            lesson les = new lesson(day, number, less, teacher, clas, room);
-            string data = ControllerConvert.ConvertLessonToString(les);
-            obj.text = obj.text.Replace(data, "");
+            lesson DeletedLesson = new lesson(day, number, less, teacher, clas, room);
+            List<lesson> mainLessonList = JsonConvert.DeserializeObject<List<lesson>>(obj.text);
+            List<lesson> resultList = new List<lesson>();
+            foreach(var m in mainLessonList)
+            {
+                if(!ControllerConvert.isEqualsLesson(m, DeletedLesson))
+                {
+                    resultList.Add(m);
+                }
+            }
+            obj.text= JsonConvert.SerializeObject(resultList);
             _context.SaveChanges();
             return RedirectToAction("MainPanel");
         }
