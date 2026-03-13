@@ -4,9 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MyLessons</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/animate.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/flaticon.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/gijgo.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/jquery-ui.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/magnific-popup.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/nice-select.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyLessons.style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/slicknav.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/theme-default.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/themify-icons.css" asp-append-version="true" />
 </head>
 <body>
 @model user;
@@ -27,6 +37,64 @@
                 </div>
             </div>
         </nav>
+    </header>
+    <header>
+        <div class="header-area">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid">
+                    <div class="header_bottom_border">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-2">
+                                <div class="logo">
+                                    <a href="/">
+                                        <h1 class="h1 text-white">Logo</h1>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-7">
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="/">home</a></li>
+                                            <li><a href="/link">link</a></li>
+                                            <li>
+                                                <a href="#">pages <i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/link_2">link_2 </a></li> <!--candidates-->
+                                                    <li><a href="/link_3">link_3 </a></li><!--job details-->
+                                                    <li><a href="/link_4">link_4</a></li><!--elements-->
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">blog <i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/link_5">link_5</a></li><!--blog-->
+                                                    <li><a href="/link_6">link_6</a></li><!--single-blog-->
+                                                </ul>
+                                            </li>
+                                            <li><a href="/link_7">link_7</a></li><!--Contact-->
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                                <div class="Appointment">
+                                    <div class="phone_num d-none d-xl-block">
+                                        <a href="#">Log in</a>
+                                    </div>
+                                    <div class="d-none d-lg-block">
+                                        <a class="boxed-btn3" href="#">text</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
     <main role="main" class="pb-3">
         @RenderBody()
