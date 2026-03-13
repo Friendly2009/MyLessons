@@ -19,8 +19,10 @@
     <link rel="stylesheet" href="~/css/themify-icons.css" asp-append-version="true" />
 </head>
 <body>
-@model user;
-    <header>
+    @RenderBody()
+
+
+    @*  <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <div class="container-fluid">
                 <div class="d-flex align-items-center">
@@ -37,98 +39,40 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <header>
-        <div class="header-area">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid">
-                    <div class="header_bottom_border">
-                        <div class="row align-items-center">
-                            <div class="col-xl-3 col-lg-2">
-                                <div class="logo">
-                                    <a href="/">
-                                        <h1 class="h1 text-white">Logo</h1>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-7">
-                                <div class="main-menu d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">
-                                            <li><a href="/">home</a></li>
-                                            <li><a href="/link">link</a></li>
-                                            <li>
-                                                <a href="#">pages <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="/link_2">link_2 </a></li> <!--candidates-->
-                                                    <li><a href="/link_3">link_3 </a></li><!--job details-->
-                                                    <li><a href="/link_4">link_4</a></li><!--elements-->
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#">blog <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="/link_5">link_5</a></li><!--blog-->
-                                                    <li><a href="/link_6">link_6</a></li><!--single-blog-->
-                                                </ul>
-                                            </li>
-                                            <li><a href="/link_7">link_7</a></li><!--Contact-->
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div class="Appointment">
-                                    <div class="phone_num d-none d-xl-block">
-                                        <a href="#">Log in</a>
-                                    </div>
-                                    <div class="d-none d-lg-block">
-                                        <a class="boxed-btn3" href="#">text</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    </header> *@
+
     <main role="main" class="pb-3">
-        @RenderBody()
+
     </main>
-    <footer class="bg-dark text-white py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>О нас</h5>
-                    <p>Мы помогаем создавать удобные и эффективные расписания для школ, чтобы учащиеся могли максимально использовать свое время.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Для вас</h5>
-                    <ul class="list-unstyled">
-                        <li><a asp-action="Index" asp-controller="Home" class="text-white">Главная</a></li>
-                        <li><a asp-action="Support" asp-controller="Home" class="text-white">Контакты</a></li>
-                        <li><a asp-action="UsersQuestion" asp-controller="Home" class="text-white">Часто задаваемые вопросы</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Контактная информация</h5>
-                    <p>Email: myemail@example.com</p>
-                    <p>Телефон: +7 999 99 99</p>
-                    <p>Адрес: г. Москва, ул. Примерная, д. 1</p>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <p>&copy; 2026 My Lesson. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/JavaScript.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript.js" asp-append-version="true"></script>
+    <script src="~/js/ajax-form.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap.min.js"asp-append-version="true"></script>
+    <script src="~/js/contact.js"asp-append-version="true"></script>
+    <script src="~/js/gijgo.min.js" asp-append-version="true"></script>
+    <script src="~/js/imagesloaded.pkgd.min.js"asp-append-version="true"></script>
+    <script src="~/js/isotope.pkgd.min.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript.js"asp-append-version="true"></script>
+    <script src="~/js/jquery-1.12.4.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.ajaxchimp.min.js"asp-append-version="true"></script>
+    <script src="~/js/jquery.counterup.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.form.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"asp-append-version="true"></script>
+    <script src="~/js/jquery.scrollUp.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.slicknav.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/js/mail-script.js" asp-append-version="true"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script> <!--dawdawdaw-->
+    <script src="~/js/modernizr-3.5.0.min.js" asp-append-version="true"></script>
+    <script src="~/js/nice-select.min.js" asp-append-version="true"></script>
+    <script src="~/js/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="~/js/plugins.js" asp-append-version="true"></script>
+    <script src="~/js/popper.min.js"asp-append-version="true"></script>
+    <script src="~/js/scrollIt.js"asp-append-version="true"></script>
+    <script src="~/js/sidebar.js" asp-append-version="true"></script>
+    <script src="~/js/waypoints.min.js" asp-append-version="true"></script>
+    <script src="~/js/wow.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
