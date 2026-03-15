@@ -120,45 +120,88 @@
    </div>
 </div>
 </div>
-<div class="lavender-smoke-gradiend py-5">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="section_title mb-40">
-					<h3 class="text-white">Цитаты</h3>
-				</div>
-			</div>
-			<div class="col-xl-12">
-				<div class="testmonial_active owl-carousel">
-					<div class="single_carousel">
-						<div class="row">
-							<div class="col-lg-11">
-								<div class="single_testmonial d-flex align-items-center">
-									<div class="thumb">
-										<img src="~/images/testmonial/author.png" alt="" />
-										<div class="quote_icon">
-											<i class="Flaticon flaticon-quote"></i>
-										</div>
-									</div>
-									<div class="info">
-										<p class="text-white">
-											"Working in conjunction with humanitarian aid
-											agencies, we have supported programmes to help
-											alleviate human suffering through animal welfare when
-											people might depend on livestock as their only source
-											of income or food.
-										</p>
-										<span class="text-white">- Micky Mouse</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<style>
+	/* Заголовок как на фото */
+.testimonial-title {
+    font-size: 32px;
+    color: #001d3d; /* Глубокий темно-синий */
+    font-weight: 500;
+    margin-bottom: 60px;
+}
+
+/* Текст цитаты */
+.testimonial-text {
+    font-size: 16px;
+    line-height: 26px;
+    color: #1a1a1a; /* Почти черный для читаемости */
+    font-style: normal;
+    margin-bottom: 15px;
+    max-width: 500px;
+}
+
+/* Имя автора */
+.author-name {
+    font-size: 14px;
+    color: #7a7a7a; /* Серый цвет */
+    display: block;
+}
+
+/* Иконка кавычки (зеленый кружок как на фото) */
+.quote_icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: #00d363; /* Тот самый зеленый */
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* Отступ между фото и текстом */
+.ml-4 {
+    margin-left: 30px;
+}
+</style>
+<div class="testimonial-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="section_title mb-50">
+                    <h3 class="testimonial-title">Testimonial</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="testmonial_active owl-carousel">
+                    <!-- Один слайд -->
+                    <div class="single_testmonial d-flex align-items-center justify-content-center">
+                        <div class="thumb position-relative">
+                            <img src="@Url.Content("~/images/testmonial/author.png")" alt="Author" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                            <div class="quote_icon">
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                        </div>
+                        <div class="info ml-4">
+                            <p class="testimonial-text">
+                                "Working in conjunction with humanitarian aid agencies, we have supported 
+                                programmes to help alleviate human suffering through animal welfare when 
+                                people might depend on livestock as their only source of income or food."
+                            </p>
+                            <span class="author-name">- Micky Mouse</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 	<h1 class="text-dark m-2">У меня есть аккаунт</h1>
 	<div class="segment">
 		<form method="get" asp-action="Table" asp-controller="Home">
