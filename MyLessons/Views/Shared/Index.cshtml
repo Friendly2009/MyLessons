@@ -120,250 +120,190 @@
    </div>
 </div>
 </div>
-<style>
-	/* Заголовок как на фото */
-.testimonial-title {
-    font-size: 32px;
-    color: #001d3d; /* Глубокий темно-синий */
-    font-weight: 500;
-    margin-bottom: 60px;
-}
-
-/* Текст цитаты */
-.testimonial-text {
-    font-size: 16px;
-    line-height: 26px;
-    color: #1a1a1a; /* Почти черный для читаемости */
-    font-style: normal;
-    margin-bottom: 15px;
-    max-width: 500px;
-}
-
-/* Имя автора */
-.author-name {
-    font-size: 14px;
-    color: #7a7a7a; /* Серый цвет */
-    display: block;
-}
-
-/* Иконка кавычки (зеленый кружок как на фото) */
-.quote_icon {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    background: #00d363; /* Тот самый зеленый */
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-}
-
-/* Отступ между фото и текстом */
-.ml-4 {
-    margin-left: 30px;
-}
-</style>
 <div class="testimonial-section py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <div class="section_title mb-50">
-                    <h3 class="testimonial-title">Testimonial</h3>
+                    <h3 class="testimonial-title">Цитаты</h3>
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="testmonial_active owl-carousel">
-                    <!-- Один слайд -->
-                    <div class="single_testmonial d-flex align-items-center justify-content-center">
-                        <div class="thumb position-relative">
-                            <img src="@Url.Content("~/images/testmonial/author.png")" alt="Author" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
-                            <div class="quote_icon">
-                                <i class="fa fa-quote-left"></i>
-                            </div>
-                        </div>
-                        <div class="info ml-4">
-                            <p class="testimonial-text">
-                                "Working in conjunction with humanitarian aid agencies, we have supported 
-                                programmes to help alleviate human suffering through animal welfare when 
-                                people might depend on livestock as their only source of income or food."
-                            </p>
-                            <span class="author-name">- Micky Mouse</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-	<h1 class="text-dark m-2">У меня есть аккаунт</h1>
-	<div class="segment">
-		<form method="get" asp-action="Table" asp-controller="Home">
-			<div class="row justify-content-center">
-				<input asp-for="login" type="text" placeholder="Логин" value="user" class="input-group-text col-6 m-3" />
-				<span asp-validation-for="login" class="col-6 text-danger"></span>
-				<input asp-for="password" type="text" placeholder="Пароль" value="1234" class="input-group-text col-6 m-3" />
-				<span asp-validation-for="password" class="col-6 text-danger"></span>
-				<button class="btn btn-dark col-6 m-3">
-					Войти
-				</button>
-			</div>
-		</form>
-	</div>
-	<br />
-	<h1 class="text-dark m-2" id="reg">Зарегистрироваться</h1>
-	<div class="segment">
-		<form asp-action="AddUser" asp-controller="Home">
-			<div class="row justify-content-center">
-				<input type="text" placeholder="Логин" class="input-group-text col-6 m-3" name="log" />
-				<p class="col-6 text-danger">@ViewBag.MessageLog</p>
-				<input type="text" placeholder="Пароль" class="input-group-text col-6 m-3" name="pass" />
-				<p class="col-6 text-danger">@ViewBag.MessagePass</p>
-				<button class="btn btn-dark col-6 m-3">
-					Зарегистрироваться
-				</button>
-			</div>
-		</form>
-	</div>
-	<h1 class="text-dark">Оставьте отзыв :)</h1>
-	<div class="row segment justify-content-center">
-		<div class="mb-3">
-			<a class="text-dark text-decoration-none">Ваше имя</a>
-			<input type="text" name="login" title="Ваше имя" class="form-control" style="width:100%;" />
-		</div>
-		<a class="text-dark text-decoration-none">Ваша оценка</a>
-		<div class="d-flex justify-content-center gap-2">
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
-			<img type="image" src="~/css/star.png" style="width:40px; height:40px;" class="mx-1" />
-			<input type="hidden" value="0" id="value" name="price" />
-		</div>
-		<br />
-		<a class="text-dark text-decoration-none">Ваше мнение</a>
-		<div>
-			<input type="text" name="text" title="Ваше мнение" class="form-control" style="width:100%;" />
-		</div>
-		<div class="row justify-content-center m-3">
-			<button class="btn btn-dark text-light col-6" type="submit">Отправить отзыв</button>
-		</div>
-	</div>
-	<footer class="footer">
-		<div class="footer_top">
-			<div class="container">
-				<div class="row">
-					<div class="col-xl-3 col-md-6 col-lg-3">
-						<div class="footer_widget wow fadeInUp"
-							 data-wow-duration="1s"
-							 data-wow-delay=".3s">
-							<div class="footer_logo">
-								<a href="#">
-									<img src="~/images/logo.png" />
-								</a>
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="testmonial_active owl-carousel">
+					<div class="testmonial_active owl-carousel">
+						<div class="single_testmonial d-flex align-items-center justify-content-center">
+							<div class="thumb position-relative">
+								<img src="@Url.Content("~/images/testmonial/author.png")" alt="Author" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+								<div class="quote_icon">
+									<i class="fa fa-quote-left"></i>
+								</div>
 							</div>
-							<p>
-								finloan@support.com <br />
-								+10 873 672 6782 <br />
-								600/D, Green road, NewYork
-							</p>
-							<div class="socail_links">
-								<ul>
-									<li>
-										<a href="#">
-											<i class="ti-facebook"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-google-plus"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-twitter"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-instagram"></i>
-										</a>
-									</li>
-								</ul>
+							<div class="info ml-4">
+								<p class="testimonial-text">
+									«Ключ не в том, чтобы расставлять приоритеты в вашем расписании, а в том, чтобы составлять расписание для ваших приоритетов.»
+								</p>
+								<span class="author-name">- Стивен Кови</span>
+							</div>
+						</div>
+						<div class="single_testmonial d-flex align-items-center justify-content-center">
+							<div class="thumb position-relative">
+								<img src="@Url.Content("~/images/testmonial/author.png")" alt="Author" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+								<div class="quote_icon">
+									<i class="fa fa-quote-left"></i>
+								</div>
+							</div>
+							<div class="info ml-4">
+								<p class="testimonial-text">
+									«На каждый час, потраченный на планирование, приходится три часа, сэкономленных на исполнении.»
+								</p>
+								<span class="author-name">- Бенджамин Франклин</span>
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-2 col-md-6 col-lg-2">
-						<div class="footer_widget wow fadeInUp"
-							 data-wow-duration="1.1s"
-							 data-wow-delay=".4s">
-							<h3 class="footer_title">Company</h3>
-							<ul>
-								<li><a href="#">About </a></li>
-								<li><a href="#"> Pricing</a></li>
-								<li><a href="#">Carrier Tips</a></li>
-								<li><a href="#">FAQ</a></li>
-							</ul>
+					<div class="single_testmonial d-flex align-items-center justify-content-center">
+						<div class="thumb position-relative">
+							<img src="@Url.Content("~/images/testmonial/author.png")" alt="Author" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+							<div class="quote_icon">
+								<i class="fa fa-quote-left"></i>
+							</div>
 						</div>
-					</div>
-					<div class="col-xl-3 col-md-6 col-lg-3">
-						<div class="footer_widget wow fadeInUp"
-							 data-wow-duration="1.2s"
-							 data-wow-delay=".5s">
-							<h3 class="footer_title">Category</h3>
-							<ul>
-								<li><a href="#">Design & Art</a></li>
-								<li><a href="#">Engineering</a></li>
-								<li><a href="#">Sales & Marketing</a></li>
-								<li><a href="#">Finance</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-xl-4 col-md-6 col-lg-4">
-						<div class="footer_widget wow fadeInUp"
-							 data-wow-duration="1.3s"
-							 data-wow-delay=".6s">
-							<h3 class="footer_title">Subscribe</h3>
-							<form action="#" class="newsletter_form">
-								<input type="text" placeholder="Enter your mail" />
-								<button type="submit">Subscribe</button>
-							</form>
-							<p class="newsletter_text">
-								Esteem spirit temper too say adieus who direct esteem esteems
-								luckily.
+						<div class="info ml-4">
+							<p class="testimonial-text">
+								«Расписание — это сеть, в которую попадает время. Это способ удержать дни, чтобы они не просочились сквозь пальцы.»
 							</p>
+							<span class="author-name">- Анни Диллард</span>
+						</div>
+					</div>
+					<div class="single_testmonial d-flex align-items-center justify-content-center">
+						<div class="thumb position-relative">
+							<img src="@Url.Content("~/images/testmonial/author.png")" alt="Author" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+							<div class="quote_icon">
+								<i class="fa fa-quote-left"></i>
+							</div>
+						</div>
+						<div class="info ml-4">
+							<p class="testimonial-text">
+								«Я стараюсь придерживаться строгого графика, потому что это единственный способ сохранить ясность ума и не отвлекаться на шум.»
+							</p>
+							<span class="author-name">- Джек Дорси</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="copy-right_text wow fadeInUp"
-			 data-wow-duration="1.4s"
-			 data-wow-delay=".3s">
-			<div class="container">
-				<div class="footer_border"></div>
-				<div class="row">
-					<div class="col-xl-12">
-						<p class="copy_right text-center">
-							Copyright &copy;
-							<script>
-								document.write(new Date().getFullYear());
-							</script>
-							All rights reserved | This template is made with
-							<i class="fa fa-heart-o" aria-hidden="true"></i> by
-							<a href="https://colorlib.com" target="_blank">Colorlib</a>
+    </div>
+</div>
+<footer class="footer">
+	<div class="footer_top">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-3 col-md-6 col-lg-3">
+					<div class="footer_widget wow fadeInUp"
+						 data-wow-duration="1s"
+						 data-wow-delay=".3s">
+						<div class="footer_logo">
+							<a href="#">
+								<img src="~/images/logo.png" />
+							</a>
+						</div>
+						<p>
+							finloan@support.com <br />
+							+10 873 672 6782 <br />
+							600/D, Green road, NewYork
+						</p>
+						<div class="socail_links">
+							<ul>
+								<li>
+									<a href="#">
+										<i class="ti-facebook"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-google-plus"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-twitter"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-instagram"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-2 col-md-6 col-lg-2">
+					<div class="footer_widget wow fadeInUp"
+						 data-wow-duration="1.1s"
+						 data-wow-delay=".4s">
+						<h3 class="footer_title">Company</h3>
+						<ul>
+							<li><a href="#">About </a></li>
+							<li><a href="#"> Pricing</a></li>
+							<li><a href="#">Carrier Tips</a></li>
+							<li><a href="#">FAQ</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-xl-3 col-md-6 col-lg-3">
+					<div class="footer_widget wow fadeInUp"
+						 data-wow-duration="1.2s"
+						 data-wow-delay=".5s">
+						<h3 class="footer_title">Category</h3>
+						<ul>
+							<li><a href="#">Design & Art</a></li>
+							<li><a href="#">Engineering</a></li>
+							<li><a href="#">Sales & Marketing</a></li>
+							<li><a href="#">Finance</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-xl-4 col-md-6 col-lg-4">
+					<div class="footer_widget wow fadeInUp"
+						 data-wow-duration="1.3s"
+						 data-wow-delay=".6s">
+						<h3 class="footer_title">Subscribe</h3>
+						<form action="#" class="newsletter_form">
+							<input type="text" placeholder="Enter your mail" />
+							<button type="submit">Subscribe</button>
+						</form>
+						<p class="newsletter_text">
+							Esteem spirit temper too say adieus who direct esteem esteems
+							luckily.
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-	</footer>
+	</div>
+	<div class="copy-right_text wow fadeInUp"
+		 data-wow-duration="1.4s"
+		 data-wow-delay=".3s">
+		<div class="container">
+			<div class="footer_border"></div>
+			<div class="row">
+				<div class="col-xl-12">
+					<p class="copy_right text-center">
+						Copyright &copy;
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+						All rights reserved | This template is made with
+						<i class="fa fa-heart-o" aria-hidden="true"></i> by
+						<a href="https://colorlib.com" target="_blank">Colorlib</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
 <script src="~/js/wow.min.js" asp-append-version="true"></script>
 <script src="~/js/owl.carousel.min.js"></script>
 <script>
