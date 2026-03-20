@@ -54,42 +54,25 @@ namespace MyLessons.Controllers
         {
             return View();
         }
-        public IActionResult AddUser(string log, string pass)
+        public IActionResult AddUser(user model)
 		{
-			if (string.IsNullOrEmpty(log) && string.IsNullOrEmpty(pass))
-			{
-				ViewBag.MessageLog = "Введите Логин";
-				ViewBag.MessagePass = "Введите Пароль";
-				return View("Index");
-			}
-			else if (string.IsNullOrEmpty(log))
-			{
-				ViewBag.MessageLog = "Введите Логин";
-				return View("Index");
-			}
-			else if (string.IsNullOrEmpty(pass))
-			{
-				ViewBag.MessagePass = "Введите Пароль";
-				return View("Index");
-			}
-			else
-			{
-				ViewBag.MessageLog = "";
-				ViewBag.MessagePass = "";
-			}
-			user new_user = new user { password = pass, login = log };
-			foreach(var user in UsersTable)
-			{
-				if(user.login == log)
-				{
-					ViewBag.msg = "Этот пользователь уже существует";
-					return View("Index");
-				}
-			}
-			context.user.Add(new_user);
-			context.data.Add(new Data(context.user.Count() + 1));
-			context.SaveChanges();
-			return View("Index");
+            if (ModelState.IsValid)
+            {
+                foreach (var user in UsersTable)
+                {
+                    if (user.login == model.login)
+                    {
+						ViewBag.message = "Пользователь с этим логином уже существует.";
+						return Index();
+                    }
+                }
+                UsersTable.Add(model);
+                context.data.Add(new Data(context.user.Count() + 1));
+				context.data.Find(context.user.Count() + 1).text = "[]";
+				context.SaveChanges();
+				return Table(model);
+            }
+            return Index();
 		}
         public IActionResult Error()
         {
