@@ -38,6 +38,14 @@ namespace MyLessons.Controllers
 			}
 			return View("Index");
 		}
+		public IActionResult ToReg()
+		{
+			return View("Registration");
+		}
+		public IActionResult ToAuth()
+		{
+			return View("Authorization");
+		}
 		public IActionResult Support()
 		{
 			return View();
