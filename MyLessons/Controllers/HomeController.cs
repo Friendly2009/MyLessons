@@ -19,10 +19,14 @@ namespace MyLessons.Controllers
 		}
 		public IActionResult Index()
 		{
-			HttpContext.Session.Clear();
-			return View();
-		}
-		[HttpPost]
+			#if DEBUG
+				return Table(UsersTable.Find(1));
+			#else
+				HttpContext.Session.Clear();
+				return View();
+			#endif
+        }
+        [HttpPost]
 		public IActionResult Table(user model)
 		{
 			if (ModelState.IsValid)
