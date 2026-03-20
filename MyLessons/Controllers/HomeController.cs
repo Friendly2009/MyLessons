@@ -22,7 +22,7 @@ namespace MyLessons.Controllers
 			HttpContext.Session.Clear();
 			return View();
 		}
-		[HttpGet]
+		[HttpPost]
 		public IActionResult Table(user model)
 		{
 			if (ModelState.IsValid)

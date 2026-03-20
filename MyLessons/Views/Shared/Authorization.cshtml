@@ -3,14 +3,14 @@
 	<div class="card shadow-sm border-0 p-4" style="width: 100%; max-width: 400px; border-radius: 15px; margin-top:10%; margin-bottom: 30%">
 		<div class="card-body">
 			<h3 class="text-center mb-4 fw-bold text-dark">Вход</h3>
-			<form>
+			<form asp-action="Table" asp-controller="Home">
 				<div class="mb-3">
-					<label for="login" class="form-label text-secondary small">Логин или Email</label>
-					<input type="text" class="form-control form-control-lg bg-light border-0" id="login" placeholder="Введите логин" style="font-size: 0.9rem;">
+					<label asp-for="login" class="form-label text-secondary small">Логин</label>
+					<input asp-for="login" type="text" class="form-control form-control-lg bg-light border-0" id="login" placeholder="Введите логин" style="font-size: 0.9rem;">
 				</div>
 				<div class="mb-4">
-					<label for="password" class="form-label text-secondary small">Пароль</label>
-					<input type="password" class="form-control form-control-lg bg-light border-0" id="password" placeholder="••••••••" style="font-size: 0.9rem;">
+					<label asp-for="password" class="form-label text-secondary small">Пароль</label>
+					<input asp-for="password" type="password" class="form-control form-control-lg bg-light border-0" id="password" placeholder="••••••••" style="font-size: 0.9rem;">
 				</div>
 				<div class="d-grid justify-content-center row">
 					<button class="boxed-btn3 col-6">

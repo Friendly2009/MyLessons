@@ -1,41 +1,29 @@
 ﻿@model user;
-<header>
-	<div class="header-area">
-		<div id="sticky-header" class="main-header-area">
-			<div class="container-fluid">
-				<div class="header_bottom_border">
-					<div class="row align-items-center">
-						<div class="col-6 col-lg-2">
-							<div class="logo">
-								<img src="~/images/logo.png" style="max-width: 100%;" />
-							</div>
-						</div>
-						<div class="col-xl-6 col-lg-7 d-none d-lg-block">
-							<div class="main-menu d-none d-lg-block">
-								<nav>
-									<ul id="navigation">
-										<li><a asp-action="Index" asp-controller="Home">My Lesson</a></li>
-										<li><a asp-action="Index" asp-controller="Home">Главная панель</a></li>
-										<li><a asp-action="Index" asp-controller="Home">Таблица</a></li>
-										<li><a asp-action="Index" asp-controller="Home">Профиль</a></li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-						<div class="col-12 d-md-block">
-							<div class="mobile_menu d-block d-lg-none"></div>
-						</div>
-					</div>
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+	<div class="card shadow-sm border-0 p-4" style="width: 100%; max-width: 400px; border-radius: 15px; margin-top:10%; margin-bottom: 30%">
+		<div class="card-body">
+			<h3 class="text-center mb-4 fw-bold text-dark">Регистрация</h3>
+			<form>
+				<div class="mb-3">
+					<label for="login" class="form-label text-secondary small">Логин</label>
+					<input type="text" class="form-control form-control-lg bg-light border-0" id="login" placeholder="Введите логин" style="font-size: 0.9rem;">
 				</div>
-			</div>
+				<div class="mb-4">
+					<label for="password" class="form-label text-secondary small">Пароль</label>
+					<input type="password" class="form-control form-control-lg bg-light border-0" id="password" placeholder="••••••••" style="font-size: 0.9rem;">
+				</div>
+				<div class="d-grid justify-content-center row">
+					<button class="boxed-btn3 col-10">
+						Создать аккаунт
+					</button>
+				</div>
+				<div class="text-center mt-3">
+					<a href="#" class="text-decoration-none small text-muted">Уже есть аккаунт?</a>
+				</div>
+			</form>
 		</div>
 	</div>
-</header>
-<main role="main">
-	<div class="row justify-content-center">
-		<h1>Профмат на сотку</h1>
-	</div>
-</main>
+</div>
 <footer class="footer">
 	<div class="footer_top">
 		<div class="container">
