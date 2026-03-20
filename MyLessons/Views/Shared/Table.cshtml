@@ -25,8 +25,24 @@
 			}
 		}
 	}
-	<div class="container wow fadeInLeft d-none d-lg-block text-right" data-wow-duration="1s"
-		 data-wow-delay=".2s">
+	<header class="p-3 mb-3 border-bottom border-secondary bg-dark text-white sticky-top shadow-sm">
+		<div class="container">
+			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none me-4">
+					<h1 class="fs-4 fw-bold text-light">My Lesson</h1>
+				</a>
+				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li><a href="/Main/MainPanel" class="nav-link px-3 text-white opacity-75 opacity-100-hover ">Главная панель</a></li>
+					<li><a href="/Main/Table" class="nav-link px-3 text-white opacity-75 opacity-100-hover">Таблица</a></li>
+					<li><a href="/Main/MainPanel" class="nav-link px-3 text-white opacity-75 opacity-100-hover">Профиль</a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="container text-right">
+		<div class="row justify-content-center">
+			<button class="btn btn-dark col-6">Классы</button>
+		</div>
 		<div class="row justify-content-center container">
 			@{
 				for (int i = 0; i < ViewBag.socials.Count; i++)
@@ -334,4 +350,5 @@
 <script src="~/js/sidebar.js"></script>
 <script src="~/js/wow.min.js" asp-append-version="true"></script>
 <script src="~/js/main.js" asp-append-version="true"></script>
+<script src="~/js/javascript.js" asp-append-version="true"></script>
 }
