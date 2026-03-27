@@ -327,7 +327,7 @@
 							<div class="col-3 teacher-name">@ViewBag.teachers[i]</div>
 							<div class="col-3 teacher-subject">@ViewBag.objects[i]</div>
 							<div class="col-4">
-								<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn" type="button">Назначить</button>
+								<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn" type="button" id="AddLesson">Назначить</button>
 							</div>
 						</div>
 					}
@@ -335,7 +335,7 @@
 				<div class="col-8 mt-3">
 					<button class="btn btn-outline-dark w-100 mb-3" id="deleteLessonButton">Удалить Урок</button>
 					<form asp-action="SaveChanges" asp-controller="Main" method="post" id="saveChangesForm">
-						<input type="hidden" name="data" id="dataInput" value="@ViewBag.data" />
+						<input type="hidden" name="data" id="data" value="@ViewBag.data" />
 						<input type="hidden" name="clas" value="@ViewBag.Clas" />
 						<button type="submit" class="btn btn-dark w-100">Сохранить изменения</button>
 					</form>
@@ -452,8 +452,5 @@
 			</div>
 		</div>
 	</footer>
-<script src="~/js/sidebar.js"></script>
-<script src="~/js/wow.min.js" asp-append-version="true"></script>
-<script src="~/js/main.js" asp-append-version="true"></script>
-<script src="~/js/javascript.js" asp-append-version="true"></script>
 }
+<script src="~/js/javascript.js" asp-append-version="true"></script>

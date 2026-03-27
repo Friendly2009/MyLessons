@@ -12,7 +12,6 @@ function NewLessToJson(NewLessonArgument) {
     return JSON.stringify(NewLessonArgument);
 }
 
-var Buttons_Star = document.querySelectorAll('.mx-1');
 var AddLesson_Button = document.querySelectorAll('#AddLesson');
 var reader = document.querySelectorAll('td');
 var deleteLessonButton = document.getElementById("deleteLessonButton");
@@ -21,24 +20,6 @@ let Tracking_for_Delete_Lesson = false;
 var MainJson = document.getElementById('data').value;
 var NewLess = "";
 var NewTeach = "";
-
-for (let i = 0; i < Buttons_Star.length; i++) {
-    Buttons_Star[i].setAttribute("num", (i + 1).toString());
-}
-Buttons_Star.forEach(function (element) {
-    element.addEventListener('click', function () {
-        let count = element.getAttribute("num");
-        for (let i = 0; i < Buttons_Star.length; i++) {
-            Buttons_Star[i].setAttribute('src', "/css/star.png");
-        }
-        for (let i = 0; i < Number(count); i++) {
-            Buttons_Star[i].setAttribute('src', "/css/start.png");
-        }
-        //    price.setAttribute('value', count);
-    });
-});
-
-
 reader.forEach(td => {
     td.addEventListener("click", clickable => {
         SelectClick(td);
