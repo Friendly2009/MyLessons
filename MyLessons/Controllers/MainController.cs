@@ -148,7 +148,7 @@ namespace MyLessons.Controllers
         {
             while (data.Contains(",,"))
             {
-                data.Replace(",,", ",");
+                data = data.Replace(",,", ",");
             }
             if(data == "[,]")
             {
