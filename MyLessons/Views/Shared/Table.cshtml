@@ -324,11 +324,9 @@
 					@for (int i = 0; i < ViewBag.teachers.Count; i++)
 					{
 						<div class="row align-items-center mb-2 border-bottom pb-2 teacher-row">
-							<div class="col-3 teacher-name">@ViewBag.teachers[i]</div>
-							<div class="col-3 teacher-subject">@ViewBag.objects[i]</div>
-							<div class="col-4">
-								<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn" type="button" id="AddLesson">Назначить</button>
-							</div>
+							<div class="col-3 teacher-name" id="IdTeachersForNewLesson">@ViewBag.teachers[i]</div>
+							<div class="col-3 teacher-subject" id="IdObjectForNewLesson">@ViewBag.objects[i]</div>
+							<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn col-4" type="button" id="AddLesson">Назначить</button>
 						</div>
 					}
 				</div>

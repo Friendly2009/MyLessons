@@ -45,14 +45,14 @@ AddLesson_Button.forEach(button => {
             const hasStyle = td.hasAttribute('style');
             const childrenParagraphs = td.querySelectorAll('p');
             if (!hasDay && !hasLesson && !hasStyle) {
-                td.style.background = "transparent";   
-                td.style.color = "#000000";             
+                td.style.background = "transparent";
+                td.style.color = "#000000";
             } else if (hasDay && hasLesson && hasStyle && childrenParagraphs.length === 3) {
-                td.style.background = "#EE0000";         
-                td.style.color = "#000000";              
+                td.style.background = "#EE0000";
+                td.style.color = "#000000";
             } else if (hasDay && hasLesson && hasStyle) {
                 td.style.background = "#90EE90";
-                td.style.color = "#2e8b57"; 
+                td.style.color = "#2e8b57";
             }
         });
     })
