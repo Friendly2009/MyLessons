@@ -120,43 +120,48 @@ function AddLessonInBase(td) { // и замена уроков (для удоб�
         td.appendChild(hidden_input_less);
         document.getElementById("data").setAttribute("value", MainJson);
     } catch {
-        var Newday = td.getAttribute("day");
-        var Newnumber = td.getAttribute("lesson");
-        var Newroom = document.getElementById("NumberRoomInput").value;
-        var Newclas = document.getElementById("CurrentClass").textContent;
-        const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
-        let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
-        MainJson = MainJson.replace("]", "");
-        MainJson = MainJson + "," + JsonFormatNewLesson;
-        MainJson += "]";
+        try {
+            var Newday = td.getAttribute("day");
+            var Newnumber = td.getAttribute("lesson");
+            var Newroom = document.getElementById("NumberRoomInput").value;
+            var Newclas = document.getElementById("CurrentClass").textContent;
+            const NewLessonForAdd = new NewLesson(Newday, Newnumber, NewLess, Newteach, Newroom, Newclas);
+            let JsonFormatNewLesson = NewLessToJson(NewLessonForAdd);
+            MainJson = MainJson.replace("]", "");
+            MainJson = MainJson + "," + JsonFormatNewLesson;
+            MainJson += "]";
 
-        //select the new lesson in table
-        var less_paragraph = document.createElement("p");
-        less_paragraph.textContent = NewLess;
-        less_paragraph.setAttribute("class", "m-1");
-        less_paragraph.setAttribute("id", "paragraph_Less");
+            //select the new lesson in table
+            var less_paragraph = document.createElement("p");
+            less_paragraph.textContent = NewLess;
+            less_paragraph.setAttribute("class", "m-1");
+            less_paragraph.setAttribute("id", "paragraph_Less");
 
-        var room_paragraph = document.createElement("p");
-        room_paragraph.textContent = Newroom;
-        room_paragraph.setAttribute("class", "m-1");
-        room_paragraph.setAttribute("id", "paragraph_Room");
+            var room_paragraph = document.createElement("p");
+            room_paragraph.textContent = Newroom;
+            room_paragraph.setAttribute("class", "m-1");
+            room_paragraph.setAttribute("id", "paragraph_Room");
 
-        var teach_paragraph = document.createElement("p");
-        teach_paragraph.textContent = Newteach;
-        teach_paragraph.setAttribute("class", "m-1");
-        teach_paragraph.setAttribute("id", "paragraph_Teacher");
+            var teach_paragraph = document.createElement("p");
+            teach_paragraph.textContent = Newteach;
+            teach_paragraph.setAttribute("class", "m-1");
+            teach_paragraph.setAttribute("id", "paragraph_Teacher");
 
 
-        var hidden_input_less = document.createElement("input");
-        hidden_input_less.setAttribute("type", "hidden");
-        hidden_input_less.setAttribute("id", "less");
-        hidden_input_less.setAttribute("value", NewLess);
+            var hidden_input_less = document.createElement("input");
+            hidden_input_less.setAttribute("type", "hidden");
+            hidden_input_less.setAttribute("id", "less");
+            hidden_input_less.setAttribute("value", NewLess);
 
-        td.appendChild(less_paragraph);
-        td.appendChild(room_paragraph);
-        td.appendChild(teach_paragraph);
-        td.appendChild(hidden_input_less);
-        document.getElementById("data").setAttribute("value", MainJson);
+            td.appendChild(less_paragraph);
+            td.appendChild(room_paragraph);
+            td.appendChild(teach_paragraph);
+            td.appendChild(hidden_input_less);
+            document.getElementById("data").setAttribute("value", MainJson);
+        } catch (ex) {
+            alert(ex);
+        }
+        
     }
 }
 function DeleteLesson(td) {
