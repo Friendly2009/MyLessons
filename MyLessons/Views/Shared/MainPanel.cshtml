@@ -8,6 +8,23 @@
 		alert(obj);
 	</script>
 }
+<style>
+	body {
+		background-color: #f8f9fa;
+	}
+
+	.teacher-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.nav-pills .nav-link {
+		margin-right: 5px;
+		margin-bottom: 5px;
+		border: 1px solid #dee2e6;
+	}
+</style>
 <header class="p-3 mb-3 border-bottom border-secondary text-white sticky-top shadow-sm" style="background: #001D38">
 	<div class="container">
 		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -23,144 +40,126 @@
 	</div>
 </header>
 
+<div class="container py-5">
+	<div class="d-flex align-items-center mb-5">
+		<div class="ms-3">
+			<h2 class="mb-0">Администратор: @user.login</h2>
+			<p class="text-muted mb-0">Главная Панель</p>
+		</div>
+	</div>
 
-
-<div class="justify-content-center row">
-	<h1 class="col-12 text-center">Главная панель @user.login</h1>
-</div>
-<div class="container">
-	<div class="row justify-content-center">
-		<div class="col-8">
-			@try
-			{
-				for (int i = 0; i < ViewBag.teacher.Count; i++)
-				{
-					if (ViewBag.teacher[0] != "")
+	<div class="row g-4">
+		<!-- Панель учителей -->
+		<div class="col-lg-4">
+			<div class="card shadow-sm border-0">
+				<div class="card-header bg-white py-3">
+					<h5 class="card-title mb-0"><i class="bi bi-people me-2"></i>Список учителей</h5>
+				</div>
+				<div class="list-group list-group-flush">
+					@for (int i = 0; i < ViewBag.teacher.Count; i++)
 					{
-						<div class="row align-items-center mb-2 border-bottom pb-2 teacher-row">
-							<div class="col-3 teacher-name" id="IdTeachersForNewLesson">@ViewBag.teachers[i]</div>
-							<div class="col-3 teacher-subject" id="IdObjectForNewLesson">@ViewBag.objects[i]</div>
-							<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn col-4" type="button" id="AddLesson">Назначить</button>
-						</div>
+						if (ViewBag.teacher[0] != "")
+						{
+							<div class="list-group-item teacher-item">
+								<div>
+									<div class="fw-bold">@ViewBag.objec[i]</div>
+									<small class="text-muted">@ViewBag.teacher[i]</small>
+								</div>
+								<button class="btn btn-outline-danger btn-sm border-0"><i class="bi bi-trash"></i></button>
+							</div>
+						}
 					}
-				}
-			}
-			catch
-			{
+				</div>
+			</div>
+		</div>
 
-			}
+		<!-- Панель уроков -->
+		<div class="col-lg-8">
+			<div class="card shadow-sm border-0 mb-4">
+				<div class="card-header bg-white py-3">
+					<h5 class="card-title mb-0"><i class="bi bi-calendar3 me-2"></i>Расписание уроков</h5>
+				</div>
+				<div class="card-body">
+					<!-- Кнопки выбора классов -->
+					<ul class="nav nav-pills mb-4" id="classTabs" role="tablist">
+						<li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#class1A">1А</button></li>
+						<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#class2A">2А</button></li>
+						<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#class4B">4Б</button></li>
+						<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#class10A">10А</button></li>
+					</ul>
+
+					<!-- Таблица уроков -->
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="class1A">
+							<div class="table-responsive">
+								<table class="table align-middle">
+									<thead class="table-light">
+										<tr>
+											<th>День</th>
+											<th>№</th>
+											<th>Предмет</th>
+											<th>Учитель</th>
+											<th>Действие</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Понедельник</td>
+											<td>1</td>
+											<td>Математика</td>
+											<td>Александр С. В.</td>
+											<td><button class="btn btn-sm btn-light text-danger"><i class="bi bi-x-circle"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Форма добавления урока -->
+			<div class="card shadow-sm border-0">
+				<div class="card-header bg-white py-3">
+					<h6 class="mb-0">Добавить новый урок</h6>
+				</div>
+				<div class="card-body">
+					<form class="row g-3">
+						<div class="col-md-3">
+							<select class="form-select form-select-sm">
+								<option selected>День недели</option>
+								<option>Понедельник</option>
+								<option>Вторник</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<input type="number" class="form-control form-control-sm" placeholder="№ урока">
+						</div>
+						<div class="col-md-3">
+							<input type="text" class="form-control form-control-sm" placeholder="Предмет">
+						</div>
+						<div class="col-md-4">
+							<select class="form-select form-select-sm">
+								<option selected>Выбрать учителя</option>
+								@for (int i = 0; i < ViewBag.teacher.Count; i++)
+									{
+										if (ViewBag.teacher[0] != "")
+										{
+										<option>@ViewBag.teacher[i] @ViewBag.objec[i]</option>
+										}
+									}
+								</select>
+						</div>
+						<div class="col-12">
+							<button type="submit" class="btn btn-primary btn-sm px-4">Добавить в расписание</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
-@* <h3>Учительская панель</h3>
-<div class="row justify-content-center">
-	@try
-	{
-		for (int i = 0; i < ViewBag.teacher.Count; i++)
-		{
-			if (ViewBag.teacher[0] != "")
-			{
-				<div class="row align-items-center mb-2 border-bottom pb-2 teacher-row">
-					<div class="col-3 teacher-name" id="IdTeachersForNewLesson">@ViewBag.teachers[i]</div>
-					<div class="col-3 teacher-subject" id="IdObjectForNewLesson">@ViewBag.objects[i]</div>
-					<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn col-4" type="button" id="AddLesson">Назначить</button>
-				</div>
-				<div class="row align-items-center mb-2" style="margin: 10px 0;">
-						<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
-						<p class="col-4 mb-0">@ViewBag.objec[i]</p>
-						<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
-							<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
-							<input type="hidden" name="subject" value="@ViewBag.objec[i]" />
-							<button class="btn btn-close btn-dark" type="submit"></button>
-						</form>
-					</div> 
-			}
-			else
-			{
-				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
-			}
-		}
-	}
-	catch
-	{
-		<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
-	}
-	<form asp-action="AddTeacher" asp-controller="Main" class="row justify-content-center col-12">
-		<input type="text" name="name" class="form-control col-6 m-2" placeholder="Предмет" />
-		<input type="text" name="teacher" class="form-control col-6 m-2" placeholder="имя учителя" />
-		<input type="hidden" name="action" value="MainPanel" />
-		<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
-	</form>
-</div>*@
-<div class="container">@*THE FUCKING PROBLEM <----*@
-	<h3>Существующее уроки</h3>
-	<div class="segment row justify-content-center">
-		@try
-		{
-			<input type="hidden" value="@ViewBag.lesson[0].day" />
-			<div class="col-12 m-2 row justify-content-start">
-				<p class="col-2">День недели</p>
-				<p class="col-2">Номер урока</p>
-				<p class="col-2">Урок</p>
-				<p class="col-2">Преподаватель</p>
-				<p class="col-1">Класс</p>
-				<p class="col-1">Номер Кабинета</p>
-			</div>
-			for (int i = 0; i < ViewBag.lesson.Count; i++)
-			{
-				<div class="col-12 m-2 row justify-content-start">
-					<p class="col-2">@ViewBag.lesson[i].day</p>
-					<p class="col-2">@ViewBag.lesson[i].number</p>
-					<p class="col-2">@ViewBag.lesson[i].less</p>
-					<p class="col-2">@ViewBag.lesson[i].teacher</p>
-					<p class="col-1">@ViewBag.lesson[i].clas</p>
-					<p class="col-1">@ViewBag.lesson[i].room</p>
-					<form asp-action="DeleteLesson" asp-controller="Main" class="col-1">
-						<input type="hidden" name="less" value="@ViewBag.lesson[i].less" />
-						<input type="hidden" name="day" value="@ViewBag.lesson[i].day" />
-						<input type="hidden" name="number" value="@ViewBag.lesson[i].number" />
-						<input type="hidden" name="teacher" value="@ViewBag.lesson[i].teacher" />
-						<input type="hidden" name="clas" value="@ViewBag.lesson[i].clas" />
-						<input type="hidden" name="room" value="@ViewBag.lesson[i].room" />
-						<button class="btn btn-close btn-dark" type="submit" />
-					</form>
-				</div>
-			}
-		}
-		catch
-		{
-			<br />
-			<br />
-			<p class="col-12 text-center m-5">У вас еще нет зарегестрированных уроков</p>
-			<br />
-			<br />
-		}
-		<form class="col-7 m-3 row justify-content-center" asp-action="AddLesson" asp-controller="Main">
-			<p>Преподаватель && Урок</p>
-			<select name="selectedSubject" class="form-select m-2" aria-label="Выберите Преподавателя" required>
-				<option selected disabled>Выберите Предмет</option>
-				@try
-				{
-					for (int i = 0; i < ViewBag.AvaliableItemsTeachAndObjec.Count; i++)
-					{
-						<option value="@ViewBag.AvaliableItemsTeachAndObjec[i]">@ViewBag.AvaliableItemsTeachAndObjec[i]</option>
-					}
-				}
-				catch { }
-			</select>
-			<p>Класс</p>
-			<input type="text" class="form-control col-7 m-1" name="clas" value="3А" />
-			<p>Кабинет</p>
-			<input type="number" class="form-control col-7 m-1" name="room" value="1" />
-			<p>Номер урока</p>
-			<input type="number" class="form-control col-7 m-1" name="num" value="1" />
-			<p>День недели</p>
-			<input type="number" class="form-control col-7 m-1" name="day" value="1" />
-			<button type="submit" class="btn btn-dark col-5 m-2">Добавить урок</button>
-		</form>
-	</div>
-</div>
 <footer class="footer">
 	<div class="footer_top">
 		<div class="container">
@@ -271,3 +270,126 @@
 	</div>
 </footer>
 <script src="~/js/sidebar.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <h3>Учительская панель</h3>
+<div class="row justify-content-center">
+	@try
+	{
+		for (int i = 0; i < ViewBag.teacher.Count; i++)
+		{
+			if (ViewBag.teacher[0] != "")
+			{
+				<div class="row align-items-center mb-2 border-bottom pb-2 teacher-row">
+					<div class="col-3 teacher-name" id="IdTeachersForNewLesson">@ViewBag.teachers[i]</div>
+					<div class="col-3 teacher-subject" id="IdObjectForNewLesson">@ViewBag.objects[i]</div>
+					<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn col-4" type="button" id="AddLesson">Назначить</button>
+				</div>
+				<div class="row align-items-center mb-2" style="margin: 10px 0;">
+						<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
+						<p class="col-4 mb-0">@ViewBag.objec[i]</p>
+						<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
+							<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
+							<input type="hidden" name="subject" value="@ViewBag.objec[i]" />
+							<button class="btn btn-close btn-dark" type="submit"></button>
+						</form>
+					</div> 
+			}
+			else
+			{
+				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
+			}
+		}
+	}
+	catch
+	{
+		<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
+	}
+	<form asp-action="AddTeacher" asp-controller="Main" class="row justify-content-center col-12">
+		<input type="text" name="name" class="form-control col-6 m-2" placeholder="Предмет" />
+		<input type="text" name="teacher" class="form-control col-6 m-2" placeholder="имя учителя" />
+		<input type="hidden" name="action" value="MainPanel" />
+		<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
+	</form>
+</div>
+<div class="container">
+	<h3>Существующее уроки</h3>
+	<div class="segment row justify-content-center">
+		@try
+		{
+			<input type="hidden" value="@ViewBag.lesson[0].day" />
+			<div class="col-12 m-2 row justify-content-start">
+				<p class="col-2">День недели</p>
+				<p class="col-2">Номер урока</p>
+				<p class="col-2">Урок</p>
+				<p class="col-2">Преподаватель</p>
+				<p class="col-1">Класс</p>
+				<p class="col-1">Номер Кабинета</p>
+			</div>
+			for (int i = 0; i < ViewBag.lesson.Count; i++)
+			{
+				<div class="col-12 m-2 row justify-content-start">
+					<p class="col-2">@ViewBag.lesson[i].day</p>
+					<p class="col-2">@ViewBag.lesson[i].number</p>
+					<p class="col-2">@ViewBag.lesson[i].less</p>
+					<p class="col-2">@ViewBag.lesson[i].teacher</p>
+					<p class="col-1">@ViewBag.lesson[i].clas</p>
+					<p class="col-1">@ViewBag.lesson[i].room</p>
+					<form asp-action="DeleteLesson" asp-controller="Main" class="col-1">
+						<input type="hidden" name="less" value="@ViewBag.lesson[i].less" />
+						<input type="hidden" name="day" value="@ViewBag.lesson[i].day" />
+						<input type="hidden" name="number" value="@ViewBag.lesson[i].number" />
+						<input type="hidden" name="teacher" value="@ViewBag.lesson[i].teacher" />
+						<input type="hidden" name="clas" value="@ViewBag.lesson[i].clas" />
+						<input type="hidden" name="room" value="@ViewBag.lesson[i].room" />
+						<button class="btn btn-close btn-dark" type="submit" />
+					</form>
+				</div>
+			}
+		}
+		catch
+		{
+			<br />
+			<br />
+			<p class="col-12 text-center m-5">У вас еще нет зарегестрированных уроков</p>
+			<br />
+			<br />
+		}
+		<form class="col-7 m-3 row justify-content-center" asp-action="AddLesson" asp-controller="Main">
+			<p>Преподаватель && Урок</p>
+			<select name="selectedSubject" class="form-select m-2" aria-label="Выберите Преподавателя" required>
+				<option selected disabled>Выберите Предмет</option>
+				@try
+				{
+					for (int i = 0; i < ViewBag.AvaliableItemsTeachAndObjec.Count; i++)
+					{
+						<option value="@ViewBag.AvaliableItemsTeachAndObjec[i]">@ViewBag.AvaliableItemsTeachAndObjec[i]</option>
+					}
+				}
+				catch { }
+			</select>
+			<p>Класс</p>
+			<input type="text" class="form-control col-7 m-1" name="clas" value="3А" />
+			<p>Кабинет</p>
+			<input type="number" class="form-control col-7 m-1" name="room" value="1" />
+			<p>Номер урока</p>
+			<input type="number" class="form-control col-7 m-1" name="num" value="1" />
+			<p>День недели</p>
+			<input type="number" class="form-control col-7 m-1" name="day" value="1" />
+			<button type="submit" class="btn btn-dark col-5 m-2">Добавить урок</button>
+		</form>
+	</div>
+</div> *@
