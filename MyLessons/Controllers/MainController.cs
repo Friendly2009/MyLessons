@@ -60,6 +60,7 @@ namespace MyLessons.Controllers
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.user = _context.user.Find(id);
 			ViewBag.lesson = JsonConvert.DeserializeObject<List<lesson>>(obj.text);
+            ViewBag.classes = ControllerConvert.FindAllClass(obj.text);
             return View();
         }
 		public IActionResult AddTeacher(string name, string teacher, string action)

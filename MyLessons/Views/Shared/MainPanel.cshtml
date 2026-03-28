@@ -8,23 +8,6 @@
 		alert(obj);
 	</script>
 }
-<style>
-	body {
-		background-color: #f8f9fa;
-	}
-
-	.teacher-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.nav-pills .nav-link {
-		margin-right: 5px;
-		margin-bottom: 5px;
-		border: 1px solid #dee2e6;
-	}
-</style>
 <header class="p-3 mb-3 border-bottom border-secondary text-white sticky-top shadow-sm" style="background: #001D38">
 	<div class="container">
 		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -65,32 +48,27 @@
 									<div class="fw-bold">@ViewBag.objec[i]</div>
 									<small class="text-muted">@ViewBag.teacher[i]</small>
 								</div>
-								<button class="btn btn-outline-danger btn-sm border-0"><i class="bi bi-trash"></i></button>
+								<button class="btn btn-danger btn-sm border-0">X</button>
 							</div>
 						}
 					}
 				</div>
 			</div>
 		</div>
-
-		<!-- Панель уроков -->
 		<div class="col-lg-8">
 			<div class="card shadow-sm border-0 mb-4">
 				<div class="card-header bg-white py-3">
 					<h5 class="card-title mb-0"><i class="bi bi-calendar3 me-2"></i>Расписание уроков</h5>
 				</div>
 				<div class="card-body">
-					<!-- Кнопки выбора классов -->
 					<ul class="nav nav-pills mb-4" id="classTabs" role="tablist">
-						<li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#class1A">1А</button></li>
-						<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#class2A">2А</button></li>
-						<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#class4B">4Б</button></li>
-						<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#class10A">10А</button></li>
+						@foreach(var clas in ViewBag.classes)
+						{
+							<li class="nav-item"><button class="nav-link active btn btn-dark">@clas</button></li>
+						}
 					</ul>
-
-					<!-- Таблица уроков -->
 					<div class="tab-content">
-						<div class="tab-pane fade show active" id="class1A">
+						<div class="tab-pane fade show active">
 							<div class="table-responsive">
 								<table class="table align-middle">
 									<thead class="table-light">
@@ -99,17 +77,21 @@
 											<th>№</th>
 											<th>Предмет</th>
 											<th>Учитель</th>
-											<th>Действие</th>
+											<th>Аудитория</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Понедельник</td>
-											<td>1</td>
-											<td>Математика</td>
-											<td>Александр С. В.</td>
-											<td><button class="btn btn-sm btn-light text-danger"><i class="bi bi-x-circle"></i></button></td>
-										</tr>
+										@foreach(var obj in ViewBag.lesson)
+										{
+											<tr>
+												<td>@obj.day</td>
+												<td>@obj.number</td>
+												<td>@obj.teacher</td>
+												<td>@obj.less</td>
+												<td>@obj.room</td>
+												<td><button class="btn btn-sm btn-danger">X</button></td>
+											</tr>
+										}
 									</tbody>
 								</table>
 							</div>
@@ -117,8 +99,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Форма добавления урока -->
 			<div class="card shadow-sm border-0">
 				<div class="card-header bg-white py-3">
 					<h6 class="mb-0">Добавить новый урок</h6>
@@ -128,8 +108,12 @@
 						<div class="col-md-3">
 							<select class="form-select form-select-sm">
 								<option selected>День недели</option>
-								<option>Понедельник</option>
-								<option>Вторник</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
 							</select>
 						</div>
 						<div class="col-md-2">
@@ -150,8 +134,8 @@
 									}
 								</select>
 						</div>
-						<div class="col-12">
-							<button type="submit" class="btn btn-primary btn-sm px-4">Добавить в расписание</button>
+						<div class="col-12 m-2">
+							<button type="submit" class="btn boxed-btn3 btn-sm px-4">Добавить в расписание</button>
 						</div>
 					</form>
 				</div>
