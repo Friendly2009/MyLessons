@@ -64,7 +64,12 @@
 					<ul class="nav nav-pills mb-4" id="classTabs" role="tablist">
 						@foreach(var clas in ViewBag.classes)
 						{
-							<li class="nav-item"><button class="nav-link active btn btn-dark">@clas</button></li>
+							<li class="nav-item">
+								<form class="nav-link" asp-action="MainPanel" asp-controller="Main">
+									<input type="hidden" value="@clas" name="clas"/>
+									<button class="active btn btn-dark">@clas</button>
+								</form>
+							</li>
 						}
 					</ul>
 					<div class="tab-content">
@@ -78,6 +83,7 @@
 											<th>Предмет</th>
 											<th>Учитель</th>
 											<th>Аудитория</th>
+											<th>Удалить</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -104,9 +110,9 @@
 					<h6 class="mb-0">Добавить новый урок</h6>
 				</div>
 				<div class="card-body">
-					<form class="row g-3">
+					<form asp-action="" class="row g-3 justify-content-center">
 						<div class="col-md-3">
-							<select class="form-select form-select-sm">
+							<select class="form-select form-select-sm form-control">
 								<option selected>День недели</option>
 								<option>1</option>
 								<option>2</option>
@@ -123,7 +129,7 @@
 							<input type="text" class="form-control form-control-sm" placeholder="Предмет">
 						</div>
 						<div class="col-md-4">
-							<select class="form-select form-select-sm">
+							<select class="form-select form-select-sm form-control">
 								<option selected>Выбрать учителя</option>
 								@for (int i = 0; i < ViewBag.teacher.Count; i++)
 									{

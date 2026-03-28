@@ -66,12 +66,6 @@ namespace MyLessons.ConverterSQLClass
 			}
 			return Base + "|" + name + "`" + subject;
 		}
-		public static string ConvertLessonToString(lesson les)
-		{
-			string result = "";
-			result = JsonConvert.SerializeObject(les);
-			return result;
-		}
 		public static string ConvertTeachersToString(List<string> teach, List<string> Objec)
 		{
 			string result = "";
@@ -105,5 +99,14 @@ namespace MyLessons.ConverterSQLClass
                    one.room == two.room &&
                    one.number == two.number;
         }
+		public static List<lesson> ConvertAllLessonForClass(List<lesson> list, string clas)
+		{
+			List<lesson> objects = new List<lesson>();
+			foreach (lesson item in list)
+			{
+				if(item.clas == clas) objects.Add(item);
+			}
+			return objects;
+		}
     }
 }

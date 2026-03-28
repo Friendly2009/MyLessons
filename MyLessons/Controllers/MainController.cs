@@ -39,7 +39,7 @@ namespace MyLessons.Controllers
 			}
 			return View();
         }
-        public IActionResult MainPanel()
+        public IActionResult MainPanel(string? clas)
         {
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
             Data obj = DataTable.Find(id);
@@ -59,8 +59,9 @@ namespace MyLessons.Controllers
 			ViewBag.AvaliableItemsTeachAndObjec = ControllerConvert.GetListTeacherWithObjec(obj.teacher);
 			ViewBag.teacher = ControllerConvert.SelectTeachersName(obj.teacher);
 			ViewBag.user = _context.user.Find(id);
-			ViewBag.lesson = JsonConvert.DeserializeObject<List<lesson>>(obj.text);
+            ViewBag.lesson = ControllerConvert.ConvertAllLessonForClass(JsonConvert.DeserializeObject<List<lesson>>(obj.text), clas);
             ViewBag.classes = ControllerConvert.FindAllClass(obj.text);
+            ViewBag.clas = clas;
             return View();
         }
 		public IActionResult AddTeacher(string name, string teacher, string action)
@@ -114,7 +115,7 @@ namespace MyLessons.Controllers
             mainList.Add(newlesson);
             obj.text = JsonConvert.SerializeObject(mainList);
             _context.SaveChanges();
-            return RedirectToAction("MainPanel");
+            return MainPanel(clas);
         }
         public IActionResult DeleteLesson(string less, string day, string number, string teacher, string clas, string room)
         {
@@ -132,7 +133,7 @@ namespace MyLessons.Controllers
             }
             obj.text= JsonConvert.SerializeObject(resultList);
             _context.SaveChanges();
-            return RedirectToAction("MainPanel");
+            return MainPanel(clas);
         }
         public IActionResult Choose(string clas)
         {
