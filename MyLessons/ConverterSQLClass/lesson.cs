@@ -24,7 +24,7 @@
             number = num;
             this.clas = clas;
             this.room = room;
-            string[] array = selectedSubject.Split("  ");
+            string[] array = selectedSubject.Split("|");
             less = array[1];
             teacher = array[0];
         }

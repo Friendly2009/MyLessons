@@ -62,7 +62,7 @@ namespace MyLessons.Controllers
             ViewBag.lesson = ControllerConvert.ConvertAllLessonForClass(JsonConvert.DeserializeObject<List<lesson>>(obj.text), clas);
             ViewBag.classes = ControllerConvert.FindAllClass(obj.text);
             ViewBag.clas = clas;
-            return View();
+            return View("MainPanel");
         }
 		public IActionResult AddTeacher(string name, string teacher, string action)
 		{
