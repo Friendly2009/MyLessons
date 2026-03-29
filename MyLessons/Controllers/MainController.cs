@@ -100,23 +100,42 @@ namespace MyLessons.Controllers
             _context.SaveChanges();
             return RedirectToAction("MainPanel");
         }
-        public IActionResult AddLesson(string selectedSubject, string clas, string room, string num, string day)
+        [HttpPost]
+        public IActionResult AddLesson(string selectedSubject, string clas, string room, string number, string day)
         {
-            int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
-            var obj = DataTable.Find(id);
-            if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) || string.IsNullOrEmpty(room) || string.IsNullOrEmpty(num) || string.IsNullOrEmpty(day)){return RedirectToAction("MainPanel");}
-            lesson newlesson = new lesson(day,num, selectedSubject,clas,room);
+            var sessionId = HttpContext.Session.GetInt32("id");
+            if (sessionId == null) return RedirectToAction("Login", "Account");
+
+            int id = sessionId.Value;
+            var obj = DataTable.Find(id); 
+
+            if (string.IsNullOrEmpty(selectedSubject) || string.IsNullOrEmpty(clas) ||
+                string.IsNullOrEmpty(room) || string.IsNullOrEmpty(number) || string.IsNullOrEmpty(day))
+            {
+                return RedirectToAction("MainPanel");
+            }
+
+            lesson newlesson = new lesson(day, number, selectedSubject, clas, room);
+
             List<lesson> mainList = new List<lesson>();
+
             try
             {
-                mainList = JsonConvert.DeserializeObject<List<lesson>>(obj.text);
+                if (!string.IsNullOrEmpty(obj.text))
+                {
+                    mainList = JsonConvert.DeserializeObject<List<lesson>>(obj.text) ?? new List<lesson>();
+                }
             }
-            catch{}
+            catch { return RedirectToAction("Ooops"); }
+
             mainList.Add(newlesson);
+
             obj.text = JsonConvert.SerializeObject(mainList);
             _context.SaveChanges();
-            return MainPanel(clas);
+
+            return RedirectToAction("MainPanel");
         }
+
         public IActionResult DeleteLesson(string less, string day, string number, string teacher, string clas, string room)
         {
             int id = Convert.ToInt32(HttpContext.Session.GetInt32("id"));
@@ -133,7 +152,7 @@ namespace MyLessons.Controllers
             }
             obj.text= JsonConvert.SerializeObject(resultList);
             _context.SaveChanges();
-            return MainPanel(clas);
+            return RedirectToAction("MainPanel");
         }
         public IActionResult Choose(string clas)
         {

@@ -70,6 +70,9 @@
 								</form>
 							</li>
 						}
+						<li class="nav-item">
+							<button class="active btn btn-dark" id="addClassBtn">+</button>
+						</li>
 					</ul>
 					<h6>@ViewBag.clas</h6>
 					<div class="tab-content">
@@ -95,7 +98,17 @@
 												<td>@obj.teacher</td>
 												<td>@obj.less</td>
 												<td>@obj.room</td>
-												<td><button class="btn btn-sm btn-danger">X</button></td>
+												<td>
+													<form asp-action="DeleteLesson" asp-controller="Main">
+														<input type="hidden" name="less" value="@obj.less" />
+														<input type="hidden" name="day" value="@obj.day" />
+														<input type="hidden" name="number" value="@obj.number" />
+														<input type="hidden" name="teacher" value="@obj.teacher" />
+														<input type="hidden" name="clas" value="@obj.clas" />
+														<input type="hidden" name="room" value="@obj.room" />
+														<button class="btn btn-sm btn-outline-danger">X</button>
+													</form>
+												</td>
 											</tr>
 										}
 									</tbody>
@@ -261,127 +274,57 @@
 		</div>
 	</div>
 </footer>
-<script src="~/js/sidebar.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* <h3>Учительская панель</h3>
-<div class="row justify-content-center">
-	@try
-	{
-		for (int i = 0; i < ViewBag.teacher.Count; i++)
-		{
-			if (ViewBag.teacher[0] != "")
-			{
-				<div class="row align-items-center mb-2 border-bottom pb-2 teacher-row">
-					<div class="col-3 teacher-name" id="IdTeachersForNewLesson">@ViewBag.teachers[i]</div>
-					<div class="col-3 teacher-subject" id="IdObjectForNewLesson">@ViewBag.objects[i]</div>
-					<button class="btn btn-outline-dark btn-sm w-100 add-lesson-btn col-4" type="button" id="AddLesson">Назначить</button>
+<div id="customOverlay" class="custom-overlay">
+	<div class="custom-modal-content p-4 bg-white rounded-4 shadow-lg">
+		<div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+			<h5 class="fw-bold mb-0 text-dark">📅 Добавить занятие</h5>
+			<button id="closeModal" type="button" class="btn btn-danger shadow-none" aria-label="Close">x</button>
+		</div>
+		<form asp-action="AddLesson" asp-controller="Main">
+			<div class="row g-3">
+				<div class="col-12">
+					<label class="small text-muted mb-1">День недели</label>
+					<select class="form-select" name="day" required>
+						<option value="" disabled selected>Выберите день</option>
+						<option value="1">Понедельник</option>
+						<option value="2">Вторник</option>
+						<option value="3">Среда</option>
+						<option value="4">Четверг</option>
+						<option value="5">Пятница</option>
+						<option value="6">Суббота</option>
+					</select>
 				</div>
-				<div class="row align-items-center mb-2" style="margin: 10px 0;">
-						<p class="col-4 mb-0">@ViewBag.teacher[i]</p>
-						<p class="col-4 mb-0">@ViewBag.objec[i]</p>
-						<form asp-action="DeleteTeacher" asp-controller="Main" class="col-3 d-flex justify-content-end mb-0">
-							<input type="hidden" name="name" value="@ViewBag.teacher[i]" />
-							<input type="hidden" name="subject" value="@ViewBag.objec[i]" />
-							<button class="btn btn-close btn-dark" type="submit"></button>
-						</form>
-					</div> 
-			}
-			else
-			{
-				<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
-			}
-		}
-	}
-	catch
-	{
-		<p class="col-12 text-center m-5">У вас еще нет зарегестрированных учителей</p>
-	}
-	<form asp-action="AddTeacher" asp-controller="Main" class="row justify-content-center col-12">
-		<input type="text" name="name" class="form-control col-6 m-2" placeholder="Предмет" />
-		<input type="text" name="teacher" class="form-control col-6 m-2" placeholder="имя учителя" />
-		<input type="hidden" name="action" value="MainPanel" />
-		<button class="btn btn-dark col-6 m-2" type="submit">Добавить учителя</button>
-	</form>
-</div>
-<div class="container">
-	<h3>Существующее уроки</h3>
-	<div class="segment row justify-content-center">
-		@try
-		{
-			<input type="hidden" value="@ViewBag.lesson[0].day" />
-			<div class="col-12 m-2 row justify-content-start">
-				<p class="col-2">День недели</p>
-				<p class="col-2">Номер урока</p>
-				<p class="col-2">Урок</p>
-				<p class="col-2">Преподаватель</p>
-				<p class="col-1">Класс</p>
-				<p class="col-1">Номер Кабинета</p>
+				<div class="col-12">
+					<label class="small text-muted mb-1">Учитель и предмет</label>
+					<select class="form-select" name="selectedSubject" required>
+						<option value="" disabled selected>Выбрать из списка</option>
+						@if (ViewBag.teacher != null)
+						{
+							for (int i = 0; i < ViewBag.teacher.Count; i++)
+							{
+								if (!string.IsNullOrEmpty(ViewBag.teacher[i]))
+								{
+									string val = $"{ViewBag.objec[i]}|{ViewBag.teacher[i]}";
+									<option value="@val">@ViewBag.teacher[i] — @ViewBag.objec[i]</option>
+								}
+							}
+						}
+					</select>
+				</div>
+				<div class="col-12">
+					<label class="small text-muted mb-1">Класс</label>
+					<input type="text" class="form-control" name="clas" placeholder="Напр: 9-А" required />
+				</div>
+				<div class="col-6">
+					<label class="small text-muted mb-1">№ урока</label>
+					<input type="number" class="form-control" name="number" placeholder="1-8" min="1" max="10" />
+				</div>
+				<div class="col-6">
+					<label class="small text-muted mb-1">Кабинет</label>
+					<input type="number" class="form-control" name="room" placeholder="Каб." />
+				</div>
 			</div>
-			for (int i = 0; i < ViewBag.lesson.Count; i++)
-			{
-				<div class="col-12 m-2 row justify-content-start">
-					<p class="col-2">@ViewBag.lesson[i].day</p>
-					<p class="col-2">@ViewBag.lesson[i].number</p>
-					<p class="col-2">@ViewBag.lesson[i].less</p>
-					<p class="col-2">@ViewBag.lesson[i].teacher</p>
-					<p class="col-1">@ViewBag.lesson[i].clas</p>
-					<p class="col-1">@ViewBag.lesson[i].room</p>
-					<form asp-action="DeleteLesson" asp-controller="Main" class="col-1">
-						<input type="hidden" name="less" value="@ViewBag.lesson[i].less" />
-						<input type="hidden" name="day" value="@ViewBag.lesson[i].day" />
-						<input type="hidden" name="number" value="@ViewBag.lesson[i].number" />
-						<input type="hidden" name="teacher" value="@ViewBag.lesson[i].teacher" />
-						<input type="hidden" name="clas" value="@ViewBag.lesson[i].clas" />
-						<input type="hidden" name="room" value="@ViewBag.lesson[i].room" />
-						<button class="btn btn-close btn-dark" type="submit" />
-					</form>
-				</div>
-			}
-		}
-		catch
-		{
-			<br />
-			<br />
-			<p class="col-12 text-center m-5">У вас еще нет зарегестрированных уроков</p>
-			<br />
-			<br />
-		}
-		<form class="col-7 m-3 row justify-content-center" asp-action="AddLesson" asp-controller="Main">
-			<p>Преподаватель && Урок</p>
-			<select name="selectedSubject" class="form-select m-2" aria-label="Выберите Преподавателя" required>
-				<option selected disabled>Выберите Предмет</option>
-				@try
-				{
-					for (int i = 0; i < ViewBag.AvaliableItemsTeachAndObjec.Count; i++)
-					{
-						<option value="@ViewBag.AvaliableItemsTeachAndObjec[i]">@ViewBag.AvaliableItemsTeachAndObjec[i]</option>
-					}
-				}
-				catch { }
-			</select>
-			<p>Класс</p>
-			<input type="text" class="form-control col-7 m-1" name="clas" value="3А" />
-			<p>Кабинет</p>
-			<input type="number" class="form-control col-7 m-1" name="room" value="1" />
-			<p>Номер урока</p>
-			<input type="number" class="form-control col-7 m-1" name="num" value="1" />
-			<p>День недели</p>
-			<input type="number" class="form-control col-7 m-1" name="day" value="1" />
-			<button type="submit" class="btn btn-dark col-5 m-2">Добавить урок</button>
+			<button type="submit" class="btn btn-primary w-100 mt-4 py-2 fw-bold">Добавить в расписание</button>
 		</form>
 	</div>
-</div> *@
+</div>
