@@ -60,20 +60,23 @@
 					<h5 class="card-title mb-0"><i class="bi bi-calendar3 me-2"></i>Расписание уроков</h5>
 				</div>
 				<div class="card-body">
-					<ul class="nav nav-pills mb-4" id="classTabs" role="tablist">
-						@foreach(var clas in ViewBag.classes)
+					<ul class="nav nav-pills mb-4 align-items-center" id="classTabs" role="tablist">
+						@foreach (var clas in ViewBag.classes)
 						{
-							<li class="nav-item">
-								<form class="nav-link" asp-action="MainPanel" asp-controller="Main">
-									<input type="hidden" value="@clas" name="clas"/>
-									<button class="active btn btn-dark">@clas</button>
+							<li class="nav-item me-2">
+								<form asp-action="MainPanel" asp-controller="Main" method="post" style="display: inline;" class="m-2">
+									<input type="hidden" value="@clas" name="clas" />
+									<button type="submit" class="btn btn-dark @(ViewBag.clas == clas ? "active" : "")">
+										@clas
+									</button>
 								</form>
 							</li>
 						}
 						<li class="nav-item">
-							<button class="active btn btn-dark" id="addClassBtn">+</button>
+							<button class="btn btn-dark m-1" id="addClassBtn">+</button>
 						</li>
 					</ul>
+
 					<h6>@ViewBag.clas</h6>
 					<div class="tab-content">
 						<div class="tab-pane fade show active">
